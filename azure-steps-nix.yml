@@ -39,3 +39,10 @@ steps:
 
 
 
+  - bash: |
+        list-packages
+    displayName: 'list packages 1'
+
+  - bash: |
+        list-packages
+    displayName: 'list packages 2'
