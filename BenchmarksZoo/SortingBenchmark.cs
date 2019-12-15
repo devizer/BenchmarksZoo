@@ -17,7 +17,7 @@ namespace BenchmarksZoo
         }
 
         [Benchmark]
-        public void Default_Sort()
+        public void Linq_Sort()
         {
             var sorted = Users.OrderBy(x => x.Name).ToArray();
         }

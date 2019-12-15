@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarksZoo", "BenchmarksZoo\BenchmarksZoo.csproj", "{09ACDB5B-0ADC-44A1-920A-54CCB02767E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarksZoo.Tests", "BenchmarksZoo.Tests\BenchmarksZoo.Tests.csproj", "{9A57432A-25B0-4F55-B0B5-B5FF0BBE31BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{09ACDB5B-0ADC-44A1-920A-54CCB02767E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09ACDB5B-0ADC-44A1-920A-54CCB02767E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09ACDB5B-0ADC-44A1-920A-54CCB02767E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A57432A-25B0-4F55-B0B5-B5FF0BBE31BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A57432A-25B0-4F55-B0B5-B5FF0BBE31BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A57432A-25B0-4F55-B0B5-B5FF0BBE31BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A57432A-25B0-4F55-B0B5-B5FF0BBE31BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
