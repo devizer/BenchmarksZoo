@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarksZoo.ClassicAlgoruthms;
@@ -14,7 +13,7 @@ namespace BenchmarksZoo
         [GlobalSetup]
         public void GlobalSetup()
         {
-            Users = User.Generate(2);
+            Users = User.Generate(543);
         }
 
         [Benchmark]
