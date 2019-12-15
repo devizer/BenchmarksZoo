@@ -3,6 +3,7 @@
 dotnet restore || true
 nuget restore || true; 
 cd BenchmarksZoo
+echo "BUILDING...."
 msbuild /t:rebuild /p:Configuration=Release /v:q
 cd bin/Release/net47
 echo "ABOUT BenchmarksZoo.exe FILE:"
