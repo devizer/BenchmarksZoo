@@ -115,7 +115,7 @@ before_build:
     # Upgrade-PSReadLine
 
 build_script:
-  - ps: ""
+  - ps: $y=42
 
 after_build:
   - ps: ""
