@@ -12,5 +12,15 @@ jobs:
     steps:
       - template: azure-steps-nix.yml
 
+  - job: Ubuntu_Xenial
+    variables:
+      OS: Linux
+    timeoutInMinutes: 599
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - template: azure-steps-nix.yml
+
 trigger:
 - master
