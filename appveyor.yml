@@ -127,12 +127,13 @@ test_script:
     pushd .
     if ($isWindows) 
     {
-      pushd BenchmarkZoo
+      pushd BenchmarksZoo
       dotnet run -c Release -f netcoreapp2.2 -- --Release
+      popd
     } 
     else 
     {
-      bash run-rrvm.sh
+      bash run-llvm.sh
     }
     popd
 
