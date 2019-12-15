@@ -117,21 +117,19 @@ before_build:
     # Upgrade-PSReadLine
 
 build_script:
+  - ps: ""
 
 after_build:
 
 test_script:
-- ps: |
-    if ($isWindows) {
-    }
 
 - ps: |
-    Say ".NET Core Benchmark"
+    Say "Benchmarks"
     pushd .
     if ($isWindows) 
     {
       pushd BenchmarkZoo
-      dotnet run -c Release -f netcoreapp2.0 -- --Release
+      dotnet run -c Release -f netcoreapp2.2 -- --Release
     } 
     else 
     {
