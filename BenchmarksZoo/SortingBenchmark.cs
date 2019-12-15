@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarksZoo.ClassicAlgoruthms;
@@ -28,6 +29,14 @@ namespace BenchmarksZoo
             User[] copy = new User[Users.Length];
             for (int i = 0; i < Users.Length; i++) copy[i] = Users[i];
             QuickSorter<User>.QuickSort(copy, User.ComparerByName);
+        }
+        
+        [Benchmark]
+        public void Array_Sort()
+        {
+            User[] copy = new User[Users.Length];
+            for (int i = 0; i < Users.Length; i++) copy[i] = Users[i];
+            Array.Sort(copy, User.ComparerByName);
         }
         
     }
