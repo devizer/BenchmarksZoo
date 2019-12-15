@@ -1,6 +1,6 @@
 # work=$HOME/build/devizer; mkdir -p $work; cd $work; git clone https://github.com/devizer/BenchmarksZoo; cd BenchmarksZoo; git pull; bash run-llvm.sh 
 
-dotnet restore || true
+# dotnet restore || true
 nuget restore || true; 
 cd BenchmarksZoo
 echo "BUILDING...."
