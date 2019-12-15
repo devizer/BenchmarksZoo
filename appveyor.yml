@@ -1,0 +1,173 @@
+version: '0.1.{build}'
+image:
+- Ubuntu1804
+- Visual Studio 2019
+
+environment:
+
+  Project: "Benchmark zoo"
+
+
+skip_commits:
+  files:
+    - .circleci/*
+    - '.travis.yml'
+    - '*.md'
+    - 'azure-*.yml'
+
+clone_depth: 99999999
+
+dotnet_csproj:
+  patch: true
+  file: '**\Version.props'
+  version: '{version}.%COMMIT_COUNT%'
+  package_version: '{version}.%COMMIT_COUNT%'
+  assembly_version: '{version}.%COMMIT_COUNT%'
+  file_version: '{version}.%COMMIT_COUNT%'
+  informational_version: '{version}.%COMMIT_COUNT%'
+  
+platform: x64
+init:
+- ps: |
+
+    # copy paste it
+    function Say { param( [string] $message )
+        Write-Host "$(Get-Elapsed) " -NoNewline -ForegroundColor Magenta
+        Write-Host "$message" -ForegroundColor Yellow
+    }
+    
+    function Get-Elapsed
+    {
+        if ($Global:startAt -eq $null) { $Global:startAt = [System.Diagnostics.Stopwatch]::StartNew(); }
+        [System.String]::Concat("[", (new-object System.DateTime(0)).AddMilliseconds($Global:startAt.ElapsedMilliseconds).ToString("mm:ss"), "]");
+    }; Get-Elapsed | out-null;
+
+    # Display OS and CPU
+    if ($isWindows) {
+        $currentVersion=Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+        $win_10_release_id = $currentVersion.ReleaseId; if (! $win_10_release_id) { $win_10_release_id = $currentVersion.CurrentBuildNumber }
+        $win_name = $(Get-WMIObject win32_operatingsystem -EA SilentlyContinue).Caption
+        Say "$($win_name): Release [$win_10_release_id], powershell [$($PSVersionTable.PSVersion)]"
+        $cpu=Get-WmiObject Win32_Processor; Say "CPU: $($cpu.Name), $([System.Environment]::ProcessorCount) Cores";
+    }
+
+- sh: |
+    script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
+    Say "Memory"
+    free -m
+    echo ""
+
+    Say "CPU"
+    lscpu
+    echo ""
+
+    Say "All Hardware"
+    sudo lshw
+    echo ""
+
+    Say "Block Devices"
+    sudo fdisk -l
+    echo ""
+
+    Say "Mount Volumes"
+    df -h -T
+    echo ""
+
+- cmd: mkdir \tmp
+- cmd: systeminfo || echo "systeminfo is unavailable"
+- ps: dotnet --info; ""
+- ps: nuget >/tmp/nuget-ver; cat /tmp/nuget-ver | head -1; ""
+- ps: msbuild /version; echo ""
+- ps: dotnet build /version; echo ""
+- ps: 'try { mono --version 2>$null; } catch { $_ }'
+- ps: bash --version; ""
+- ps: bash --version | head -1; ""
+# Ubuntu only: install `nunit3-console' and `xunit.console', windows already has preinstalled
+- sh: export NET_TEST_RUNNERS_INSTALL_DIR=~/bin; script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-net-test-runners.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
+- ps: nunit3-console --version; echo ""
+- ps: xunit.console >/tmp/xunit-ver; cat /tmp/xunit-ver | head -2; ""
+- ps: docker version; ""
+
+- sh: |
+    Say "Installing disk-benchmark"
+    script=https://raw.githubusercontent.com/devizer/glist/master/install-disk-benchmark-from-source.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -sSL $script) | bash
+    Say "Express disk benchmark (256Mb working set, 2 seconds)"
+    disk-benchmark -s=$((256*1024)) -t=2000 | cat
+    true
+    
+- sh: |
+    Say "Install LLVM"
+    bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+
+install:
+- ps: '$Env:ARTIFACT = "$($Env:APPVEYOR_BUILD_FOLDER)$([IO.Path]::DirectorySeparatorChar)Artifact"; mkdir $Env:ARTIFACT | out-null; Say "ARTIFACT folder: $($Env:ARTIFACT)"'
+- ps: '$Env:SQL_SETUP_LOG_FOLDER = $Env:ARTIFACT; Say "SQL_SETUP_LOG_FOLDER is [$($Env:SQL_SETUP_LOG_FOLDER)]"'
+- ps: Start-Transcript "Artifact\Detailed-Build.log" -Force
+- git submodule update --init --recursive
+- ps: |
+
+    $commitsRaw = & { set TZ=GMT; git log -n 999999 --date=raw --pretty=format:"%cd" }
+    $lines = $commitsRaw.Split([Environment]::NewLine)
+    $ENV:COMMIT_COUNT = $lines.Length
+    Say "COMMIT_COUNT: $($ENV:COMMIT_COUNT)"
+    
+    Say "Install Complete"
+
+# - sh: 'mono --version || true; dotnet --info || true; '
+
+
+before_build:
+- ps: | 
+      Say "Nothing to do"
+    
+    # Upgrade-PSReadLine
+
+build_script:
+
+after_build:
+
+test_script:
+- ps: |
+    if ($isWindows) {
+    }
+
+- ps: |
+    Say ".NET Core Benchmark"
+    pushd .
+    if ($isWindows) 
+    {
+      pushd BenchmarkZoo
+      dotnet run -c Release -f netcoreapp2.0 -- --Release
+    } 
+    else 
+    {
+      bash run-rrvm.sh
+    }
+    popd
+
+- ps: | 
+
+    Say "Pack working folder as the 'AppVeyor Build Folder.7z' artifact"
+    & "7z" a -t7z -mx=3 -ms=on "AppVeyor Build Folder.7z" .
+    Say "Bye-bye"
+
+after_test:
+- sh: 'find . -name "*.nupkg" -exec rm -f {} \;'
+- sh: 'Show-System-Stat || true'
+- ps: Stop-Transcript;
+# - cmd: bash -c 'time echo "Hello from $(bash --version)"'
+
+nuget:
+  account_feed: false
+  project_feed: true
+  disable_publish_on_pr: true     # disable publishing of .nupkg artifacts to account/project feeds for pull request builds
+  
+# Error uploading artifact the storage: The underlying connection was closed: An unexpected error occurred on a send.
+artifacts:
+ - path: Artifact
+ - path: 'AppVeyor Build Folder.7z'
+ - path: '**\Release\*.nupkg'
+
+# on_success:
+# - cmd: 'appveyor PushArtifact "Universe.CpuUsage\bin\Any CPU\Release\*.nupkg"'
+
