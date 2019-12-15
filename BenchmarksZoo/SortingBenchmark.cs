@@ -27,7 +27,7 @@ namespace BenchmarksZoo
         public void Classic_QuickSort()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0; i < Users.Length; i++) copy[i] = Users[i];
+            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
             QuickSorter<User>.QuickSort(copy, User.ComparerByName);
         }
         
@@ -35,7 +35,7 @@ namespace BenchmarksZoo
         public void Array_Sort()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0; i < Users.Length; i++) copy[i] = Users[i];
+            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
             Array.Sort(copy, User.ComparerByName);
         }
         
