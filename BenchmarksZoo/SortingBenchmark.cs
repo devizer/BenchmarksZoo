@@ -5,14 +5,14 @@ namespace BenchmarksZoo
 {
     [RankColumn]
     [MemoryDiagnoser]
-    public partial class SortingBenchmark
+    public class SortingBenchmark
     {
         User[] Users = null;
 
         [GlobalSetup]
         public void GlobalSetup()
         {
-            Users = User.Generate(256);
+            Users = User.Generate(2);
         }
 
         [Benchmark]

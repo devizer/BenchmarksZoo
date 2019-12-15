@@ -9,7 +9,7 @@ using BenchmarkDotNet.Running;
 
 namespace BenchmarksZoo
 {
-    class Program
+    class BenchmarkRunnerProgram
     {
         static void Main(string[] args)
         {
@@ -33,7 +33,8 @@ namespace BenchmarksZoo
                 config = config.With(run.With(ClrRuntime.Net47).WithId("NETFW-47").WithWarmupCount(3));
                 
             // Job jobFW47 = run.With(ClrRuntime.Net47).WithId("NETFW-47").WithWarmupCount(3);
-            Summary summary = BenchmarkRunner.Run<SortingBenchmark>(config);
+            var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
+            
         }
         
         static bool IsMono()
