@@ -49,7 +49,8 @@ namespace BenchmarksZoo
         
         public static Job ConfigWarmUp(this Job job)
         {
-            if (!IsRelease) job = job.WithWarmupCount(3);
+            if (!IsRelease) job = job.WithWarmupCount(3).WithLaunchCount(3);
+            
             return job;
         }
 
