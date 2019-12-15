@@ -72,6 +72,7 @@ init:
     df -h -T
     echo ""
 
+- sh: sudo apt-get install tree -qq || true
 - cmd: mkdir \tmp
 - cmd: systeminfo || echo "systeminfo is unavailable"
 - sh: curl -sSL https://dot.net/v1/dotnet-install.sh | sudo bash /dev/stdin -c 3.1 -i /usr/share/dotnet
@@ -133,6 +134,7 @@ test_script:
     else 
     {
       bash run-llvm.sh --Release
+      & tree -h -du
     }
     popd
 
