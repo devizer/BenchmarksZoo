@@ -112,8 +112,6 @@ install:
 
 before_build:
 - ps: | 
-      Say "Nothing to do"
-    
     # Upgrade-PSReadLine
 
 build_script:
