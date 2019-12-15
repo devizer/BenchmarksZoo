@@ -3,8 +3,11 @@
 steps:
 
   - bash: |
-      dotnet --info
       mono --version
+      dotnet --info
+      curl -sSL https://dot.net/v1/dotnet-install.sh | sudo bash /dev/stdin -c 3.1 -i /usr/share/dotnet
+      dotnet --info
+
 
       script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
       Say "Memory"
