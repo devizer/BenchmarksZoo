@@ -134,7 +134,8 @@ test_script:
     else 
     {
       bash run-llvm.sh --Release
-      & tree -h -du
+      & tree -h 
+      & find .
     }
     popd
 
