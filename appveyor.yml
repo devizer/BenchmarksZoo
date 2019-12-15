@@ -75,6 +75,7 @@ init:
 
 - cmd: mkdir \tmp
 - cmd: systeminfo || echo "systeminfo is unavailable"
+- sh: curl -sSL https://dot.net/v1/dotnet-install.sh | sudo bash /dev/stdin -c 3.1 -i /usr/share/dotnet
 - ps: dotnet --info; ""
 - ps: nuget >/tmp/nuget-ver; cat /tmp/nuget-ver | head -1; ""
 - ps: msbuild /version; echo ""
@@ -89,15 +90,8 @@ init:
 - ps: docker version; ""
 
 - sh: |
-    Say "Installing disk-benchmark"
-    script=https://raw.githubusercontent.com/devizer/glist/master/install-disk-benchmark-from-source.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -sSL $script) | bash
-    Say "Express disk benchmark (256Mb working set, 2 seconds)"
-    disk-benchmark -s=$((256*1024)) -t=2000 | cat
-    true
-    
-- sh: |
     Say "Install LLVM"
-    bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+    sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 
 install:
 - ps: '$Env:ARTIFACT = "$($Env:APPVEYOR_BUILD_FOLDER)$([IO.Path]::DirectorySeparatorChar)Artifact"; mkdir $Env:ARTIFACT | out-null; Say "ARTIFACT folder: $($Env:ARTIFACT)"'
