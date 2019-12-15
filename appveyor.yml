@@ -1,7 +1,8 @@
 version: '0.1.{build}'
 image:
-- Ubuntu1804
-- Visual Studio 2019
+  - Ubuntu1604
+  - Ubuntu1804
+  - Visual Studio 2019
 
 environment:
 
