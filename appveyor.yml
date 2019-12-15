@@ -26,7 +26,6 @@ dotnet_csproj:
   file_version: '{version}.%COMMIT_COUNT%'
   informational_version: '{version}.%COMMIT_COUNT%'
   
-platform: x64
 init:
 - ps: |
 
