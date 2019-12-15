@@ -3,6 +3,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace BenchmarksZoo
 {
+    [RankColumn]
     [MemoryDiagnoser]
     public partial class SortingBenchmark
     {
