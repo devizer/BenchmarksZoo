@@ -118,6 +118,7 @@ build_script:
   - ps: ""
 
 after_build:
+  - ps: ""
 
 test_script:
 
