@@ -1,0 +1,36 @@
+  
+
+steps:
+
+  - bash: |
+      dotnet --info
+      mono --version
+
+      script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
+      Say "Memory"
+      free -m
+      echo ""
+
+      Say "CPU"
+      lscpu
+      echo ""
+
+      Say "All Hardware"
+      sudo lshw
+      echo ""
+
+      Say "Block Devices"
+      sudo fdisk -l
+      echo ""
+
+      Say "Mount Volumes"
+      df -h -T
+      echo ""
+
+      Say "Install LLVM"
+      sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+
+      bash run-llvm.sh --Release
+
+
+
