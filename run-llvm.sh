@@ -5,6 +5,8 @@ cd BenchmarksZoo
 msbuild /t:rebuild /p:Configuration=Release /v:q
 cd bin/Release/net47
 mono --llvm BenchmarksZoo.exe $1
+echo "ABOUT BenchmarksZoo.exe FILE:"
+ls -la BenchmarksZoo.exe
 cd ..
 cd ..
 
