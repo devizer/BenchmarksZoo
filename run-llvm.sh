@@ -4,7 +4,7 @@ nuget restore || true; dotnet restore || true
 cd BenchmarksZoo
 msbuild /t:rebuild /p:Configuration=Release /v:q
 cd bin/Release/net47
-mono --llvm BenchmarksZoo.exe
+mono --llvm BenchmarksZoo.exe $1
 cd ..
 cd ..
 

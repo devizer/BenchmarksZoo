@@ -133,7 +133,7 @@ test_script:
     } 
     else 
     {
-      bash run-llvm.sh
+      bash run-llvm.sh --Release
     }
     popd
 
