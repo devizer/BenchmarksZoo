@@ -7,7 +7,9 @@ namespace BenchmarksZoo.ClassicAlgoruthms
 
         public static void QuickSort(T[] keys, IComparer<T> comparer)
         {
-            QuickSort(keys, comparer);
+            if (keys.Length == 0) return;
+            
+            QuickSort(keys, 0, keys.Length - 1, comparer);
         }
         
         internal static void QuickSort(T[] keys, int left, int right, IComparer<T> comparer)
