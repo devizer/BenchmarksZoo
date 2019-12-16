@@ -28,8 +28,8 @@ steps:
       echo ""
 
   - bash: |
-      sudo apt update -qq
-      sudo apt list --upgradeable
+      sudo apt-get update -qq
+      sudo apt-get list --upgradeable
     displayName: 'apt list --upgradeable'
     
   - bash: |
