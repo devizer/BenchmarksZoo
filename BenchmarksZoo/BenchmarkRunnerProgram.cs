@@ -39,9 +39,9 @@ namespace BenchmarksZoo
 
             foreach (var jit in new[] {Jit.LegacyJit, Jit.RyuJit})
             {
-                Job jobCore22 = run.With(CoreRuntime.Core22).With(jit).WithId($"NET-CORE 2.2 {jit.ToString().ToUpper()}").ConfigWarmUp();
-                Job jobCore30 = run.With(CoreRuntime.Core30).With(jit).WithId($"NET-CORE 3.0 {jit.ToString().ToUpper()}").ConfigWarmUp();
-                Job jobCore31 = run.With(CoreRuntime.Core31).With(jit).WithId($"NET-CORE 3.1 {jit.ToString().ToUpper()}").ConfigWarmUp();
+                Job jobCore22 = run.With(CoreRuntime.Core22).With(jit).WithId($"Net Core 2.2 {jit}").ConfigWarmUp();
+                Job jobCore30 = run.With(CoreRuntime.Core30).With(jit).WithId($"Net Core 3.0 {jit}").ConfigWarmUp();
+                Job jobCore31 = run.With(CoreRuntime.Core31).With(jit).WithId($"Net Core 3.1 {jit}").ConfigWarmUp();
                 config = config.With(new[] { jobCore22, jobCore30, jobCore31});
             }
             
