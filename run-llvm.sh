@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # work=$HOME/build/devizer; mkdir -p $work; cd $work; git clone https://github.com/devizer/BenchmarksZoo; cd BenchmarksZoo; git pull; bash run-llvm.sh 
 
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+
 dotnet restore || true
 nuget restore || true; 
 pushd BenchmarksZoo
