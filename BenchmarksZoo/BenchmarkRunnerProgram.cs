@@ -16,6 +16,8 @@ namespace BenchmarksZoo
 
         static void Main(string[] args)
         {
+            
+            
             IsRelease = args.Any(x => x.IndexOf("release", StringComparison.InvariantCultureIgnoreCase) >= 0);
             
         
@@ -38,8 +40,8 @@ namespace BenchmarksZoo
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 config = config.With(run.With(ClrRuntime.Net47).WithId("NETFW-47").ConfigWarmUp());
                 
-            var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
-            // var summary = BenchmarkRunner.Run(typeof(CompressionBenchmark), config);
+            // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
+            var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
             
         }
         
