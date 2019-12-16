@@ -32,8 +32,8 @@ namespace BenchmarksZoo
 
             if (IsMono())
             {
-                Job jobLlvm = run.With(Jit.Llvm).With(MonoRuntime.Default).WithId("LLVM-ON").ConfigWarmUp();
-                Job jobNoLlvm = run.With(MonoRuntime.Default).WithId("LLVM-OFF").ConfigWarmUp();
+                Job jobLlvm = run.With(Jit.Llvm).With(MonoRuntime.Default).WithId("Llvm-ON").ConfigWarmUp();
+                Job jobNoLlvm = run.With(MonoRuntime.Default).WithId("Llvm-OFF").ConfigWarmUp();
                 config = config.With(new[] { jobLlvm, jobNoLlvm});
             }
 
