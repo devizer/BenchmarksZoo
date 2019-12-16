@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
-using BenchmarksZoo.ClassicAlgoruthms;
+using BenchmarksZoo.ClassicAlgorithms;
 
 namespace BenchmarksZoo
 {
@@ -23,7 +23,7 @@ namespace BenchmarksZoo
             var sorted = Users.OrderBy(x => x.Name).ToArray();
         }
 
-        [Benchmark(Description = "QuickSort NET2.0")]
+        [Benchmark(Description = "QuickSorter<T>.Sort")]
         public void QuickSort_NET20()
         {
             User[] copy = new User[Users.Length];
@@ -31,13 +31,12 @@ namespace BenchmarksZoo
             QuickSorter<User>.QuickSort(copy, User.ComparerByName);
         }
         
-        [Benchmark(Baseline = true, Description = "Array.Sort")]
+        [Benchmark(Baseline = true, Description = "Array<T>.Sort")]
         public void Array_Sort()
         {
             User[] copy = new User[Users.Length];
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
             Array.Sort(copy, User.ComparerByName);
         }
-        
     }
 }

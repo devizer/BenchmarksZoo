@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BenchmarksZoo.ClassicAlgoruthms
+namespace BenchmarksZoo.ClassicAlgorithms
 {
     public class QuickSorter<T>
     {

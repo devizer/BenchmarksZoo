@@ -1,6 +1,6 @@
 using System.Linq;
 using BenchmarksZoo;
-using BenchmarksZoo.ClassicAlgoruthms;
+using BenchmarksZoo.ClassicAlgorithms;
 using NUnit.Framework;
 
 namespace BenchmarksZee.Tests
