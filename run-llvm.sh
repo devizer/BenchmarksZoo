@@ -10,10 +10,16 @@ cd bin/Release/net47
 echo "ABOUT BenchmarksZoo.exe FILE:"
 ls -la BenchmarksZoo.exe
 # --llvm?
-echo "LIBS BEFORE AOT:" 
+
+echo ""
+echo "LIBS BEFORE AOT:"
+echo "----------------" 
 mono BenchmarksZoo.exe --help
 mono --aot=try-llvm -O=all BenchmarksZoo.exe
+
+echo ""
 echo "LIBS AFTER AOT:" 
+echo "---------------" 
 mono BenchmarksZoo.exe --help
 
 mono --llvm --aot -O=all BenchmarksZoo.exe $1
