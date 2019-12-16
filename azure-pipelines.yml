@@ -3,9 +3,7 @@
 # McOS 10.14: /112Gb
 
 variables:
-  # BENCHMARK_DURATION: Release
-  BENCHMARK_DURATION: Short
-
+  BENCHMARK_DURATION: Short # Either Release | Short
 
 jobs:
   - job: Xenial_LLVM_9
