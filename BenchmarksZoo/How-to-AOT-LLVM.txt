@@ -1,0 +1,1 @@
+ /usr/bin/mono --aot=try-llvm,temp-path=/tmp/monoaot.qYoXXJTud,outfile=/usr/lib/mono/aot-cache/amd64/Microsoft.CodeAnalysis.CSharp.dll.so -O=all /usr/lib/mono/4.5/Microsoft.CodeAnalysis.CSharp.dll
