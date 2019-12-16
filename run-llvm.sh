@@ -48,7 +48,7 @@ fi
 mono --llvm --aot -O=all BenchmarksZoo.exe
 BENCHMARK_DURATION=${BENCHMARK_DURATION:-Short}
 echo "RUNNING (BENCHMARK_DURATION is ${BENCHMARK_DURATION})...."
-sudo -E mono --llvm BenchmarksZoo.exe ${BENCHMARK_DURATION}
+sudo bash -c "PATH=$PATH mono --llvm BenchmarksZoo.exe ${BENCHMARK_DURATION}"
 chown -R $(whoami) .
 
 popd
