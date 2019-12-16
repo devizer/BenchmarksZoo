@@ -18,13 +18,13 @@ namespace BenchmarksZoo
         }
 
         [Benchmark(Description = "Enumerable.OrderBy")]
-        public void Linq_Sort()
+        public void Enumerable_OrderBy()
         {
             var sorted = Users.OrderBy(x => x.Name).ToArray();
         }
 
         [Benchmark(Description = "QuickSort NET2.0")]
-        public void Classic_QuickSort()
+        public void QuickSort_NET20()
         {
             User[] copy = new User[Users.Length];
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
