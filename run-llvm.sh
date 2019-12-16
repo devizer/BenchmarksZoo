@@ -30,7 +30,7 @@ list_for_aot='
 '
 
 if [[ $"PLUS_AOT" ]]; then
-    for to_aot in "$list_for_aot"; do
+    for to_aot in $list_for_aot; do
       echo "AOT: $to_aot"
       time mono --aot=try-llvm -O=all "$to_aot" 
     done
