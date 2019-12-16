@@ -33,7 +33,7 @@ namespace BenchmarksZoo
             }
         }
 
-        [Benchmark(Description = "Tiny.GZipStream")]
+        [Benchmark(Description = "CSharp.GZipStream")]
         public void Managed_GZip()
         {
             using(MemoryStream mem = new MemoryStream(CompressedFile))

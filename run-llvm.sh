@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # work=$HOME/build/devizer; mkdir -p $work; cd $work; git clone https://github.com/devizer/BenchmarksZoo; cd BenchmarksZoo; git pull; bash run-llvm.sh 
 
 dotnet restore || true
@@ -9,7 +10,7 @@ cd bin/Release/net47
 echo "ABOUT BenchmarksZoo.exe FILE:"
 ls -la BenchmarksZoo.exe
 # --llvm?
-mono --llvm BenchmarksZoo.exe $1
+mono --llvm --aot -O=all BenchmarksZoo.exe $1
 cd ..
 cd ..
 
