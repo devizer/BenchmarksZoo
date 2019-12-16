@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Serialization.Formatters;
 
 namespace BenchmarksZoo
 {
@@ -32,6 +33,7 @@ namespace BenchmarksZoo
                 si.WorkingDirectory = home;
             }
             si.RedirectStandardOutput = true;
+            si.UseShellExecute = false;
             
             Process p = Process.Start(si);
             using (p)
