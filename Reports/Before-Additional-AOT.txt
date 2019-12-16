@@ -1,0 +1,33 @@
+MANAGED LIBRARIES:
+/usr/lib/mono/4.5/mscorlib.dll
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/BenchmarksZoo.exe
+/usr/lib/mono/gac/System/4.0.0.0__b77a5c561934e089/System.dll
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.dll
+/usr/lib/mono/gac/System.Core/4.0.0.0__b77a5c561934e089/System.Core.dll
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/netstandard.dll
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.Annotations.dll
+
+NATIVE LIBRARIES:
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.Annotations.dll
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.dll
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/BenchmarksZoo.exe
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/BenchmarksZoo.exe.so
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/netstandard.dll
+/usr/bin/mono-sgen
+/usr/lib/libmono-native.so.0.0.0
+/usr/lib/libMonoPosixHelper.so
+/usr/lib/locale/locale-archive
+/usr/lib/mono/4.5/mscorlib.dll
+/usr/lib/mono/aot-cache/amd64/mscorlib.dll.so
+/usr/lib/mono/gac/System.Core/4.0.0.0__b77a5c561934e089/System.Core.dll
+/usr/lib/mono/gac/System/4.0.0.0__b77a5c561934e089/System.dll
+/usr/lib/x86_64-linux-gnu/ld-2.30.so
+/usr/lib/x86_64-linux-gnu/libc-2.30.so
+/usr/lib/x86_64-linux-gnu/libdl-2.30.so
+/usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+/usr/lib/x86_64-linux-gnu/libm-2.30.so
+/usr/lib/x86_64-linux-gnu/libpthread-2.30.so
+/usr/lib/x86_64-linux-gnu/librt-2.30.so
+/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+/usr/lib/x86_64-linux-gnu/libz.so.1.2.11

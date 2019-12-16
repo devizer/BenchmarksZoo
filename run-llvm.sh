@@ -26,7 +26,7 @@ list_for_aot='
 /usr/lib/mono/gac/System/4.0.0.0__b77a5c561934e089/System.dll
 ./BenchmarkDotNet.dll
 /usr/lib/mono/gac/System.Core/4.0.0.0__b77a5c561934e089/System.Core.dll
-/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/netstandard.dll
+./netstandard.dll
 '
 
 if [[ $"PLUS_AOT" ]]; then
