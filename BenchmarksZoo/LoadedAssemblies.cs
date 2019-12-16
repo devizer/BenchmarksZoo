@@ -36,7 +36,7 @@ namespace BenchmarksZoo
             if (System.Environment.OSVersion.Platform == PlatformID.Win32NT) return;
             
             Console.WriteLine($"NATIVE LIBRARIES:");
-            Process p = Process.Start("sudo", $"lsof -p {Process.GetProcesses()}");
+            Process p = Process.Start("sudo", $"lsof -p {Process.GetCurrentProcess().Id}");
             p.WaitForExit();
             Console.WriteLine();
         }
