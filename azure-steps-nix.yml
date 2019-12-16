@@ -39,7 +39,7 @@ steps:
 
   - bash: |
       # --Release?
-      bash run-llvm.sh  | tee $BUILD_ARTIFACTSTAGINGDIRECTORY
+      bash run-llvm.sh | tee $BUILD_ARTIFACTSTAGINGDIRECTORY/Full-Log.txt
       ls -la BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.Artifacts/results
       cp -a BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.Artifacts/results $BUILD_ARTIFACTSTAGINGDIRECTORY
     displayName: 'Benchmark all'
@@ -55,4 +55,4 @@ steps:
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: 'Benchmark Report'
+      artifactName: 'Benchmark Report (LLVM $(LLVM))'

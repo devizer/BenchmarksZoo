@@ -17,13 +17,13 @@ namespace BenchmarksZoo
             Users = User.Generate(543);
         }
 
-        [Benchmark]
+        [Benchmark(Description = "Enumerable.OrderBy")]
         public void Linq_Sort()
         {
             var sorted = Users.OrderBy(x => x.Name).ToArray();
         }
 
-        [Benchmark]
+        [Benchmark(Description = "QuickSort NET2.0")]
         public void Classic_QuickSort()
         {
             User[] copy = new User[Users.Length];
@@ -31,7 +31,7 @@ namespace BenchmarksZoo
             QuickSorter<User>.QuickSort(copy, User.ComparerByName);
         }
         
-        [Benchmark]
+        [Benchmark(Baseline = true, Description = "Array.Sort")]
         public void Array_Sort()
         {
             User[] copy = new User[Users.Length];
