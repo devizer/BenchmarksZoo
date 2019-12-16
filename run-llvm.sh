@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # work=$HOME/build/devizer; mkdir -p $work; cd $work; git clone https://github.com/devizer/BenchmarksZoo; cd BenchmarksZoo; git pull; bash run-llvm.sh 
 
-#export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-#export LC_ALL=en_US.UTF-8
-#export LANG=en_US.UTF-8
-#export LANGUAGE=en_US.UTF-8
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 dotnet restore || true
 nuget restore || true; 
