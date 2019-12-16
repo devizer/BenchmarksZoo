@@ -20,7 +20,8 @@ namespace BenchmarksZoo
             Func<string,bool> hasArgument = (name) => args.Any(x => x.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) >= 0);
             if (hasArgument("help"))
             {
-                LoadedAssemblies.ShowLibraries();
+                LoadedAssemblies.ShowManagedLibraries();
+                LoadedAssemblies.ShowNativeLibraries();
                 return;
             }
             
@@ -46,7 +47,6 @@ namespace BenchmarksZoo
                 
             // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
             var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
-            
         }
 
         static bool IsMono()
@@ -61,36 +61,5 @@ namespace BenchmarksZoo
         }
 
 
-    }
-
-
-    class LoadedAssemblies
-    {
-        public static void ShowLibraries()
-        {
-            {
-                CompressionBenchmark b = new CompressionBenchmark();
-                b.GlobalSetup();
-                b.System_Compression();
-                b.Managed_GZip();
-            }
-            {
-                SortingBenchmark b = new SortingBenchmark();
-                b.GlobalSetup();
-                b.Array_Sort();
-                b.Enumerable_OrderBy();
-                b.QuickSort_NET20();
-            }
-
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            Console.WriteLine($"TOTAL LIBRARIES: {assemblies.Length}");
-            foreach (var asm in assemblies)
-            {
-                Console.WriteLine(asm.Location);
-            }
-
-        }
-
-        
     }
 }
