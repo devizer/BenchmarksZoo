@@ -39,7 +39,7 @@ steps:
 
   - bash: |
       # --Release?
-      bash run-llvm.sh | tee $BUILD_ARTIFACTSTAGINGDIRECTORY/Full-Log.txt
+      bash run-llvm.sh --Release | tee $BUILD_ARTIFACTSTAGINGDIRECTORY/Full-Log.txt
       ls -la BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.Artifacts/results
       cp -a BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.Artifacts/results $BUILD_ARTIFACTSTAGINGDIRECTORY
     displayName: 'Benchmark all'

@@ -22,7 +22,7 @@ namespace BenchmarksZoo
             }
         }
 
-        [Benchmark(Baseline = true, Description = "System.IO.Compression.GZipStream")]
+        [Benchmark(Baseline = true, Description = "System.GZipStream")]
         public void System_Compression()
         {
             using(MemoryStream mem = new MemoryStream(CompressedFile))
@@ -32,7 +32,7 @@ namespace BenchmarksZoo
             }
         }
 
-        [Benchmark(Description = "TinyGZip.GZipStream")]
+        [Benchmark(Description = "Tiny.GZipStream")]
         public void Managed_GZip()
         {
             using(MemoryStream mem = new MemoryStream(CompressedFile))
@@ -42,15 +42,5 @@ namespace BenchmarksZoo
             }
         }
 
-        [Benchmark(Description = "TinyGZip.GZipStream")]
-        public void Managed_GZip2()
-        {
-            using(MemoryStream mem = new MemoryStream(CompressedFile))
-            using (Universe.TinyGZip.GZipStream gzip = new Universe.TinyGZip.GZipStream(mem, Universe.TinyGZip.CompressionMode.Decompress))
-            {
-                gzip.CopyTo(new MemoryStream());
-            }
-        }
-       
     }
 }
