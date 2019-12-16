@@ -44,7 +44,8 @@ fi
 
 mono --llvm --aot -O=all BenchmarksZoo.exe
 echo "RUNNING...."
-mono --llvm BenchmarksZoo.exe $1
+sudo mono --llvm BenchmarksZoo.exe $1
+chown -R $(whoami) .
 
 popd
 popd

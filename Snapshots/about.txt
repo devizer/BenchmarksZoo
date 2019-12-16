@@ -1,5 +1,7 @@
 https://download.mono-project.com stable-jessie/snapshots/3.10.0.160
 
+5.0.1: NET 4.6.2, C# 6
+
 echo '
 mono-4.0.5.1.tar.bz2
 mono-4.2.4.4.tar.bz2
