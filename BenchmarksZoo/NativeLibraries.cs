@@ -25,7 +25,6 @@ namespace BenchmarksZoo
             List<string> ret = new List<string>();
             if (IsWindows) return ret;
 
-            Console.WriteLine($"NATIVE LIBRARIES:");
             ProcessStartInfo si = new ProcessStartInfo("sudo", $"lsof -p {processesList}");
             var home = Environment.GetEnvironmentVariable("HOME");
             if (!string.IsNullOrEmpty(home))

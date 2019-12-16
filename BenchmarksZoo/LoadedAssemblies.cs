@@ -36,11 +36,13 @@ namespace BenchmarksZoo
             if (System.Environment.OSVersion.Platform == PlatformID.Win32NT) return;
             
             var libs = NativeLibraries.Get();
+            libs.Sort();
             Console.WriteLine($"TOTAL NATIVE LIBRARIES: {libs.Count}");
             foreach (var lib in libs)
             {
                 Console.WriteLine(lib);
             }
+            Console.WriteLine();
         }
 
 
