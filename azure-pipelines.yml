@@ -2,9 +2,10 @@
 # Windows. c: 8.7, d:12.2 (default)
 # McOS 10.14: /112Gb
 jobs:
-  - job: Ubuntu_Bionic
+  - job: Bionic_LLVM_8
     variables:
       OS: Linux
+      LLVM: 8
     timeoutInMinutes: 599
     cancelTimeoutInMinutes: 1
     pool:
@@ -12,9 +13,32 @@ jobs:
     steps:
       - template: azure-steps-nix.yml
 
-  - job: Ubuntu_Xenial
+  - job: Bionic_LLVM_9
     variables:
       OS: Linux
+      LLVM: 9
+    timeoutInMinutes: 599
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+      - template: azure-steps-nix.yml
+
+  - job: Xenial_LLVM_8
+    variables:
+      OS: Linux
+      LLVM: 8
+    timeoutInMinutes: 599
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - template: azure-steps-nix.yml
+
+  - job: Xenial_LLVM_9
+    variables:
+      OS: Linux
+      LLVM: 9
     timeoutInMinutes: 599
     cancelTimeoutInMinutes: 1
     pool:

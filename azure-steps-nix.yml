@@ -34,7 +34,7 @@ steps:
   - bash: |
       Say "Install LLVM"
       wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
-      sudo bash /tmp/llvm.sh 8
+      sudo bash /tmp/llvm.sh $LLVM
     displayName: 'Install LLVM'
 
   - bash: |
