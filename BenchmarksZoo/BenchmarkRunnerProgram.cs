@@ -16,7 +16,6 @@ namespace BenchmarksZoo
 
         static void Main(string[] args)
         {
-
             Func<string,bool> hasArgument = (name) => args.Any(x => x.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) >= 0);
             if (hasArgument("help"))
             {
@@ -58,7 +57,7 @@ namespace BenchmarksZoo
                 config = config.With(run.With(ClrRuntime.Net47).WithId("NETFW-47").ConfigWarmUp());
                 
             // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
-            var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
+            var summary = BenchmarkRunner.Run(typeof(CompressionBenchmark), config);
         }
 
         static bool IsMono()
