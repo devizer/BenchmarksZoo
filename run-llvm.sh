@@ -22,6 +22,27 @@ echo "LIBS AFTER AOT:"
 echo "---------------" 
 mono BenchmarksZoo.exe --help
 
+list_for_aot='
+/usr/lib/mono/gac/System/4.0.0.0__b77a5c561934e089/System.dll
+./BenchmarkDotNet.dll
+/usr/lib/mono/gac/System.Core/4.0.0.0__b77a5c561934e089/System.Core.dll
+/root/build/devizer/BenchmarksZoo/BenchmarksZoo/bin/Release/net47/netstandard.dll
+'
+
+if [[ $"PLUS_AOT" ]]; then
+    for to_aot in "$list_for_aot"; do
+      echo "AOT: $to_aot"
+      time mono --aot=try-llvm -O=all "$to_aot" 
+    done
+    
+    echo ""
+    echo "LIBS AFTER SYSTEM LIBRARY AOT:" 
+    echo "---------------" 
+    mono BenchmarksZoo.exe --help
+fi
+
+
+
 mono --llvm --aot -O=all BenchmarksZoo.exe $1
 # mono --llvm BenchmarksZoo.exe $1
 
