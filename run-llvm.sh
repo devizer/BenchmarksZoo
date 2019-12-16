@@ -43,7 +43,7 @@ fi
 
 
 
-mono --llvm --aot -O=all BenchmarksZoo.exe $1
+mono --llvm --aot -O=all BenchmarksZoo.exe
 mono --llvm BenchmarksZoo.exe $1
 
 cd ..
