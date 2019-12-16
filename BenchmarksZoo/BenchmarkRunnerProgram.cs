@@ -18,14 +18,13 @@ namespace BenchmarksZoo
         {
 
             Func<string,bool> hasArgument = (name) => args.Any(x => x.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) >= 0);
-            IsRelease = hasArgument("release");
             if (hasArgument("help"))
             {
                 ShowLibraries();
                 return;
             }
             
-        
+            IsRelease = hasArgument("release");
             var run = IsRelease ? Job.MediumRun : Job.ShortRun;
             IConfig config = ManualConfig.Create(DefaultConfig.Instance);
             // Job jobLlvm = Job.InProcess;
