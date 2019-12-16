@@ -48,8 +48,8 @@ namespace BenchmarksZoo
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 config = config.With(run.With(ClrRuntime.Net47).WithId("NETFW-47").ConfigWarmUp());
                 
-            // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
-            var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
+            var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
+            // var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
         }
 
         static bool IsMono()
