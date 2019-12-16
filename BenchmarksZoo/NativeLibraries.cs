@@ -40,9 +40,15 @@ namespace BenchmarksZoo
                 p.WaitForExit();
                 var output = p.StandardOutput.ReadToEnd();
                 var arr = output.Split(new[] {'\r', '\n'});
+                bool isFirst = true;
                 foreach (var line in arr)
                 {
                     if (line.Length == 0) continue;
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                        continue;
+                    }
                     int pos = line.IndexOf("/");
                     if (pos < 0) continue;
                     string file = line.Substring(pos);
