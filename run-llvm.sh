@@ -10,6 +10,7 @@ cd bin/Release/net47
 echo "ABOUT BenchmarksZoo.exe FILE:"
 ls -la BenchmarksZoo.exe
 # --llvm?
+mono BenchmarksZoo.exe --help
 mono --llvm --aot -O=all BenchmarksZoo.exe $1
 mono --llvm BenchmarksZoo.exe $1
 

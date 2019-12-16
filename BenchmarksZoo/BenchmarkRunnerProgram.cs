@@ -16,9 +16,14 @@ namespace BenchmarksZoo
 
         static void Main(string[] args)
         {
-            
-            
-            IsRelease = args.Any(x => x.IndexOf("release", StringComparison.InvariantCultureIgnoreCase) >= 0);
+
+            Func<string,bool> hasArgument = (name) => args.Any(x => x.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) >= 0);
+            IsRelease = hasArgument("release");
+            if (hasArgument("help"))
+            {
+                ShowLibraries();
+                return;
+            }
             
         
             var run = IsRelease ? Job.MediumRun : Job.ShortRun;
@@ -44,7 +49,30 @@ namespace BenchmarksZoo
             var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
             
         }
-        
+
+        private static void ShowLibraries()
+        {
+            {
+                CompressionBenchmark b = new CompressionBenchmark();
+                b.GlobalSetup();
+                b.System_Compression();
+                b.Managed_GZip();
+            }
+            {
+                SortingBenchmark b = new SortingBenchmark();
+                b.GlobalSetup();
+                b.Array_Sort();
+                b.Enumerable_OrderBy();
+                b.QuickSort_NET20();
+            }
+
+            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                Console.WriteLine(asm.Location);
+            }
+
+        }
+
         static bool IsMono()
         {
             return Type.GetType("Mono.Runtime", false) != null;
