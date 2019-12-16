@@ -20,7 +20,7 @@ namespace BenchmarksZoo
             Func<string,bool> hasArgument = (name) => args.Any(x => x.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) >= 0);
             if (hasArgument("help"))
             {
-                ShowLibraries();
+                LoadedAssemblies.ShowLibraries();
                 return;
             }
             
@@ -49,7 +49,24 @@ namespace BenchmarksZoo
             
         }
 
-        private static void ShowLibraries()
+        static bool IsMono()
+        {
+            return Type.GetType("Mono.Runtime", false) != null;
+        }
+        
+        public static Job ConfigWarmUp(this Job job)
+        {
+            if (!IsRelease) job = job.WithWarmupCount(3).WithLaunchCount(3);
+            return job;
+        }
+
+
+    }
+
+
+    class LoadedAssemblies
+    {
+        public static void ShowLibraries()
         {
             {
                 CompressionBenchmark b = new CompressionBenchmark();
@@ -65,24 +82,15 @@ namespace BenchmarksZoo
                 b.QuickSort_NET20();
             }
 
-            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            Console.WriteLine($"TOTAL LIBRARIES: {assemblies.Length}");
+            foreach (var asm in assemblies)
             {
                 Console.WriteLine(asm.Location);
             }
 
         }
 
-        static bool IsMono()
-        {
-            return Type.GetType("Mono.Runtime", false) != null;
-        }
         
-        public static Job ConfigWarmUp(this Job job)
-        {
-            if (!IsRelease) job = job.WithWarmupCount(3).WithLaunchCount(3);
-            return job;
-        }
-
-
     }
 }
