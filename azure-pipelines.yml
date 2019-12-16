@@ -4,7 +4,7 @@
 
 variables:
   BENCHMARK_DURATION: Short # Either Release | Short
-
+  
 jobs:
   - job: Xenial_LLVM_9
     variables:

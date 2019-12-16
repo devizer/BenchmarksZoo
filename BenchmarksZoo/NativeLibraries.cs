@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization.Formatters;
 
 namespace BenchmarksZoo
@@ -19,8 +21,23 @@ namespace BenchmarksZoo
         {
             return Get(processId.ToString());
         }
-        
+
         public static List<string> Get(string processesList)
+        {
+            List<string> ret = new List<string>();
+            var filesAndFolders = GetOpenedFilesAndFolders(processesList);
+            foreach (var item in filesAndFolders)
+            {
+                // TODO: is Symlink?
+                if (File.Exists(item))
+                    ret.Add(item);
+            }
+
+            return ret;
+        }
+
+
+        public static List<string> GetOpenedFilesAndFolders(string processesList)
         {
             List<string> ret = new List<string>();
             if (IsWindows) return ret;
