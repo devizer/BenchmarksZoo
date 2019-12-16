@@ -36,9 +36,9 @@ namespace BenchmarksZoo
                 config = config.With(new[] { jobLlvm, jobNoLlvm});
             }
 
-            Job jobCore22 = run.With(CoreRuntime.Core22).With(Jit.RyuJit).WithId($"Net Core 2.2").ConfigWarmUp();
-            Job jobCore30 = run.With(CoreRuntime.Core30).With(Jit.RyuJit).WithId($"Net Core 3.0").ConfigWarmUp();
-            Job jobCore31 = run.With(CoreRuntime.Core31).With(Jit.RyuJit).WithId($"Net Core 3.1").ConfigWarmUp();
+            Job jobCore22 = run.With(Jit.RyuJit).With(CoreRuntime.Core22).WithId($"Net Core 2.2").ConfigWarmUp();
+            Job jobCore30 = run.With(CoreRuntime.Core30).WithId($"Net Core 3.0").ConfigWarmUp();
+            Job jobCore31 = run.With(CoreRuntime.Core31).WithId($"Net Core 3.1").ConfigWarmUp();
             config = config.With(new[] { jobCore22, jobCore30, jobCore31});
             
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
