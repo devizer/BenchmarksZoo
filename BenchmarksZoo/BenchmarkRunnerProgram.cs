@@ -7,6 +7,7 @@ using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Running;
 using System.Linq;
+using BenchmarkDotNet.Exporters.Json;
 
 namespace BenchmarksZoo
 {
@@ -47,7 +48,9 @@ namespace BenchmarksZoo
 
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 config = config.With(run.With(ClrRuntime.Net47).WithId("NETFW-47").ConfigWarmUp());
-                
+
+            config = config.With(JsonExporter.Custom(fileNameSuffix:"-brief", indentJson: true, excludeMeasurements: false));
+            config = config.With(JsonExporter.Custom(fileNameSuffix:"-full", indentJson: true, excludeMeasurements: true));
             var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
             // var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
         }

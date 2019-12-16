@@ -8,3 +8,4 @@ code=$?
 echo "exit code: $code"
 rm -rf class1* 2>/dev/null
 popd >/dev/null
+exit $code
