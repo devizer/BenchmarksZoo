@@ -30,14 +30,19 @@ steps:
       df -h -T
       echo ""
 
+
+  - bash: |
       Say "Install LLVM"
-      # sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
       wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
-      sudo bash /tmp/llvm.sh  8
+      sudo bash /tmp/llvm.sh 8
+    displayName: 'Install LLVM'
 
-      bash run-llvm.sh --Release
-
-
+  - bash: |
+      # --Release?
+      bash run-llvm.sh  | tee $BUILD_ARTIFACTSTAGINGDIRECTORY
+      ls -la BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.Artifacts/results
+      cp -a BenchmarksZoo/bin/Release/net47/BenchmarkDotNet.Artifacts/results $BUILD_ARTIFACTSTAGINGDIRECTORY
+    displayName: 'Benchmark all'
 
   - bash: |
         list-packages
@@ -46,3 +51,8 @@ steps:
   - bash: |
         list-packages
     displayName: 'list packages 2'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: 'Benchmark Report'
