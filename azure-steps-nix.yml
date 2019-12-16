@@ -1,4 +1,6 @@
-  
+variables:
+  BENCHMARK_DURATION: Release
+  # BENCHMARK_DURATION: Short
 
 steps:
 

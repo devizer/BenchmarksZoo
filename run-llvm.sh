@@ -43,8 +43,9 @@ if [[ "$PLUS_AOT" ]]; then
 fi
 
 mono --llvm --aot -O=all BenchmarksZoo.exe
-echo "RUNNING...."
-sudo mono --llvm BenchmarksZoo.exe $1
+BENCHMARK_DURATION=${BENCHMARK_DURATION:-Short}
+echo "RUNNING (BENCHMARK_DURATION is ${BENCHMARK_DURATION})...."
+sudo mono --llvm BenchmarksZoo.exe ${BENCHMARK_DURATION}
 chown -R $(whoami) .
 
 popd
