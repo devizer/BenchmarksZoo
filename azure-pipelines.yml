@@ -3,8 +3,8 @@
 # McOS 10.14: /112Gb
 
 variables:
-  BENCHMARK_DURATION: Release
-  # BENCHMARK_DURATION: Short
+  # BENCHMARK_DURATION: Release
+  BENCHMARK_DURATION: Short
 
 
 jobs:
