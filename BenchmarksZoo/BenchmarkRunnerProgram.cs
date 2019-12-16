@@ -42,7 +42,7 @@ namespace BenchmarksZoo
                 Job jobCore22 = run.With(CoreRuntime.Core22).WithId($"Net Core 2.2 {jit}").ConfigWarmUp();
                 Job jobCore30 = run.With(CoreRuntime.Core30).WithId($"Net Core 3.0 {jit}").ConfigWarmUp();
                 Job jobCore31 = run.With(CoreRuntime.Core31).WithId($"Net Core 3.1 {jit}").ConfigWarmUp();
-                if (jit != Jit.RyuJit)
+                if (jit == Jit.RyuJit)
                 {
                     jobCore22 = jobCore22.With(jit);
                     jobCore30 = jobCore30.With(jit);
