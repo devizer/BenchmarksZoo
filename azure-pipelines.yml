@@ -4,6 +4,7 @@
 
 variables:
   BENCHMARK_DURATION: Release # Either Release | Short
+  NET_VER: net462
 
 jobs:
   - job: Xenial_LLVM_9

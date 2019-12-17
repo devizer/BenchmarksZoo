@@ -7,6 +7,8 @@
 
     <ItemGroup>
       <PackageReference Include="BenchmarkDotNet" Version="0.12.0" />
+      <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.12.0" />
+      <PackageReference Include="Universe.CpuUsage" Version="2.2.317.411" />
     </ItemGroup>
 
     <ItemGroup>

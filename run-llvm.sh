@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # work=$HOME/build/devizer; mkdir -p $work; cd $work; git clone https://github.com/devizer/BenchmarksZoo; cd BenchmarksZoo; git pull; bash run-llvm.sh 
 
+BENCHMARK_DURATION=${BENCHMARK_DURATION:-Short}
+NET_VER=${NET_VER:-net47}
+
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -15,7 +18,7 @@ msbuild /t:rebuild /p:Configuration=Release /v:q
 # dotnet build -c Release -v q
 
 echo "AOTING...."
-pushd bin/Release/net47
+pushd bin/Release/$NET_VER
 echo "ABOUT BenchmarksZoo.exe FILE:"
 ls -la BenchmarksZoo.exe
 
@@ -47,8 +50,7 @@ if [[ "$PLUS_AOT" ]]; then
 fi
 
 mono --llvm --aot -O=all BenchmarksZoo.exe
-BENCHMARK_DURATION=${BENCHMARK_DURATION:-Short}
-echo "RUNNING (BENCHMARK_DURATION is ${BENCHMARK_DURATION})...."
+echo "RUNNING (BENCHMARK_DURATION is ${BENCHMARK_DURATION}) NET is ${NET_VER}...."
 sudo bash -c "PATH=$PATH mono --llvm BenchmarksZoo.exe ${BENCHMARK_DURATION}"
 chown -R $(whoami) .
 
