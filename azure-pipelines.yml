@@ -44,12 +44,12 @@ jobs:
     steps:
       - template: azure-steps-nix.yml
 
-  - job: Xenial_LLVM_9_MONO_5_18_0
+  - job: Xenial_LLVM_9_MONO_5_18_1
     variables:
       OS: Linux
       LLVM: 9
       NET_VER: net462
-      MONO_VER: 5.18.0
+      MONO_VER: 5.18.1
     timeoutInMinutes: 199
     cancelTimeoutInMinutes: 1
     pool:
