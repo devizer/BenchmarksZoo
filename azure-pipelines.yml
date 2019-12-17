@@ -104,6 +104,17 @@ jobs:
     steps:
       - template: azure-steps-nix.yml
 
+  - job: Bionic_LLVM_9
+    variables:
+      OS: Linux
+      LLVM: 9
+    timeoutInMinutes: 199
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+      - template: azure-steps-nix.yml
+
   - job: Windows
     variables:
       OS: Linux
@@ -113,19 +124,7 @@ jobs:
     pool:
       vmImage: 'windows-latest'
     steps:
-      - template: azure-steps-nix.yml
-
-  - job: Bionic_LLVM_9
-    variables:
-      OS: Linux
-      LLVM: 9
-    timeoutInMinutes: 599
-    cancelTimeoutInMinutes: 1
-    pool:
-      vmImage: 'ubuntu-18.04'
-    steps:
-      - template: azure-steps-nix.yml
-
+      - template: azure-steps-windows.yml
 
 trigger:
 - master

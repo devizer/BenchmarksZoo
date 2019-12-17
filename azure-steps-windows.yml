@@ -1,0 +1,12 @@
+steps:
+
+  - ps: |
+      pushd BenchmarksZoo
+      dotnet run -c Release -f netcoreapp2.2 -- "$($Env:BENCHMARK_DURATION)"
+      popd
+    displayName: 'Benchmark All (BENCHMARK_DURATION is $(BENCHMARK_DURATION))'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'BenchmarksZoo\BenchmarkDotNet.Artifacts'
+      artifactName: '$(Agent.JobName) Benchmark Report'
