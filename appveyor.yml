@@ -128,6 +128,8 @@ test_script:
 - ps: |
     Say "Benchmarks"
     pushd .
+    $Env:BENCHMARK_DURATION=Release
+
     if ($isWindows) 
     {
       pushd BenchmarksZoo
@@ -136,6 +138,7 @@ test_script:
     } 
     else 
     {
+      
       bash run-llvm.sh --Release
     }
     popd
