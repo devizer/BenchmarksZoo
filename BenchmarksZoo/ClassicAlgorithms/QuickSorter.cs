@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace BenchmarksZoo.ClassicAlgorithms
 {
@@ -8,7 +9,6 @@ namespace BenchmarksZoo.ClassicAlgorithms
         public static void QuickSort(T[] keys, IComparer<T> comparer)
         {
             if (keys.Length == 0) return;
-            
             QuickSort(keys, 0, keys.Length - 1, comparer);
         }
         
@@ -16,59 +16,64 @@ namespace BenchmarksZoo.ClassicAlgorithms
         {
             do
             {
-                int index1 = left;
-                int index2 = right;
-                int index3 = index1 + (index2 - index1 >> 1);
-                SwapIfGreaterWithItems(keys, comparer, index1, index3);
-                SwapIfGreaterWithItems(keys, comparer, index1, index2);
-                SwapIfGreaterWithItems(keys, comparer, index3, index2);
-                T key1 = keys[index3];
+                int nextLeft = left;
+                int nextRight = right;
+                int center = nextLeft + (nextRight - nextLeft >> 1);
+                SwapIfGreaterWithItems(keys, comparer, nextLeft, center);
+                SwapIfGreaterWithItems(keys, comparer, nextLeft, nextRight);
+                SwapIfGreaterWithItems(keys, comparer, center, nextRight);
+                T keyCenter = keys[center];
                 do
                 {
-                    while (comparer.Compare(keys[index1], key1) < 0)
-                        ++index1;
-                    while (comparer.Compare(key1, keys[index2]) < 0)
-                        --index2;
-                    if (index1 <= index2)
+                    while (comparer.Compare(keys[nextLeft], keyCenter) < 0)
+                        ++nextLeft;
+                    
+                    while (comparer.Compare(keyCenter, keys[nextRight]) < 0)
+                        --nextRight;
+                    
+                    if (nextLeft <= nextRight)
                     {
-                        if (index1 < index2)
+                        if (nextLeft < nextRight)
                         {
-                            T key2 = keys[index1];
-                            keys[index1] = keys[index2];
-                            keys[index2] = key2;
+                            T keyTemp = keys[nextLeft];
+                            keys[nextLeft] = keys[nextRight];
+                            keys[nextRight] = keyTemp;
                         }
-                        ++index1;
-                        --index2;
+                        ++nextLeft;
+                        --nextRight;
                     }
                     else
                         break;
                 }
-                while (index1 <= index2);
-                if (index2 - left <= right - index1)
+                while (nextLeft <= nextRight);
+                
+                if (nextRight - left <= right - nextLeft)
                 {
-                    if (left < index2)
-                        QuickSort(keys, left, index2, comparer);
+                    if (left < nextRight)
+                        QuickSort(keys, left, nextRight, comparer);
                     
-                    left = index1;
+                    left = nextLeft;
                 }
                 else
                 {
-                    if (index1 < right)
-                        QuickSort(keys, index1, right, comparer);
+                    if (nextLeft < right)
+                        QuickSort(keys, nextLeft, right, comparer);
                     
-                    right = index2;
+                    right = nextRight;
                 }
             }
             while (left < right);
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void SwapIfGreaterWithItems(T[] keys, IComparer<T> comparer, int a, int b)
         {
             if (a == b || comparer.Compare(keys[a], keys[b]) <= 0)
                 return;
-            T key = keys[a];
+            
+            T keyTemp = keys[a];
             keys[a] = keys[b];
-            keys[b] = key;
+            keys[b] = keyTemp;
         }
 
 

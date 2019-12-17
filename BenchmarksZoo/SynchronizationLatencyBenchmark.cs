@@ -67,7 +67,7 @@ namespace BenchmarksZoo
         [Arguments(3)]
         [Arguments(8)]
         [Arguments(16)]
-        public void SyncActionLatency(int Racers)
+        public void SyncActionLatency_using_ThreadPool_and_Countdown(int Racers)
         {
             CountdownEvent race = new CountdownEvent(Racers);
             for (int i = 0; i < Racers; i++)
@@ -81,6 +81,74 @@ namespace BenchmarksZoo
             }
 
             race.Wait();
+        }
+
+        [Benchmark]
+        [Arguments(1)]
+        [Arguments(2)]
+        [Arguments(3)]
+        [Arguments(8)]
+        [Arguments(16)]
+        public void SyncActionLatency_using_ThreadPool_and_Barrier(int Racers)
+        {
+            Barrier barrier = new Barrier(Racers);
+            ManualResetEventSlim done = new ManualResetEventSlim(false);
+            for (int i = 0; i < Racers; i++)
+            {
+                ThreadPool.QueueUserWorkItem(_ =>
+                {
+                    barrier.SignalAndWait();
+                    // lets rock&roll synchronously 
+                    done.Set();
+                });
+            }
+
+            done.Wait();
+        }
+
+        [Benchmark]
+        [Arguments(1)]
+        [Arguments(2)]
+        [Arguments(3)]
+        [Arguments(8)]
+        [Arguments(16)]
+        public async Task SyncActionLatency_using_Tasks_and_Countdown(int Racers)
+        {
+            CountdownEvent race = new CountdownEvent(Racers);
+            Task[] tasks = new Task[Racers];
+            for (int i = 0; i < Racers; i++)
+            {
+                tasks[i] = Task.Run(() =>
+                {
+                    race.Signal();
+                    race.Wait();
+                    // lets rock&roll synchronously 
+                });
+            }
+
+            Task.WaitAll(tasks);
+        }
+        
+        [Benchmark]
+        [Arguments(1)]
+        [Arguments(2)]
+        [Arguments(3)]
+        [Arguments(8)]
+        [Arguments(16)]
+        public async Task SyncActionLatency_using_Tasks_and_Barrier(int Racers)
+        {
+            Barrier barrier = new Barrier(Racers);
+            Task[] tasks = new Task[Racers];
+            for (int i = 0; i < Racers; i++)
+            {
+                tasks[i] = Task.Run(() =>
+                {
+                    barrier.SignalAndWait();
+                    // lets rock&roll synchronously 
+                });
+            }
+
+            Task.WaitAll(tasks);
         }
     }
 }

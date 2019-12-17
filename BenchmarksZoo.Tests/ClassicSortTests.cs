@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using BenchmarksZoo;
 using BenchmarksZoo.ClassicAlgorithms;
-using BenchmarksZoo.ClassicAlgorithms;
 using NUnit.Framework;
 
 namespace BenchmarksZee.Tests
@@ -18,7 +17,7 @@ namespace BenchmarksZee.Tests
         [Test]
         public void SmokeTest()
         {
-            for (int count = 10; count < 20; count++)
+            for (int count = 0; count < 666; count++)
             {
                 var original = User.Generate(count);
                 var expected = original.OrderBy(x => x.Name).ToArray();
