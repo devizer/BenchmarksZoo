@@ -24,20 +24,20 @@ jobs:
       LLVM: 9
       NET_VER: net47
       MONO_VER: 6.6.0
-    timeoutInMinutes: 599
+    timeoutInMinutes: 119
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
       - template: azure-steps-nix.yml
 
-  - job: Xenial_LLVM_9_MONO_501
+  - job: Xenial_LLVM_9_MONO_5_20_1
     variables:
       OS: Linux
       LLVM: 9
       NET_VER: net462
-      MONO_VER: 5.0.1
-    timeoutInMinutes: 599
+      MONO_VER: 5.20.1
+    timeoutInMinutes: 199
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
