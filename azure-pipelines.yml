@@ -3,8 +3,8 @@
 # McOS 10.14: /112Gb
 
 variables:
-  BENCHMARK_DURATION: Short # Either Release | Short
-  NET_VER: net462
+  BENCHMARK_DURATION: Release          # Either Release | Short
+  NET_VER: net462                      # Either net462 or net47 (should be defined in the project)
 
 jobs:
   - job: Xenial_LLVM_9
