@@ -6,18 +6,19 @@ variables:
   BENCHMARK_DURATION: Release          # Either Release | Short
   NET_VER: net462                      # Either net462 or net47 (should be defined in the project)
 
-    - job: Windows
-      variables:
-        OS: Windows
-        LLVM: 9
-      timeoutInMinutes: 199
-      cancelTimeoutInMinutes: 1
-      pool:
-        vmImage: 'windows-latest'
-      steps:
-        - template: azure-steps-windows.yml
-
 jobs:
+
+  - job: Windows
+    variables:
+      OS: Windows
+      LLVM: 9
+    timeoutInMinutes: 199
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+      - template: azure-steps-windows.yml
+
   - job: Xenial_LLVM_9
     variables:
       OS: Linux
