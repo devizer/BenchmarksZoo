@@ -4,7 +4,9 @@ steps:
       script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
       export SAY_COLORLESS=true
       echo "##vso[task.setvariable variable=SAY_COLORLESS]$SAY_COLORLESS"
-      
+    displayName: 'install build tools'
+
+  - bash: |
       if [[ "$MONO_VER" ]]; then
         Say "Purge Mono and Install $MONO_VER"
         for p in mono-runtime "libmono*" mono-jay msbuild nuget; do
@@ -16,6 +18,7 @@ steps:
         sudo apt-get update -qq
         sudo apt-get install -y -qq mono-complete msbuild nuget
       fi
+    condition: ne(variables['MONO_VER'], '')
     displayName: 'RESET MONO to [$(MONO_VER)]'
       
   - bash: |
