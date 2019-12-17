@@ -44,7 +44,39 @@ namespace BenchmarksZoo.ClassicAlgorithms.Cryptography
 		{
 		}
 
-		public static void BlockCopy(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
+		public static unsafe void BlockCopy(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
+		{
+			ValidateArguments(src, srcOffset, dest, destOffset, count);
+			
+			fixed(byte* argSrc = &src[0])
+			fixed (byte* argDest = &dest[0])
+			{
+				byte* ptrSrc = argSrc + srcOffset;
+				byte* ptrDest = argDest + destOffset;
+				while (count >= 8)
+				{
+					*(long*) ptrDest = *(long*) ptrSrc;
+					ptrSrc += 8;
+					ptrDest += 8;
+					count -= 8;
+				}
+				
+				while (count-- > 0)
+					*ptrDest++ = *ptrSrc;
+			}
+		}
+
+		public static void BlockCopy_Slow(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
+		{
+			ValidateArguments(src, srcOffset, dest, destOffset, count);
+
+			for (int i = 0; i < count; i++)
+			{
+				dest[destOffset + i] = src[srcOffset + i];
+			}
+		}
+
+		private static void ValidateArguments(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
 		{
 			if (src == null)
 				throw new ArgumentNullException("src");
@@ -68,12 +100,6 @@ namespace BenchmarksZoo.ClassicAlgorithms.Cryptography
 				throw new ArgumentException(
 					"Offset and length were out of bounds for the array or count is greater than" +
 					"the number of elements from index to the end of the source collection.");
-
-			for (int i = 0; i < count; i++)
-			{
-				dest[destOffset + i] = src[srcOffset + i];
-			}
 		}
-
 	}
 }
