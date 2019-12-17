@@ -60,8 +60,8 @@ namespace BenchmarksZoo
                 config.With(new EtwProfiler());
             }
 
-            var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
-            // var summary = BenchmarkRunner.Run(typeof(ShaBenchmark), config);
+            // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
+            var summary = BenchmarkRunner.Run(typeof(SyncLatencyBenchmark), config);
         }
 
         static bool IsMono()
@@ -74,8 +74,6 @@ namespace BenchmarksZoo
             if (!IsRelease) job = job.WithWarmupCount(3).WithLaunchCount(3);
             return job;
         }
-        
-
     }
 
 }
