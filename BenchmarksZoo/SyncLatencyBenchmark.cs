@@ -23,5 +23,28 @@ namespace BenchmarksZoo
             ThreadPool.QueueUserWorkItem(_ => done.Set());
             done.WaitOne();
         }
+        
+        [Benchmark]
+        [Arguments(1)]
+        [Arguments(2)]
+        [Arguments(3)]
+        [Arguments(8)]
+        [Arguments(16)]
+        [Arguments()]
+        public void Benchmark(int racers)
+        {
+            CountdownEvent race = new CountdownEvent(racers);
+            for (int i = 0; i < racers; i++)
+            {
+                ThreadPool.QueueUserWorkItem(_ =>
+                {
+                    race.Signal();
+                    race.Wait();
+                    // lets rock&roll synchronously 
+                });
+            }
+
+            race.Wait();
+        }
     }
 }
