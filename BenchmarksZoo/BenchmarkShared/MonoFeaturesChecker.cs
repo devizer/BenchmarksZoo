@@ -41,7 +41,7 @@ exit $code
 
         public static bool IsMonoSupported(string monoBinPath = null)
         {
-            return IsSupported(monoBinPath, "");
+            return IsSupported(monoBinPath, "--fuck");
         }
 
         public static bool IsLlvmForMonoSupported(string monoBinPath = null)
