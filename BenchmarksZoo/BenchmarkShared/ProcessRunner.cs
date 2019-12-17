@@ -24,8 +24,8 @@ namespace BenchmarksShared
                 CreateNoWindow = true,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
-                StandardErrorEncoding = Encoding.UTF8,
-                StandardOutputEncoding = Encoding.UTF8,
+                StandardErrorEncoding = Encoding.Default,
+                StandardOutputEncoding = Encoding.Default,
                 // WindowStyle = ProcessWindowStyle.Hidden,
                 UseShellExecute = false,
             };

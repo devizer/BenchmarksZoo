@@ -9,12 +9,12 @@ namespace BenchmarksShared
 dir=""$(mktemp -d)"";
 cd ""$dir"" >/dev/null;
 echo 'class Z { public static void Main() { System.Console.WriteLine(""SUCCESSFUL COMPILATION""); }}' > class1.cs;
-{csc} /nologo /target:exe /out:class1.exe class1.cs;
+{csc} class1.cs > csc.log 2>&1
 {mono} {mono-options} class1.exe;
 code=$?;
 # echo ""exit code: $code"";
 cd ""$HOME"" >/dev/null
-rm -rf ""$dir"" 2>/dev/null
+# rm -rf ""$dir"" 2>/dev/null
 exit $code
 
 ";
@@ -25,7 +25,6 @@ exit $code
         {
             var csc = string.IsNullOrEmpty(monoBinPath) ? "csc" : Path.Combine(monoBinPath, "csc");
             var mono = string.IsNullOrEmpty(monoBinPath) ? "mono" : Path.Combine(monoBinPath, "mono");
-            // mono = "fuck-off";
             var shellCommand = CheckMonoFeaturesShell
                 .Replace("{csc}", csc)
                 .Replace("{mono}", mono)
@@ -41,7 +40,7 @@ exit $code
 
         public static bool IsMonoSupported(string monoBinPath = null)
         {
-            return IsSupported(monoBinPath, "--fuck");
+            return IsSupported(monoBinPath, "");
         }
 
         public static bool IsLlvmForMonoSupported(string monoBinPath = null)
