@@ -30,7 +30,9 @@ namespace BenchmarksZoo
             
             NeedNetCore = !hasArgument("skip-net-core");
             IsRelease = hasArgument("release");
+            
             var run = IsRelease ? Job.MediumRun : Job.ShortRun;
+            
             IConfig config = ManualConfig.Create(DefaultConfig.Instance);
             // Job jobLlvm = Job.InProcess;
 
@@ -71,7 +73,9 @@ namespace BenchmarksZoo
         
         public static Job ConfigWarmUp(this Job job)
         {
-            if (!IsRelease) job = job.WithWarmupCount(3).WithLaunchCount(3);
+            if (!IsRelease) 
+                job = job.WithWarmupCount(3).WithLaunchCount(1);
+            
             return job;
         }
     }
