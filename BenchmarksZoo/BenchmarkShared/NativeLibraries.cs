@@ -27,7 +27,8 @@ namespace BenchmarksShared
             {
                 // TODO: is Symlink?
                 if (File.Exists(item))
-                    ret.Add(item);
+                    if (!item.StartsWith("/dev"))
+                        ret.Add(item);
             }
 
             return ret;
