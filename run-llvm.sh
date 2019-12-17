@@ -14,8 +14,8 @@ nuget restore || true;
 pushd BenchmarksZoo
 
 echo "BUILDING...."
-msbuild /t:rebuild /p:Configuration=Release /v:q
-# dotnet build -c Release -v q
+dotnet build -c Release -v q
+msbuild /t:build /p:Configuration=Release /v:q
 
 echo "AOTING...."
 pushd bin/Release/$NET_VER
