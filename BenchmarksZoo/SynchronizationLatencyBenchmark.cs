@@ -6,7 +6,7 @@ namespace BenchmarksZoo
 {
     [RankColumn]
     [MemoryDiagnoser]
-    public class SyncLatencyBenchmark
+    public class SynchronizationLatencyBenchmark
     {
         
         [Benchmark]
@@ -17,7 +17,15 @@ namespace BenchmarksZoo
         }
 
         [Benchmark]
-        public void ThreadPoolLatency()
+        public void ThreadPoolLatency_Slim()
+        {
+            ManualResetEventSlim done = new ManualResetEventSlim(false);
+            ThreadPool.QueueUserWorkItem(_ => done.Set());
+            done.Wait();
+        }
+
+        [Benchmark]
+        public void ThreadPoolLatency_Legacy()
         {
             ManualResetEvent done = new ManualResetEvent(false);
             ThreadPool.QueueUserWorkItem(_ => done.Set());
@@ -25,7 +33,7 @@ namespace BenchmarksZoo
         }
 
         [Benchmark]
-        public void ThreadLatencyWithJoin()
+        public void ThreadLatencyWith_Join()
         {
             int y;
             Thread t = new Thread(_ => y = 42);
@@ -34,13 +42,23 @@ namespace BenchmarksZoo
         }
 
         [Benchmark]
-        public void ThreadLatencyWithWait()
+        public void ThreadLatencyWith_SlimWait()
+        {
+            ManualResetEventSlim done = new ManualResetEventSlim(false);
+            Thread t = new Thread(_ => done.Set());
+            t.Start();
+            done.Wait();
+            // t.Join();
+        }
+
+        [Benchmark]
+        public void ThreadLatencyWith_LegacyWait()
         {
             ManualResetEvent done = new ManualResetEvent(false);
             Thread t = new Thread(_ => done.Set());
             t.Start();
             done.WaitOne();
-            t.Join();
+            // t.Join();
         }
 
         [Benchmark]
@@ -49,10 +67,10 @@ namespace BenchmarksZoo
         [Arguments(3)]
         [Arguments(8)]
         [Arguments(16)]
-        public void CountdownLatency(int racers)
+        public void SyncActionLatency(int Racers)
         {
-            CountdownEvent race = new CountdownEvent(racers);
-            for (int i = 0; i < racers; i++)
+            CountdownEvent race = new CountdownEvent(Racers);
+            for (int i = 0; i < Racers; i++)
             {
                 ThreadPool.QueueUserWorkItem(_ =>
                 {
