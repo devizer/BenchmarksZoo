@@ -30,7 +30,6 @@ namespace BenchmarksZoo
         [Arguments(3)]
         [Arguments(8)]
         [Arguments(16)]
-        [Arguments()]
         public void Benchmark(int racers)
         {
             CountdownEvent race = new CountdownEvent(racers);
