@@ -24,7 +24,7 @@ steps:
         sudo apt-get update -qq
         for p in "mono-runtime" "mono-complete" "msbuild" "nuget"; do
           Say "INSTALLING $p"
-          sudo apt-get install - y -qq "$p"
+          sudo apt-get install -y -qq "$p"
         done
       fi
     condition: ne(variables['MONO_VER'], '')
