@@ -51,7 +51,10 @@ fi
 
 mono --llvm --aot -O=all BenchmarksZoo.exe
 echo "RUNNING (BENCHMARK_DURATION is ${BENCHMARK_DURATION}) NET is ${NET_VER}...."
-sudo bash -c "PATH=$PATH mono --llvm BenchmarksZoo.exe ${BENCHMARK_DURATION}"
+mono --llvm BenchmarksZoo.exe --help \
+   && sudo bash -c "PATH=$PATH mono --llvm BenchmarksZoo.exe ${BENCHMARK_DURATION}" \
+   || sudo bash -c "PATH=$PATH mono BenchmarksZoo.exe ${BENCHMARK_DURATION}" \
+   
 chown -R $(whoami) .
 
 popd
