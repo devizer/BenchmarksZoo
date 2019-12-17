@@ -14,7 +14,7 @@ echo 'class Z { public static void Main() { System.Console.WriteLine(""SUCCESSFU
 code=$?;
 # echo ""exit code: $code"";
 cd ""$HOME"" >/dev/null
-# rm -rf ""$dir"" 2>/dev/null
+rm -rf ""$dir"" 2>/dev/null
 exit $code
 
 ";
