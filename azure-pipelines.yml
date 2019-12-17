@@ -18,6 +18,19 @@ jobs:
     steps:
       - template: azure-steps-nix.yml
 
+  - job: Xenial_LLVM_9_MONO_660
+    variables:
+      OS: Linux
+      LLVM: 9
+      NET_VER: net47
+      MONO_VER: 6.6.0
+    timeoutInMinutes: 599
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - template: azure-steps-nix.yml
+
   - job: Xenial_LLVM_9_MONO_501
     variables:
       OS: Linux
