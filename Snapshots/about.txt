@@ -17,7 +17,7 @@ mono-5.10.1.57.tar.bz2
 mono-5.12.0.309.tar.bz2
 mono-5.14.0.177.tar.bz2
 mono-5.16.1.0.tar.bz2
-mono-5.18.1.28.tar.bz2
+mono-5.18.1.28.tar.bz2 (5.18.0 missing msbuild)
 mono-5.20.1.34.tar.bz2
 mono-6.0.0.334.tar.xz
 mono-6.4.0.198.tar.xz

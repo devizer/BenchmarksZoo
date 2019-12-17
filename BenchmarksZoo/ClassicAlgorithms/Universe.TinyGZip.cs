@@ -1,5 +1,5 @@
 #pragma warning disable 642, 219, 618 
-﻿namespace Universe.TinyGZip.InternalImplementation
+ namespace Universe.TinyGZip.InternalImplementation
 {
     public sealed class Adler
     {
