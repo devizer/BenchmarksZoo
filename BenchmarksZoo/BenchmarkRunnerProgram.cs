@@ -62,8 +62,8 @@ namespace BenchmarksZoo
                 config.With(new EtwProfiler());
             }
 
-            // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
-            var summary = BenchmarkRunner.Run(typeof(SyncLatencyBenchmark), config);
+            var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
+            // var summary = BenchmarkRunner.Run(typeof(SyncLatencyBenchmark), config);
         }
 
         static bool IsMono()
