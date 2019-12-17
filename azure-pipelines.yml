@@ -117,8 +117,8 @@ jobs:
 
   - job: Windows
     variables:
-      OS: Linux
-      LLVM: 8
+      OS: Windows
+      LLVM: 9
     timeoutInMinutes: 199
     cancelTimeoutInMinutes: 1
     pool:
