@@ -57,8 +57,8 @@ namespace BenchmarksZoo
                 config.With(new EtwProfiler());
             }
 
-            // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config); 
-            var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
+            var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
+            // var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
         }
 
         static bool IsMono()
