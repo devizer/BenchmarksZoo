@@ -7,6 +7,12 @@ steps:
     displayName: 'install build tools'
 
   - bash: |
+      Say "Install LLVM"
+      wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
+      sudo bash /tmp/llvm.sh $LLVM
+    displayName: 'Install LLVM'
+
+  - bash: |
       if [[ "$MONO_VER" ]]; then
         Say "Purge Mono and Install $MONO_VER"
         for p in mono-runtime "libmono*" mono-jay msbuild nuget; do
@@ -53,12 +59,6 @@ steps:
       sudo apt list --upgradeable
     displayName: 'apt list --upgradeable'
     
-  - bash: |
-      Say "Install LLVM"
-      wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
-      sudo bash /tmp/llvm.sh $LLVM
-    displayName: 'Install LLVM'
-
   - bash: |
       # --Release?
       bash run-llvm.sh --Release | tee $BUILD_ARTIFACTSTAGINGDIRECTORY/Full-Log.txt
