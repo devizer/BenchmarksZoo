@@ -128,7 +128,7 @@ test_script:
 - ps: |
     Say "Benchmarks"
     pushd .
-    $Env:BENCHMARK_DURATION="Short"
+    $Env:BENCHMARK_DURATION="Release"
 
     if ($isWindows) 
     {
