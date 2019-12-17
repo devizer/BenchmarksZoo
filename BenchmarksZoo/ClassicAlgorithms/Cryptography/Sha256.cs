@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using BenchmarksZoo.ClassicAlgorithms.Cryptography;
 
@@ -268,13 +269,13 @@ namespace BenchmarksZoo.ClassicAlgorithms
             buffer[position] = (byte) (length);
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         void BlockCopy(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
         {
             if (Unsafe)
                 ByteBuffer.BlockCopy_Unsafe(src, srcOffset, dest, destOffset, count);
             else
                 ByteBuffer.BlockCopy_Slow(src, srcOffset, dest, destOffset, count);
-    
         }
 
     }

@@ -32,18 +32,14 @@
 //
 
 using System;
+using System.Runtime.CompilerServices;
 
 namespace BenchmarksZoo.ClassicAlgorithms.Cryptography
 {
 
-
-	public sealed class ByteBuffer
+	public static class ByteBuffer
 	{
-
-		private ByteBuffer()
-		{
-		}
-
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe void BlockCopy_Unsafe(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
 		{
 			ValidateArguments(src, srcOffset, dest, destOffset, count);
@@ -67,6 +63,7 @@ namespace BenchmarksZoo.ClassicAlgorithms.Cryptography
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void BlockCopy_Slow(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
 		{
 			ValidateArguments(src, srcOffset, dest, destOffset, count);
@@ -77,6 +74,7 @@ namespace BenchmarksZoo.ClassicAlgorithms.Cryptography
 			}
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static void ValidateArguments(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
 		{
 			if (src == null)
