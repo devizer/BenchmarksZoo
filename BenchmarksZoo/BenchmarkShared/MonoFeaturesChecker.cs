@@ -7,14 +7,14 @@ namespace BenchmarksShared
     {
         private const string CheckMonoFeaturesShell = @"
 dir=""$(mktemp -d)"";
-pushd ""$dir"" >/dev/null;
+cd ""$dir"" >/dev/null;
 echo 'class Z { public static void Main() { System.Console.WriteLine(""SUCCESSFUL COMPILATION""); }}' > class1.cs;
 {csc} /nologo /target:exe /out:class1.exe class1.cs;
 {mono} {mono-options} class1.exe;
 code=$?;
-echo ""exit code: $code"";
-rm -rf $dir 2>/dev/null
-popd >/dev/null
+# echo ""exit code: $code"";
+cd ""$HOME"" >/dev/null
+rm -rf ""$dir"" 2>/dev/null
 exit $code
 
 ";
