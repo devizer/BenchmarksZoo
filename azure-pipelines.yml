@@ -3,7 +3,7 @@
 # McOS 10.14: /112Gb
 
 variables:
-  BENCHMARK_DURATION: Release # Either Release | Short
+  BENCHMARK_DURATION: Short # Either Release | Short
   NET_VER: net462
 
 jobs:
