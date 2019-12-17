@@ -44,15 +44,16 @@ namespace BenchmarksZoo.ClassicAlgorithms.Cryptography
 		{
 		}
 
-		public static unsafe void BlockCopy(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
+		public static unsafe void BlockCopy_Unsafe(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
 		{
 			ValidateArguments(src, srcOffset, dest, destOffset, count);
 			
-			fixed(byte* argSrc = &src[0])
+			fixed (byte* argSrc = &src[0])
 			fixed (byte* argDest = &dest[0])
 			{
 				byte* ptrSrc = argSrc + srcOffset;
 				byte* ptrDest = argDest + destOffset;
+				
 				while (count >= 8)
 				{
 					*(long*) ptrDest = *(long*) ptrSrc;
@@ -62,7 +63,7 @@ namespace BenchmarksZoo.ClassicAlgorithms.Cryptography
 				}
 				
 				while (count-- > 0)
-					*ptrDest++ = *ptrSrc;
+					*ptrDest++ = *ptrSrc++;
 			}
 		}
 

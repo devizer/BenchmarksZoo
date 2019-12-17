@@ -33,106 +33,120 @@ namespace BenchmarksZoo.ClassicAlgorithms
 //
 
 
-namespace System.Security.Cryptography {
-    
-    public class CSharpSHA256 : SHA256 {
 
-        private const int BLOCK_SIZE_BYTES =  64;
-        private const int HASH_SIZE_BYTES  =  32;
+    public class CSharpSHA256 : SHA256
+    {
+
+        private const int BLOCK_SIZE_BYTES = 64;
+        private const int HASH_SIZE_BYTES = 32;
         private uint[] _H;
         private uint[] K;
         private ulong count;
-        private byte[] _ProcessingBuffer;   // Used to start data when passed less than a block worth.
+        private byte[] _ProcessingBuffer; // Used to start data when passed less than a block worth.
         private int _ProcessingBufferCount; // Counts how much data we have stored that still needs processed.
         private uint[] buff;
-    
-        public CSharpSHA256 () 
+
+        private readonly bool Unsafe;
+
+        public CSharpSHA256(bool @unsafe) : this()
+        {
+            Unsafe = @unsafe;
+        }
+
+        public CSharpSHA256()
         {
             _H = new uint [8];
             _ProcessingBuffer = new byte [BLOCK_SIZE_BYTES];
             buff = new uint[64];
-            Initialize ();
+            Initialize();
         }
 
-        private uint Ch (uint u, uint v, uint w) 
+        private uint Ch(uint u, uint v, uint w)
         {
-            return (u&v) ^ (~u&w);
+            return (u & v) ^ (~u & w);
         }
 
-        private uint Maj (uint u, uint v, uint w) 
+        private uint Maj(uint u, uint v, uint w)
         {
-            return (u&v) ^ (u&w) ^ (v&w);
+            return (u & v) ^ (u & w) ^ (v & w);
         }
 
-        private uint Ro0 (uint x) 
+        private uint Ro0(uint x)
         {
             return ((x >> 7) | (x << 25))
-                ^ ((x >> 18) | (x << 14))
-                ^ (x >> 3);
+                   ^ ((x >> 18) | (x << 14))
+                   ^ (x >> 3);
         }
 
-        private uint Ro1 (uint x) 
+        private uint Ro1(uint x)
         {
             return ((x >> 17) | (x << 15))
-                ^ ((x >> 19) | (x << 13))
-                ^ (x >> 10);
+                   ^ ((x >> 19) | (x << 13))
+                   ^ (x >> 10);
         }
 
-        private uint Sig0 (uint x) 
+        private uint Sig0(uint x)
         {
             return ((x >> 2) | (x << 30))
-                ^ ((x >> 13) | (x << 19))
-                ^ ((x >> 22) | (x << 10));
+                   ^ ((x >> 13) | (x << 19))
+                   ^ ((x >> 22) | (x << 10));
         }
 
-        private uint Sig1 (uint x) 
+        private uint Sig1(uint x)
         {
             return ((x >> 6) | (x << 26))
-                ^ ((x >> 11) | (x << 21))
-                ^ ((x >> 25) | (x << 7));
+                   ^ ((x >> 11) | (x << 21))
+                   ^ ((x >> 25) | (x << 7));
         }
 
-        protected override void HashCore (byte[] rgb, int start, int size) 
+        protected override void HashCore(byte[] rgb, int start, int size)
         {
             int i;
             State = 1;
 
-            if (_ProcessingBufferCount != 0) {
-                if (size < (BLOCK_SIZE_BYTES - _ProcessingBufferCount)) {
-                    ByteBuffer.BlockCopy (rgb, start, _ProcessingBuffer, _ProcessingBufferCount, size);
+            if (_ProcessingBufferCount != 0)
+            {
+                if (size < (BLOCK_SIZE_BYTES - _ProcessingBufferCount))
+                {
+                    BlockCopy(rgb, start, _ProcessingBuffer, _ProcessingBufferCount, size);
                     _ProcessingBufferCount += size;
                     return;
                 }
-                else {
+                else
+                {
                     i = (BLOCK_SIZE_BYTES - _ProcessingBufferCount);
-                    ByteBuffer.BlockCopy (rgb, start, _ProcessingBuffer, _ProcessingBufferCount, i);
-                    ProcessBlock (_ProcessingBuffer, 0);
+                    BlockCopy(rgb, start, _ProcessingBuffer, _ProcessingBufferCount, i);
+                    ProcessBlock(_ProcessingBuffer, 0);
                     _ProcessingBufferCount = 0;
                     start += i;
                     size -= i;
                 }
             }
 
-            for (i=0; i<size-size%BLOCK_SIZE_BYTES; i += BLOCK_SIZE_BYTES) {
-                ProcessBlock (rgb, start+i);
+            for (i = 0; i < size - size % BLOCK_SIZE_BYTES; i += BLOCK_SIZE_BYTES)
+            {
+                ProcessBlock(rgb, start + i);
             }
 
-            if (size%BLOCK_SIZE_BYTES != 0) {
-                ByteBuffer.BlockCopy (rgb, size-size%BLOCK_SIZE_BYTES+start, _ProcessingBuffer, 0, size%BLOCK_SIZE_BYTES);
-                _ProcessingBufferCount = size%BLOCK_SIZE_BYTES;
+            if (size % BLOCK_SIZE_BYTES != 0)
+            {
+                BlockCopy(rgb, size - size % BLOCK_SIZE_BYTES + start, _ProcessingBuffer, 0, size % BLOCK_SIZE_BYTES);
+                _ProcessingBufferCount = size % BLOCK_SIZE_BYTES;
             }
         }
-    
-        protected override byte[] HashFinal () 
+
+        protected override byte[] HashFinal()
         {
             byte[] hash = new byte[32];
             int i, j;
 
-            ProcessFinalBlock (_ProcessingBuffer, 0, _ProcessingBufferCount);
+            ProcessFinalBlock(_ProcessingBuffer, 0, _ProcessingBufferCount);
 
-            for (i=0; i<8; i++) {
-                for (j=0; j<4; j++) {
-                    hash[i*4+j] = (byte)(_H[i] >> (24-j*8));
+            for (i = 0; i < 8; i++)
+            {
+                for (j = 0; j < 4; j++)
+                {
+                    hash[i * 4 + j] = (byte) (_H[i] >> (24 - j * 8));
                 }
             }
 
@@ -140,11 +154,11 @@ namespace System.Security.Cryptography {
             return hash;
         }
 
-        public override void Initialize () 
+        public override void Initialize()
         {
             count = 0;
             _ProcessingBufferCount = 0;
-        
+
             _H[0] = 0x6A09E667;
             _H[1] = 0xBB67AE85;
             _H[2] = 0x3C6EF372;
@@ -155,24 +169,26 @@ namespace System.Security.Cryptography {
             _H[7] = 0x5BE0CD19;
         }
 
-        private void ProcessBlock (byte[] inputBuffer, int inputOffset) 
+        private void ProcessBlock(byte[] inputBuffer, int inputOffset)
         {
             uint a, b, c, d, e, f, g, h;
             uint t1, t2;
             int i;
-        
+
             count += BLOCK_SIZE_BYTES;
 
-            for (i=0; i<16; i++) {
-                buff[i] = ((uint)(inputBuffer[inputOffset+4*i]) << 24)
-                    | ((uint)(inputBuffer[inputOffset+4*i+1]) << 16)
-                    | ((uint)(inputBuffer[inputOffset+4*i+2]) <<  8)
-                    | ((uint)(inputBuffer[inputOffset+4*i+3]));
+            for (i = 0; i < 16; i++)
+            {
+                buff[i] = ((uint) (inputBuffer[inputOffset + 4 * i]) << 24)
+                          | ((uint) (inputBuffer[inputOffset + 4 * i + 1]) << 16)
+                          | ((uint) (inputBuffer[inputOffset + 4 * i + 2]) << 8)
+                          | ((uint) (inputBuffer[inputOffset + 4 * i + 3]));
             }
 
-        
-            for (i=16; i<64; i++) {
-                buff[i] = Ro1(buff[i-2]) + buff[i-7] + Ro0(buff[i-15]) + buff[i-16];
+
+            for (i = 16; i < 64; i++)
+            {
+                buff[i] = Ro1(buff[i - 2]) + buff[i - 7] + Ro0(buff[i - 15]) + buff[i - 16];
             }
 
             a = _H[0];
@@ -184,9 +200,10 @@ namespace System.Security.Cryptography {
             g = _H[6];
             h = _H[7];
 
-            for (i=0; i<64; i++) {
-                t1 = h + Sig1(e) + Ch(e,f,g) + SHAConstants.K1 [i] + buff[i];
-                t2 = Sig0(a) + Maj(a,b,c);
+            for (i = 0; i < 64; i++)
+            {
+                t1 = h + Sig1(e) + Ch(e, f, g) + SHAConstants.K1[i] + buff[i];
+                t2 = Sig0(a) + Maj(a, b, c);
                 h = g;
                 g = f;
                 f = e;
@@ -206,48 +223,60 @@ namespace System.Security.Cryptography {
             _H[6] += g;
             _H[7] += h;
         }
-    
-        private void ProcessFinalBlock (byte[] inputBuffer, int inputOffset, int inputCount) 
+
+        private void ProcessFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
         {
-            ulong total = count + (ulong)inputCount;
-            int paddingSize = (56 - (int)(total % BLOCK_SIZE_BYTES));
+            ulong total = count + (ulong) inputCount;
+            int paddingSize = (56 - (int) (total % BLOCK_SIZE_BYTES));
 
             if (paddingSize < 1)
                 paddingSize += BLOCK_SIZE_BYTES;
 
-            byte[] fooBuffer = new byte[inputCount+paddingSize+8];
+            byte[] fooBuffer = new byte[inputCount + paddingSize + 8];
 
-            for (int i=0; i<inputCount; i++) {
-                fooBuffer[i] = inputBuffer[i+inputOffset];
+            for (int i = 0; i < inputCount; i++)
+            {
+                fooBuffer[i] = inputBuffer[i + inputOffset];
             }
 
             fooBuffer[inputCount] = 0x80;
-            for (int i=inputCount+1; i<inputCount+paddingSize; i++) {
+            for (int i = inputCount + 1; i < inputCount + paddingSize; i++)
+            {
                 fooBuffer[i] = 0x00;
             }
 
             // I deal in bytes. The algorithm deals in bits.
             ulong size = total << 3;
-            AddLength (size, fooBuffer, inputCount+paddingSize);
-            ProcessBlock (fooBuffer, 0);
+            AddLength(size, fooBuffer, inputCount + paddingSize);
+            ProcessBlock(fooBuffer, 0);
 
-            if (inputCount+paddingSize+8 == 128) {
+            if (inputCount + paddingSize + 8 == 128)
+            {
                 ProcessBlock(fooBuffer, 64);
             }
         }
 
-        internal void AddLength (ulong length, byte[] buffer, int position)
+        internal void AddLength(ulong length, byte[] buffer, int position)
         {
-            buffer [position++] = (byte)(length >> 56);
-            buffer [position++] = (byte)(length >> 48);
-            buffer [position++] = (byte)(length >> 40);
-            buffer [position++] = (byte)(length >> 32);
-            buffer [position++] = (byte)(length >> 24);
-            buffer [position++] = (byte)(length >> 16);
-            buffer [position++] = (byte)(length >>  8);
-            buffer [position]   = (byte)(length);
+            buffer[position++] = (byte) (length >> 56);
+            buffer[position++] = (byte) (length >> 48);
+            buffer[position++] = (byte) (length >> 40);
+            buffer[position++] = (byte) (length >> 32);
+            buffer[position++] = (byte) (length >> 24);
+            buffer[position++] = (byte) (length >> 16);
+            buffer[position++] = (byte) (length >> 8);
+            buffer[position] = (byte) (length);
         }
+        
+        void BlockCopy(byte[] src, int srcOffset, byte[] dest, int destOffset, int count)
+        {
+            if (Unsafe)
+                ByteBuffer.BlockCopy_Unsafe(src, srcOffset, dest, destOffset, count);
+            else
+                ByteBuffer.BlockCopy_Slow(src, srcOffset, dest, destOffset, count);
+    
+        }
+
     }
-}
 
 }

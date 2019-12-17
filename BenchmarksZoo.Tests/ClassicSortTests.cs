@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using BenchmarksZoo;
 using BenchmarksZoo.ClassicAlgorithms;
-using BenchmarksZoo.ClassicAlgorithms.System.Security.Cryptography;
+using BenchmarksZoo.ClassicAlgorithms;
 using NUnit.Framework;
 
 namespace BenchmarksZee.Tests
@@ -38,16 +38,19 @@ namespace BenchmarksZee.Tests
         [Test]
         public void SmokeTest()
         {
-            foreach (var len in new[] { 0, 1, 2, 3, 1001, 1002, 1003, 42, 77 })
+            foreach (var fast in new[] {true, false})
             {
-                byte[] src = new byte[1024];
-                new Random(42).NextBytes(src);
-                CSharpSHA256 sha = new CSharpSHA256();
-                var actual = sha.ComputeHash(src);
-                var expected = SHA256.Create().ComputeHash(src);
-                CollectionAssert.AreEqual(expected, actual);
+                foreach (var len in new[] { 0, 1, 2, 3, 4, 5, 1001, 1002, 1003, 42, 77,256*1024})
+                {
+                    byte[] src = new byte[len];
+                    new Random(42).NextBytes(src);
+                    CSharpSHA256 sha = new CSharpSHA256(fast);
+                    var actual = sha.ComputeHash(src);
+                    var expected = SHA256.Create().ComputeHash(src);
+                    CollectionAssert.AreEqual(expected, actual, $"Src Size: {len} Unsafe:{fast}");
+                }
             }
-            
+
         }
         
     }
