@@ -7,5 +7,8 @@ mono $opts class1.exe
 code=$?
 echo "exit code: $code"
 rm -rf class1* 2>/dev/null
+dir=$(basename $(pwd))
+cd ..
+rm -rf $dir
 popd >/dev/null
 exit $code

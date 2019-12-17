@@ -6,6 +6,7 @@ using BenchmarkDotNet.Running;
 using System.Linq;
 using BenchmarkDotNet.Diagnostics.Windows;
 using BenchmarkDotNet.Exporters.Json;
+using BenchmarksShared;
 using Universe;
 
 namespace BenchmarksZoo
@@ -20,6 +21,8 @@ namespace BenchmarksZoo
             Func<string,bool> hasArgument = (name) => args.Any(x => x.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) >= 0);
             if (hasArgument("help"))
             {
+                Console.WriteLine($"MonoFeaturesChecker.IsMonoSupported:        {MonoFeaturesChecker.IsMonoSupported(null)}");
+                Console.WriteLine($"MonoFeaturesChecker.IsLlvmForMonoSupported: {MonoFeaturesChecker.IsLlvmForMonoSupported(null)}");
                 LoadedAssemblies.ShowManagedLibraries();
                 LoadedAssemblies.ShowNativeLibraries();
                 return;

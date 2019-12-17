@@ -1,7 +1,8 @@
 using System;
 using System.Diagnostics;
+using BenchmarksZoo;
 
-namespace BenchmarksZoo
+namespace BenchmarksShared
 {
     class LoadedAssemblies
     {
