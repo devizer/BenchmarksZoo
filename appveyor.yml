@@ -128,7 +128,7 @@ test_script:
 - ps: |
     Say "Benchmarks"
     pushd .
-    $Env:BENCHMARK_DURATION=Release
+    $Env:BENCHMARK_DURATION="Short"
 
     if ($isWindows) 
     {
@@ -138,7 +138,6 @@ test_script:
     } 
     else 
     {
-      
       bash run-llvm.sh --Release
     }
     popd
