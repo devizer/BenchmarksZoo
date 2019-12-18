@@ -33,10 +33,14 @@ namespace BenchmarksShared
                 b.CSharp_SHA256_Slow();
                 b.CSharp_SHA256_Unsafe();
             }
+            
             {
-                SynchronizationLatencyBenchmark b = new SynchronizationLatencyBenchmark();
-                b.SyncActionLatency_using_Tasks_and_Barrier(1).Wait();
+                AsyncLatencyBenchmark b = new AsyncLatencyBenchmark();
                 b.AwaitLatency().Wait();
+            }
+
+            {
+                new SyncParticipantsBenchmark().Using_Tasks_and_Barrier(1).Wait();
             }
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
