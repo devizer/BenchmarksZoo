@@ -5,9 +5,7 @@ image:
   - Visual Studio 2019
 
 environment:
-
   Project: "Benchmark zoo"
-
 
 skip_commits:
   files:
@@ -128,17 +126,17 @@ test_script:
 - ps: |
     Say "Benchmarks"
     pushd .
-    $Env:BENCHMARK_DURATION="Release"
+    $Env:BENCHMARK_DURATION="Short"
 
     if ($isWindows) 
     {
       pushd BenchmarksZoo
-      dotnet run -c Release -f netcoreapp2.2 -- --Release
+      dotnet run -c Release -f netcoreapp2.2
       popd
     } 
     else 
     {
-      bash run-llvm.sh --Release
+      bash run-llvm.sh
     }
     popd
 
