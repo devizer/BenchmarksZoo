@@ -50,8 +50,8 @@ if [[ "$PLUS_AOT" ]]; then
 fi
 
 mono --llvm --aot -O=all BenchmarksZoo.exe
-echo "DRY?"
-mono --llvm BenchmarksZoo.exe --dry
+# echo "DRY?"
+# mono --llvm BenchmarksZoo.exe --dry
 echo "RUNNING (BENCHMARK_DURATION is ${BENCHMARK_DURATION}) NET is ${NET_VER}...."
 mono --llvm BenchmarksZoo.exe --help \
    && sudo bash -c "PATH=$PATH mono --llvm BenchmarksZoo.exe ${BENCHMARK_DURATION}" \
