@@ -43,12 +43,13 @@ namespace BenchmarksZoo
             IConfig config = ManualConfig.Create(DefaultConfig.Instance);
             // Job jobLlvm = Job.InProcess;
 
-            if (IsMono())
-            {
-                Job jobLlvm = run.With(Jit.Llvm).With(MonoRuntime.Default).WithId("Llvm-ON").ConfigWarmUp();
-                Job jobNoLlvm = run.With(MonoRuntime.Default).WithId("Llvm-OFF").ConfigWarmUp();
-                config = config.With(new[] { jobLlvm, jobNoLlvm});
-            }
+            // Mono without LLVM?
+            if (IsMono() || MonoFeaturesChecker.IsMonoSupported())
+                config = config.With(new[] { run.With(Jit.LegacyJit).With(MonoRuntime.Default).WithId("Llvm-OFF").ConfigWarmUp()});
+
+            // Mono with LLVM?
+            if (IsMono() || MonoFeaturesChecker.IsLlvmForMonoSupported())
+                config = config.With(new[] { run.With(Jit.Llvm).With(MonoRuntime.Default).WithId("Llvm-ON").ConfigWarmUp()});
 
             if (NeedNetCore)
             {
