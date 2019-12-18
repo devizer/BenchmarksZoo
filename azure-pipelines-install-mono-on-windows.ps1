@@ -2,10 +2,12 @@
       & mono --version 
       & curl.exe --version 
       & curl.exe -L -o mono-x64.msi https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi
-      ls "c:\program files"
+      function monoExists { Test-Path "C:\Program Files\Mono\bin" };
+      Write-Host "[Before] Mono Installed: $(monoExists)";
 
       echo "RUNNING MSIEXEC"
       Start-Process "msiexec" @("/i", "mono-x64.msi", "/qn", "/L*v", "mono-installer-x64.log") -Wait
+      Write-Host "[After] Mono Installed: $(monoExists)";
       echo "TAIL of mono-installer-x64.log"
       # cat .\mono-installer-x64.log
       get-content .\mono-installer-x64.log -tail 1000 | where {-not ($_ -like 'Property*')}
