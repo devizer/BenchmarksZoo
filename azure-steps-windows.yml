@@ -12,6 +12,7 @@ steps:
       $ErrorActionPreference = "SilentlyContinue"
       & mono --version 
       & curl.exe --version 
+      Write-Host "Current Dir is $(pwd)"
       & curl.exe -L -o mono.msi https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi
       ls "c:\program files"
       echo "RUNNING MSIEXEC"
