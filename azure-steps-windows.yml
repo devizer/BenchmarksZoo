@@ -29,7 +29,7 @@ steps:
         $prev_user_path=[Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
         $new_user_path="$($prev_user_path)c:\program files\mono\bin"
         Write-Host "Prev User PATH: $prev_user_path"
-        Write-Host "Prev User PATH: $new_user_path"
+        Write-Host "NEW User PATH: $new_user_path"
         [Environment]::SetEnvironmentVariable("PATH", $new_user_path, [System.EnvironmentVariableTarget]::User)
       }
       & setx PATH "%PATH%;c:\program files\mono\bin"
