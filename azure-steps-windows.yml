@@ -12,15 +12,17 @@ steps:
       $ErrorActionPreference = "SilentlyContinue"
       & mono --version 
       & curl.exe --version 
-      Write-Host "Current Dir is $(pwd)"
       & curl.exe -L -o mono.msi https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi
       ls "c:\program files"
       echo "RUNNING MSIEXEC"
       & msiexec /i "mono.msi" /qn "/L*v" mono-installer.log
+      echo "Sleep 11"
+      Sleep 11
       & setx PATH "%PATH%;c:\program files\mono\bin"
       ls "c:\program files"
       & mono --version
       ""
+    displayName: 'install mono via powershell'
       
   - bash: |
       mono --version
@@ -33,7 +35,7 @@ steps:
       setx PATH "%PATH%;c:\program files\mono\bin"
       dir /b /s "c:\program files\mono"
       mono --version
-    displayName: 'install mono'
+    displayName: 'install mono via bash'
 
   - powershell: |
       mono --version
