@@ -46,7 +46,8 @@ namespace BenchmarksZoo
             MonoRuntime monoRuntime = MonoRuntime.Default;
             if (CrossInfo.ThePlatform == CrossInfo.Platform.Windows)
             {
-                monoRuntime = new MonoRuntime("The-Mono", @"C:\Program Files\Mono\bin\mono.exe");
+                var mono_top_dir = @"C:\Program Files\Mono";
+                monoRuntime = new MonoRuntime("The-Mono", @$"{mono_top_dir}\bin\mono.exe", "", $@"{mono_top_dir}\lib\mono\4.5");
             }
 
             // Mono without LLVM?
@@ -76,8 +77,8 @@ namespace BenchmarksZoo
                 config.With(new EtwProfiler());
             }
 
-            var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
-            // var summary = BenchmarkRunner.Run(typeof(SyncLatencyBenchmark), config);
+            // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
+            var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
         }
 
         static bool IsMono()
