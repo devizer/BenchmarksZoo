@@ -16,8 +16,9 @@ steps:
       ls "c:\program files"
       echo "RUNNING MSIEXEC"
       & msiexec /i "mono.msi" /qn "/L*v" mono-installer.log
-      echo "Sleep 11"
-      Sleep 11
+      echo "Sleep 20"
+      Sleep 20
+      cat .\mono-installer.log
       & setx PATH "%PATH%;c:\program files\mono\bin"
       ls "c:\program files"
       & mono --version
