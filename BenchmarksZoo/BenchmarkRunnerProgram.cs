@@ -13,7 +13,9 @@ namespace BenchmarksZoo
 {
     public static class BenchmarkRunnerProgram
     {
-        private static bool IsRelease;
+        private static bool IsMedium;
+        private static bool IsShort;
+        private static bool IsDry;
         private static bool NeedNetCore;
 
         static void Main(string[] args)
@@ -29,10 +31,14 @@ namespace BenchmarksZoo
             }
             
             NeedNetCore = !hasArgument("skip-net-core");
-            IsRelease = hasArgument("release");
-            
-            var run = IsRelease ? Job.MediumRun : Job.ShortRun;
-            if (hasArgument("dry")) run = Job.Dry;
+
+            IsMedium = hasArgument("medium");
+            IsShort = hasArgument("short");
+            IsDry = hasArgument("dry");
+
+            var run = Job.MediumRun;
+            if (IsDry) run = Job.Dry;
+            if (IsShort) run = Job.ShortRun;
             
             IConfig config = ManualConfig.Create(DefaultConfig.Instance);
             // Job jobLlvm = Job.InProcess;
@@ -74,8 +80,8 @@ namespace BenchmarksZoo
         
         public static Job ConfigWarmUp(this Job job)
         {
-            if (!IsRelease) 
-                job = job.WithWarmupCount(3).WithLaunchCount(1);
+            if (!IsShort) 
+                job = job.WithWarmupCount(1).WithLaunchCount(1).WithUnrollFactor(2);
             
             return job;
         }

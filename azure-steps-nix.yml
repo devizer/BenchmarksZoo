@@ -4,7 +4,18 @@ steps:
       script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
       export SAY_COLORLESS=true
       echo "##vso[task.setvariable variable=SAY_COLORLESS]$SAY_COLORLESS"
-    displayName: 'install build tools'
+    displayName: 'Install build tools'
+
+  - bash: |
+      try-and-retry dotnet tool install -g BenchmarkDotNet.Tool || true
+      Say "dotnet-benchmark version: $(./dotnet-benchmark --version)"
+    displayName: 'Install dotnet benchmark tool'
+
+  - bash: |
+      dotnet --info
+      curl -sSL https://dot.net/v1/dotnet-install.sh | sudo bash /dev/stdin -c 3.1 -i /usr/share/dotnet
+      dotnet --info
+    displayName: 'Install dotnet sdk 3.1'
 
   - bash: |
       Say "Install LLVM"
@@ -33,8 +44,6 @@ steps:
   - bash: |
       mono --version
       dotnet --info
-      curl -sSL https://dot.net/v1/dotnet-install.sh | sudo bash /dev/stdin -c 3.1 -i /usr/share/dotnet
-      dotnet --info
 
       Say "Memory"
       free -m
@@ -61,7 +70,7 @@ steps:
       sudo apt-get update -qq
       sudo apt list --upgradeable
     displayName: 'apt list --upgradeable'
-    
+
   - bash: |
       # --Release?
       bash run-llvm.sh --Release | tee $BUILD_ARTIFACTSTAGINGDIRECTORY/Full-Log.txt
