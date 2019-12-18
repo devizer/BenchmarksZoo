@@ -9,6 +9,11 @@ steps:
   - bash: |
       try-and-retry dotnet tool install -g BenchmarkDotNet.Tool || true
       Say "dotnet-benchmark version: $(dotnet-benchmark --version)"
+      Say "PATH (prev value) is [$PATH]"
+      export PATH="$PATH:$HOME/.dotnet/tools"
+      echo "##vso[task.setvariable variable=PATH]$PATH"
+      Say "dotnet-benchmark version again: $(dotnet-benchmark --version)"
+      Say "PATH (new value) is [$PATH]"
     displayName: 'Install dotnet benchmark tool'
 
   - bash: |
