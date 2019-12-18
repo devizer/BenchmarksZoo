@@ -19,11 +19,18 @@ steps:
       echo "Sleep 99"
       Sleep 99
       cat .\mono-installer.log
+      if (Test-Path "c:\program files\mono\bin") {
+        ls "c:\program files"
+        Write-Host "SHOW MONO VERSION"
+        $Env:PATH="$($Env:PATH);c:\program files\mono\bin"
+        & mono --version
+        $prev_user_path=[Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
+        $new_user_path="$($prev_user_path)c:\program files\mono\bin"
+        Write-Host "Prev User PATH: $prev_user_path"
+        Write-Host "Prev User PATH: $new_user_path"
+        [Environment]::SetEnvironmentVariable("PATH", $new_user_path, [System.EnvironmentVariableTarget]::User)
+      }
       & setx PATH "%PATH%;c:\program files\mono\bin"
-      ls "c:\program files"
-      Write-Host "SHOW MONO VERSION"
-      $Env:PATH="$($Env:PATH);c:\program files\mono\bin"
-      & mono --version
       ""
     displayName: 'install mono via powershell'
       
@@ -42,7 +49,7 @@ steps:
     displayName: 'install mono via bash'
 
   - powershell: |
-      mono --version
+      & mono --version
     displayName: 'check mono from powershell'
 
   - powershell: |
