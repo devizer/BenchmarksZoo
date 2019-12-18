@@ -13,13 +13,11 @@
       get-content .\mono-installer-x64.log -tail 1000 | where {-not ($_ -like 'Property*')}
       
       if (Test-Path "c:\program files\mono\bin") {
-        ls "c:\program files"
-        Write-Host "SHOW MONO VERSION"
         $temp_Path="$($Env:PATH);c:\program files\mono\bin"
         $Env:PATH=$tempPath
         echo "##vso[task.setvariable variable=PATH;isOutput=true]$temp_Path"
         echo "##vso[task.setvariable variable=PATH]$temp_Path"
-        & mono --version
+        & "c:\program files\mono\bin\mono" --version
 
         # User PATH 
         $prev_user_path=[Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
