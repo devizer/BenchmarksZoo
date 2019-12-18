@@ -22,7 +22,9 @@ steps:
       if (Test-Path "c:\program files\mono\bin") {
         ls "c:\program files"
         Write-Host "SHOW MONO VERSION"
-        $Env:PATH="$($Env:PATH);c:\program files\mono\bin"
+        $temp_Path="$($Env:PATH);c:\program files\mono\bin"
+        $Env:PATH=$tempPath
+        echo "##vso[task.setvariable variable=PATH;isOutput=true]$temp_Path"
         & mono --version
         $prev_user_path=[Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
         $new_user_path="$($prev_user_path)c:\program files\mono\bin"
