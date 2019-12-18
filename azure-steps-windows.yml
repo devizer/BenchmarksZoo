@@ -1,9 +1,11 @@
 steps:
 
   - bash: |
+      pushd /usr
       cmd /c "echo %CD%" || true
-      mono --version || true
-    displayName: 'show bash path'
+      popd
+      # mono --version || true
+    displayName: 'show /usr path'
 
   - powershell: |
       dotnet tool install -g BenchmarkDotNet.Tool
