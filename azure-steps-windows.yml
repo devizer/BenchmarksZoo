@@ -14,8 +14,10 @@ steps:
       curl -L -o mono.msi https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi
       ls -la "c:\program files"
       echo "RUNNING MSIEXEC"
-      msiexec /i "mono.msi" /qn /L*v mono-installer.log
+      msiexec /i "mono.msi" /qn "/L*v" mono-installer.log
+      setx PATH "%PATH%;c:\program files\mono\bin"
       ls -la "c:\program files"
+      mono --version
       true
     displayName: 'install mono'
 
