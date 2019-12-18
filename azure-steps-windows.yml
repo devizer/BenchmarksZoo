@@ -21,6 +21,8 @@ steps:
       cat .\mono-installer.log
       & setx PATH "%PATH%;c:\program files\mono\bin"
       ls "c:\program files"
+      Write-Host "SHOW MONO VERSION"
+      $Env:PATH="$($Env:PATH);c:\program files\mono\bin"
       & mono --version
       ""
     displayName: 'install mono via powershell'
