@@ -29,6 +29,12 @@ steps:
       pushd BenchmarksZoo
       dotnet run -c Release -f netcoreapp2.2 -- --dry
       popd
+    displayName: 'DRY run using dotnet'
+
+  - powershell: |
+      pushd BenchmarksZoo
+      dotnet run -c Release -f netcoreapp2.2 -- --dry
+      popd
     displayName: 'DRY run'
 
   - powershell: |
