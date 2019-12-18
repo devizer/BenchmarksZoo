@@ -2,7 +2,8 @@ steps:
 
   - bash: |
       pushd /usr
-      cmd /c "echo %CD%" || true
+      pwd2=$(cmd.exe /c "echo %CD%")
+      echo "/usr is $pwd2"
       popd
       # mono --version || true
     displayName: 'show /usr path'
