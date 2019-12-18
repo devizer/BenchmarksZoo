@@ -8,6 +8,14 @@ steps:
       # mono --version || true
     displayName: 'show /usr path'
 
+  - bash: |
+      mono --version
+    displayName: 'check mono from bash'
+
+  - powershell: |
+      mono --version
+    displayName: 'check mono from powershell'
+
   - powershell: |
       dotnet tool install -g BenchmarkDotNet.Tool
       dotnet-benchmark --version
