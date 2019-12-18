@@ -32,6 +32,7 @@ namespace BenchmarksZoo
             IsRelease = hasArgument("release");
             
             var run = IsRelease ? Job.MediumRun : Job.ShortRun;
+            if (hasArgument("dry")) run = Job.Dry;
             
             IConfig config = ManualConfig.Create(DefaultConfig.Instance);
             // Job jobLlvm = Job.InProcess;
