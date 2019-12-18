@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace BenchmarksShared
 {
@@ -71,6 +72,7 @@ namespace BenchmarksShared
                 }
             }
 
+            ret = ret.OrderBy(x => x).ToList();
             return ret;
         }
 
