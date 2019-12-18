@@ -4,6 +4,11 @@ steps:
       pushd BenchmarksZoo
       dotnet run -c Release -f netcoreapp2.2 -- help
       dotnet run -c Release -f netcoreapp2.2 -- dry
+      popd
+    displayName: 'HELP'
+
+  - powershell: |
+      pushd BenchmarksZoo
       dotnet run -c Release -f netcoreapp2.2 -- "$($Env:BENCHMARK_DURATION)"
       popd
     displayName: 'Benchmark All (BENCHMARK_DURATION is $(BENCHMARK_DURATION))'
