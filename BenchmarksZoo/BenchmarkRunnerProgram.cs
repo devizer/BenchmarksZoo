@@ -49,12 +49,14 @@ namespace BenchmarksZoo
                 monoRuntime = new MonoRuntime("The-Mono", @$"{mono_top_dir}\bin\mono.exe", "", $@"{mono_top_dir}\lib\mono\4.5");
             }
 
+            bool isWindows = CrossInfo.ThePlatform == CrossInfo.Platform.Windows;
+
             // Mono without LLVM?
-            if (IsMono() || MonoFeaturesChecker.IsMonoSupported())
+            if (!isWindows && (IsMono() || MonoFeaturesChecker.IsMonoSupported()))
                 config = config.With(new[] {run.With(monoRuntime).WithId("Llvm-OFF").ConfigWarmUp()});
 
             // Mono with LLVM?
-            if (IsMono() || MonoFeaturesChecker.IsLlvmForMonoSupported())
+            if (!isWindows && (IsMono() || MonoFeaturesChecker.IsLlvmForMonoSupported()))
                 config = config.With(new[] {run.With(Jit.Llvm).With(monoRuntime).WithId("Llvm-ON").ConfigWarmUp()});
 
             if (NeedNetCore)
