@@ -17,7 +17,9 @@ steps:
 
       echo "RUNNING MSIEXEC"
       Start-Process "msiexec" @("/i", "mono-x64.msi", "/qn", "/L*v", "mono-installer-x64.log") -Wait
-      cat .\mono-installer-x64.log
+      echo "TAIL of mono-installer-x64.log"
+      # cat .\mono-installer-x64.log
+      get-content .\mono-installer-x64.log -tail 1000 | where {-not ($_ -like 'Property*')}
       
       if (Test-Path "c:\program files\mono\bin") {
         ls "c:\program files"
