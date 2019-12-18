@@ -9,6 +9,7 @@ steps:
     displayName: 'show /usr path'
 
   - powershell: |
+      $ErrorActionPreference = "SilentlyContinue"
       & mono --version 
       & curl.exe --version 
       & curl.exe -L -o mono.msi https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi
