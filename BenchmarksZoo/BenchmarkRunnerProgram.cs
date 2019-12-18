@@ -43,23 +43,18 @@ namespace BenchmarksZoo
             // Job jobLlvm = Job.InProcess;
 
             MonoRuntime monoRuntime = MonoRuntime.Default;
-            if (false && CrossInfo.ThePlatform == CrossInfo.Platform.Windows)
-            {
-                var mono_top_dir = @"C:\Program Files\Mono";
-                monoRuntime = new MonoRuntime("The-Mono", @$"{mono_top_dir}\bin\mono.exe", "", $@"{mono_top_dir}\lib\mono\4.5");
-            }
 
             bool isWindows = CrossInfo.ThePlatform == CrossInfo.Platform.Windows;
 
-            // Mono without LLVM?
-            // if (!isWindows && (IsMono() || MonoFeaturesChecker.IsMonoSupported()))
             if (IsMono())
+            {
                 config = config.With(new[] {run.With(monoRuntime).WithId("Llvm-OFF").ConfigWarmUp()});
-
-            // Mono with LLVM?
-            // if (!isWindows && (IsMono() || MonoFeaturesChecker.IsLlvmForMonoSupported()))
-            if (IsMono())
                 config = config.With(new[] {run.With(Jit.Llvm).With(monoRuntime).WithId("Llvm-ON").ConfigWarmUp()});
+            }
+                
+
+            if (IsMono())
+                
 
             if (NeedNetCore)
             {
