@@ -1,5 +1,10 @@
 steps:
 
+  - bash: |
+      cmd /c "echo %CD%" || true
+      mono --version || true
+    displayName: 'show bash path'
+
   - powershell: |
       dotnet tool install -g BenchmarkDotNet.Tool
       dotnet-benchmark --version
