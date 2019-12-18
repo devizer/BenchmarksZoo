@@ -1,6 +1,7 @@
       $ErrorActionPreference = "SilentlyContinue"
       & mono --version 
       & curl.exe --version 
+      Write-Host "Downloading mono msi installer"
       & curl.exe -L -o mono-x64.msi https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi
       function monoExists { Test-Path "C:\Program Files\Mono\bin" };
       Write-Host "[Before] Mono Installed: $(monoExists)";
@@ -33,6 +34,5 @@
         Write-Host "NEW  System PATH: $new_System_path"
         [Environment]::SetEnvironmentVariable("PATH", $new_System_path, [System.EnvironmentVariableTarget]::Machine)
 
-        & setx PATH "%PATH%;c:\program files\mono\bin"
       }
       ""
