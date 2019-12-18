@@ -16,8 +16,8 @@ steps:
       ls "c:\program files"
       echo "RUNNING MSIEXEC"
       & msiexec /i "mono.msi" /qn "/L*v" mono-installer.log
-      echo "Sleep 20"
-      Sleep 20
+      echo "Sleep 99"
+      Sleep 99
       cat .\mono-installer.log
       & setx PATH "%PATH%;c:\program files\mono\bin"
       ls "c:\program files"
@@ -36,6 +36,7 @@ steps:
       setx PATH "%PATH%;c:\program files\mono\bin"
       dir /b /s "c:\program files\mono"
       mono --version
+    condition: false
     displayName: 'install mono via bash'
 
   - powershell: |
