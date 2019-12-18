@@ -35,7 +35,7 @@ namespace BenchmarksShared
             }
             {
                 SynchronizationLatencyBenchmark b = new SynchronizationLatencyBenchmark();
-                b.SyncActionLatency_using_Tasks_and_Barrier(1);
+                b.SyncActionLatency_using_Tasks_and_Barrier(1).Wait();
                 b.AwaitLatency().Wait();
             }
 

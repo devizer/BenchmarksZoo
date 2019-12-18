@@ -4,7 +4,6 @@ using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 using System.Linq;
-using BenchmarkDotNet.Diagnostics.Windows;
 using BenchmarkDotNet.Exporters.Json;
 using BenchmarksShared;
 using Universe;
@@ -20,7 +19,7 @@ namespace BenchmarksZoo
 
         static void Main(string[] args)
         {
-            Func<string,bool> hasArgument = (name) => args.Any(x => x.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) >= 0);
+            Func<string, bool> hasArgument = (name) => args.Any(x => x.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) >= 0);
             if (hasArgument("help"))
             {
                 Console.WriteLine($"MonoFeaturesChecker.IsMonoSupported:        {MonoFeaturesChecker.IsMonoSupported(null)}");
@@ -29,7 +28,7 @@ namespace BenchmarksZoo
                 LoadedAssemblies.ShowNativeLibraries();
                 return;
             }
-            
+
             NeedNetCore = !hasArgument("skip-net-core");
 
             IsMedium = hasArgument("medium");
@@ -39,7 +38,7 @@ namespace BenchmarksZoo
             var run = Job.MediumRun;
             if (IsDry) run = Job.Dry;
             if (IsShort) run = Job.ShortRun;
-            
+
             IConfig config = ManualConfig.Create(DefaultConfig.Instance);
             // Job jobLlvm = Job.InProcess;
 
@@ -52,11 +51,11 @@ namespace BenchmarksZoo
 
             // Mono without LLVM?
             if (IsMono() || MonoFeaturesChecker.IsMonoSupported())
-                config = config.With(new[] { run.With(monoRuntime).WithId("Llvm-OFF").ConfigWarmUp()});
+                config = config.With(new[] {run.With(monoRuntime).WithId("Llvm-OFF").ConfigWarmUp()});
 
             // Mono with LLVM?
             if (IsMono() || MonoFeaturesChecker.IsLlvmForMonoSupported())
-                config = config.With(new[] { run.With(Jit.Llvm).With(monoRuntime).WithId("Llvm-ON").ConfigWarmUp()});
+                config = config.With(new[] {run.With(Jit.Llvm).With(monoRuntime).WithId("Llvm-ON").ConfigWarmUp()});
 
             if (NeedNetCore)
             {
@@ -69,13 +68,8 @@ namespace BenchmarksZoo
             if (CrossInfo.ThePlatform == CrossInfo.Platform.Windows)
                 config = config.With(run.With(ClrRuntime.Net47).WithId("NETFW-47").ConfigWarmUp());
 
-            config = config.With(JsonExporter.Custom(fileNameSuffix:"-full", indentJson: true, excludeMeasurements: false));
-            config = config.With(JsonExporter.Custom(fileNameSuffix:"-brief", indentJson: true, excludeMeasurements: true));
-
-            if (CrossInfo.ThePlatform == CrossInfo.Platform.Windows)
-            {
-                config.With(new EtwProfiler());
-            }
+            config = config.With(JsonExporter.Custom(fileNameSuffix: "-full", indentJson: true, excludeMeasurements: false));
+            config = config.With(JsonExporter.Custom(fileNameSuffix: "-brief", indentJson: true, excludeMeasurements: true));
 
             // var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
             var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
@@ -85,14 +79,13 @@ namespace BenchmarksZoo
         {
             return Type.GetType("Mono.Runtime", false) != null;
         }
-        
+
         public static Job ConfigWarmUp(this Job job)
         {
-            if (IsShort) 
+            if (IsShort)
                 job = job.WithWarmupCount(1).WithLaunchCount(1).WithUnrollFactor(2);
-            
+
             return job;
         }
     }
-
 }
