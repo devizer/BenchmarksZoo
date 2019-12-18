@@ -52,10 +52,6 @@ namespace BenchmarksZoo
                 config = config.With(new[] {run.With(Jit.Llvm).With(monoRuntime).WithId("Llvm-ON").ConfigWarmUp()});
             }
                 
-
-            if (IsMono())
-                
-
             if (NeedNetCore)
             {
                 Job jobCore22 = run.With(Jit.RyuJit).With(CoreRuntime.Core22).WithId($"Net Core 2.2").ConfigWarmUp();
