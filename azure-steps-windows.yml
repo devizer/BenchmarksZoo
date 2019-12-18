@@ -12,13 +12,13 @@ steps:
       $ErrorActionPreference = "SilentlyContinue"
       & mono --version 
       & curl.exe --version 
-      & curl.exe -L -o mono.msi https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi
+      & curl.exe -L -o mono-x64.msi https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi
       ls "c:\program files"
+
       echo "RUNNING MSIEXEC"
-      & msiexec /i "mono.msi" /qn "/L*v" mono-installer.log -Wait
-      # echo "Sleep 99"; Sleep 99
+      Start-Process "msiexec" @("/i", "mono-x64.msi", "/qn", "/L*v", "mono-installer-x64.log") -Wait
+      cat .\mono-installer-x64.log
       
-      cat .\mono-installer.log
       if (Test-Path "c:\program files\mono\bin") {
         ls "c:\program files"
         Write-Host "SHOW MONO VERSION"
@@ -41,9 +41,9 @@ steps:
         Write-Host "Prev System PATH: $prev_System_path"
         Write-Host "NEW  System PATH: $new_System_path"
         [Environment]::SetEnvironmentVariable("PATH", $new_System_path, [System.EnvironmentVariableTarget]::Machine)
-      
+
+        & setx PATH "%PATH%;c:\program files\mono\bin"
       }
-      & setx PATH "%PATH%;c:\program files\mono\bin"
       ""
     displayName: 'install mono via powershell'
       
