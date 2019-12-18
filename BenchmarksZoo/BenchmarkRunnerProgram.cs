@@ -52,7 +52,7 @@ namespace BenchmarksZoo
 
             // Mono without LLVM?
             if (IsMono() || MonoFeaturesChecker.IsMonoSupported())
-                config = config.With(new[] { run.With(Jit.LegacyJit).With(monoRuntime).WithId("Llvm-OFF").ConfigWarmUp()});
+                config = config.With(new[] { run.With(monoRuntime).WithId("Llvm-OFF").ConfigWarmUp()});
 
             // Mono with LLVM?
             if (IsMono() || MonoFeaturesChecker.IsLlvmForMonoSupported())
