@@ -1,10 +1,15 @@
 steps:
 
   - powershell: |
+      dotnet tool install -g BenchmarkDotNet.Tool
+      dotnet-benchmark --version
+    displayName: 'Install dotnet benchmark tool'
+
+  - powershell: |
       pushd BenchmarksZoo
       dotnet run -c Release -f netcoreapp2.2 -- help
       popd
-    displayName: 'HELP'
+    displayName: 'Run --HELP'
 
   - powershell: |
       pushd BenchmarksZoo

@@ -80,7 +80,7 @@ namespace BenchmarksZoo
         
         public static Job ConfigWarmUp(this Job job)
         {
-            if (!IsShort) 
+            if (IsShort) 
                 job = job.WithWarmupCount(1).WithLaunchCount(1).WithUnrollFactor(2);
             
             return job;
