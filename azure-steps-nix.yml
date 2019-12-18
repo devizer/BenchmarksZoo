@@ -8,7 +8,7 @@ steps:
 
   - bash: |
       try-and-retry dotnet tool install -g BenchmarkDotNet.Tool || true
-      Say "dotnet-benchmark version: $(./dotnet-benchmark --version)"
+      Say "dotnet-benchmark version: $(dotnet-benchmark --version)"
     displayName: 'Install dotnet benchmark tool'
 
   - bash: |
