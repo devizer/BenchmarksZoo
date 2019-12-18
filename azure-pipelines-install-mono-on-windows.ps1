@@ -16,6 +16,7 @@ Function Download-and-Install-Mono
     # Write-Host "[After] Mono Installed: $(monoExists)";
     echo "TAIL of mono-installer-x64.log"
     get-content .\mono-installer-x64.log -tail 1000 | where {-not ($_ -like 'Property*')}
+    rm mono-x64.msi -force
 }
 
 function Patch-Path-to-Mono
