@@ -1,13 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Diagnostics.Windows.Configs;
 
 namespace BenchmarksZoo
 {
     [RankColumn]
     [MemoryDiagnoser]
-    [NativeMemoryProfiler]
+    /*[NativeMemoryProfiler]*/
     public class AsyncLatencyBenchmark
     {
 

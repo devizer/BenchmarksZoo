@@ -1,14 +1,13 @@
 using System;
 using System.Security.Cryptography;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Diagnostics.Windows.Configs;
 using BenchmarksZoo.ClassicAlgorithms;
 
 namespace BenchmarksZoo
 {
     [RankColumn]
     [MemoryDiagnoser]
-    [NativeMemoryProfiler]
+    /*[NativeMemoryProfiler]*/
     public class Sha256Benchmark
     {
         private byte[] Content;
