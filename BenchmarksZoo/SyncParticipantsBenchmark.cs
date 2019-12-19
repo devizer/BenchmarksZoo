@@ -1,11 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Diagnostics.Windows.Configs;
 
 namespace BenchmarksZoo
 {
     [RankColumn]
     [MemoryDiagnoser]
+    [NativeMemoryProfiler]
     public class SyncParticipantsBenchmark
     {
 

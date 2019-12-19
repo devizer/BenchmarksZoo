@@ -1,12 +1,14 @@
 using System;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Diagnostics.Windows.Configs;
 using BenchmarksZoo.ClassicAlgorithms;
 
 namespace BenchmarksZoo
 {
     [RankColumn]
     [MemoryDiagnoser]
+    [NativeMemoryProfiler]
     public class SortingBenchmark
     {
         User[] Users = null;

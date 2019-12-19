@@ -67,7 +67,7 @@ namespace BenchmarksZoo
             config = config.With(JsonExporter.Custom(fileNameSuffix: "-brief", indentJson: true, excludeMeasurements: true));
 
             var summary = BenchmarkRunner.Run(typeof(BenchmarkRunnerProgram).Assembly, config);
-            // var summary = BenchmarkRunner.Run(typeof(PiBenchmark), config);
+            // var summary = BenchmarkRunner.Run(typeof(SyncParticipantsBenchmark), config);
         }
 
         static bool IsMono()

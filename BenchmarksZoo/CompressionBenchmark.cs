@@ -2,11 +2,13 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Diagnostics.Windows.Configs;
 
 namespace BenchmarksZoo
 {
     [RankColumn]
     [MemoryDiagnoser]
+    [NativeMemoryProfiler]
     public class CompressionBenchmark
     {
         
