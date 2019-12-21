@@ -21,7 +21,7 @@ namespace BenchmarksZoo
         [Benchmark(Description = "Enumerable.OrderBy")]
         public void Enumerable_OrderBy()
         {
-            var sorted = Users.OrderBy(x => x.Name).ToArray();
+            var sorted = Users.OrderBy(x => x.Name, StringComparer.Ordinal).ToArray();
         }
 
         [Benchmark(Description = "QuickSorter<T>.Sort")]
