@@ -82,6 +82,28 @@ jobs:
     steps:
       - template: azure-steps-nix.yml
 
+  - job: Bionic_LLVM_10
+    variables:
+      OS: Linux
+      LLVM: 10
+    timeoutInMinutes: 599
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+      - template: azure-steps-nix.yml
+
+  - job: Bionic_LLVM_11
+    variables:
+      OS: Linux
+      LLVM: 11
+    timeoutInMinutes: 599
+    cancelTimeoutInMinutes: 1
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+      - template: azure-steps-nix.yml
+
   - job: Xenial_LLVM_9_PLUS_AOT
     variables:
       OS: Linux
@@ -102,17 +124,6 @@ jobs:
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
-    steps:
-      - template: azure-steps-nix.yml
-
-  - job: Bionic_LLVM_10
-    variables:
-      OS: Linux
-      LLVM: 10
-    timeoutInMinutes: 599
-    cancelTimeoutInMinutes: 1
-    pool:
-      vmImage: 'ubuntu-18.04'
     steps:
       - template: azure-steps-nix.yml
 
