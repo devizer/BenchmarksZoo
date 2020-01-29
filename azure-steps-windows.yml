@@ -2,7 +2,7 @@ steps:
 
   - bash: |
       pushd /usr
-      pwd2=$(cmd.exe /c "echo %CD%")
+      pwd2=$(powershell -c [Environment]::CurrentDirectory)
       echo "/usr is $pwd2"
       popd
       # mono --version || true
