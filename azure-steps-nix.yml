@@ -30,7 +30,7 @@ steps:
         wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
         sudo bash /tmp/llvm.sh $LLVM
       fi;
-      llvm --version
+      [[ -n "$LLVM" ]] && llvm --version
     displayName: 'Install LLVM'
 
   - bash: |
