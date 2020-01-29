@@ -27,6 +27,7 @@ steps:
       wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
       sudo bash /tmp/llvm.sh $LLVM
       if [ $LLVM -ge 10 ]; then bash install-llvm-on-debian-derivative.sh $LLVM; fi;
+      llvm --version
     displayName: 'Install LLVM'
 
   - bash: |
