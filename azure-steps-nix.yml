@@ -23,14 +23,15 @@ steps:
     displayName: 'Install dotnet sdk 3.1'
 
   - bash: |
-      Say "Install LLVM"
+      Say "Install LLVM [$LLVM]"
       if [ $LLVM -ge 10 ]; then 
         bash install-llvm-on-debian-derivative.sh $LLVM; 
       elif [ $LLVM -gt 0 ]; then 
         wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
         sudo bash /tmp/llvm.sh $LLVM
       fi;
-      # [[ -n "$LLVM" ]] && lldb --version
+      [[ -n "$LLVM" ]] && lldb --version
+      true
     displayName: 'Install LLVM'
 
   - bash: |
