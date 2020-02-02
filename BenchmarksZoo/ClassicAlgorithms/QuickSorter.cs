@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -8,7 +9,7 @@ namespace BenchmarksZoo.ClassicAlgorithms
 
         public static void QuickSort(T[] keys, IComparer<T> comparer)
         {
-            if (keys.Length == 0) return;
+            if (keys.Length <= 1) return;
             QuickSort(keys, 0, keys.Length - 1, comparer);
         }
         
