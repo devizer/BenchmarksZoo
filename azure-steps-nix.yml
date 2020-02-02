@@ -80,7 +80,7 @@ steps:
   - bash: |
       sudo apt-get update -qq
       sudo apt list --upgradeable
-      condition: ne(variables['OS'], 'OSX')
+    condition: ne(variables['OS'], 'OSX')
     displayName: 'apt list --upgradeable'
 
   - bash: |
