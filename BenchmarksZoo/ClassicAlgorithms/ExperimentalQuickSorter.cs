@@ -28,7 +28,12 @@ namespace BenchmarksZoo.ClassicAlgorithms
 #endif
 
             var sw = Stopwatch.StartNew();
+#if _MonoCS_ || true
+            SortingPortion[] portions = new SortingPortion[numThreads];
+#else 
             Span<SortingPortion> portions = stackalloc SortingPortion[numThreads];
+#endif
+
             CountdownEvent done = new CountdownEvent(numThreads);
             int left = 0;
             for (int t = 0; t < numThreads; t++)
