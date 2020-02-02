@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using BenchmarksZoo.ClassicAlgorithms;
 using NUnit.Framework;
 
-namespace BenchmarksZee.Tests
+namespace BenchmarksZoo.Tests
 {
     public class ClassicSha256Tests
     {

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarksZoo.ClassicAlgorithms;
+using Universe;
 
 namespace BenchmarksZoo
 {
@@ -10,15 +11,18 @@ namespace BenchmarksZoo
     /*[NativeMemoryProfiler]*/
     public class SortingBenchmark
     {
+        [Params(543, 1000*1000)]
+        public int ArraySize { get; set; }
+        
         User[] Users = null;
 
         [GlobalSetup]
         public void GlobalSetup()
         {
-            Users = User.Generate(543);
+            Users = User.Generate(ArraySize);
             QuickSort_NET20_2Threads();
             QuickSort_NET20_4Threads();
-
+            ThreadPoolHeating.HeatThreadPool(12);
         }
 
         [Benchmark(Description = "Enumerable.OrderBy")]

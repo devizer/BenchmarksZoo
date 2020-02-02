@@ -3,7 +3,7 @@ using BenchmarksZoo;
 using BenchmarksZoo.ClassicAlgorithms;
 using NUnit.Framework;
 
-namespace BenchmarksZee.Tests
+namespace BenchmarksZoo.Tests
 {
     public class ClassicSortTests
     {
