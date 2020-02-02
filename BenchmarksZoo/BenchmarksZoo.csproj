@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFrameworks>netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>netcoreapp2.2;netcoreapp3.0;netcoreapp3.1;net47;net462</TargetFrameworks>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <NoWarn>CS0169;CS1998;CS0219</NoWarn>
         <LangVersion>7</LangVersion>
