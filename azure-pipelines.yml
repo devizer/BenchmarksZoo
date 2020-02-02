@@ -82,14 +82,14 @@ jobs:
     steps:
       - template: azure-steps-nix.yml
 
-  - job: Bionic_LLVM_10
+  - job: MacOS_Mojave
     variables:
-      OS: Linux
-      LLVM: 10
+      OS: OSX
+      FIO_BENCHMARK_WORKING: 'sudo bash fio-benchmark.sh "Home OSX Folder" "$HOME" 32G 120 30'
     timeoutInMinutes: 599
     cancelTimeoutInMinutes: 1
     pool:
-      vmImage: 'ubuntu-18.04'
+      vmImage: 'macos-10.14'
     steps:
       - template: azure-steps-nix.yml
 
