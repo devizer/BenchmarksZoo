@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # work=$HOME/build/devizer; mkdir -p $work; cd $work; git clone https://github.com/devizer/BenchmarksZoo; cd BenchmarksZoo; git pull; bash run-llvm.sh 
 
+if [ -f /usr/share/dotnet/dotnet ]; then export PATH="/usr/share/dotnet:$PATH"; fi
+
 BENCHMARK_DURATION=${BENCHMARK_DURATION:-Short}
 NET_VER=${NET_VER:-net47}
 
