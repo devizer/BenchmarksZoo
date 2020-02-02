@@ -11,7 +11,7 @@ namespace BenchmarksZoo.ClassicAlgorithms
     public class ExperimentalQuickSorter<T>
     {
 
-        public static void QuickSort(T[] keys, IComparer<T> comparer, int? concurrencyLimit = null)
+        public static unsafe void QuickSort(T[] keys, IComparer<T> comparer, int? concurrencyLimit = null)
         {
             if (!concurrencyLimit.HasValue) concurrencyLimit = Environment.ProcessorCount;
             if (keys.Length <= 1) return;
@@ -29,8 +29,9 @@ namespace BenchmarksZoo.ClassicAlgorithms
 
             var sw = Stopwatch.StartNew();
 #if _MonoCS_ || true
-            SortingPortion[] portions = new SortingPortion[numThreads];
+            SortingPortion* portions = stackalloc SortingPortion[numThreads];
 #else 
+            // NET Core
             Span<SortingPortion> portions = stackalloc SortingPortion[numThreads];
 #endif
 
@@ -53,7 +54,6 @@ namespace BenchmarksZoo.ClassicAlgorithms
                 left += step;
 
             }
-
             done.Wait();
             long msecState1 = sw.ElapsedMilliseconds;
             sw = Stopwatch.StartNew();
@@ -81,13 +81,15 @@ namespace BenchmarksZoo.ClassicAlgorithms
 
                 if (minPortion == null)
                 {
-                    var info = string.Join(Environment.NewLine, portions.ToArray().Select((x,i) => $"    {i,-3}:  {x.Left,-5} ... {x.Right,-5}"));
+                    SortingPortion[] portionsCopy = new SortingPortion[numThreads];
+                    for (int ix = 0; ix < numThreads; ix++) portionsCopy[ix] = portions[ix];
+                    var info = string.Join(Environment.NewLine, portionsCopy.Select((x,i) => $"    {i,-3}:  {x.Left,-5} ... {x.Right,-5}"));
                     throw new InvalidOperationException($"Welcome the a hell. Array length is {keys.Length}. Pos: {pos}{Environment.NewLine}{info}");
                 }
 
                 {
                     var index = portions[minPortion.Value].Left;
-                    portions[minPortion.Value].Left = portions[minPortion.Value].Left + 1;
+                    portions[minPortion.Value].Left = index + 1;
                     copy[pos] = keys[index];
                 }
 
