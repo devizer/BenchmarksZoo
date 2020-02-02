@@ -16,6 +16,9 @@ namespace BenchmarksZoo
         public void GlobalSetup()
         {
             Users = User.Generate(543);
+            QuickSort_NET20_2Threads();
+            QuickSort_NET20_4Threads();
+
         }
 
         [Benchmark(Description = "Enumerable.OrderBy")]
@@ -32,7 +35,7 @@ namespace BenchmarksZoo
             QuickSorter<User>.QuickSort(copy, User.ComparerByName);
         }
         
-        [Benchmark(Description = "QuickSorter<T>.Sort * 2 Threads")]
+        [Benchmark(Description = "QuickSorter<T>.Sort[2Threads]")]
         public void QuickSort_NET20_2Threads()
         {
             User[] copy = new User[Users.Length];
@@ -40,7 +43,7 @@ namespace BenchmarksZoo
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 2);
         }
         
-        [Benchmark(Description = "QuickSorter<T>.Sort * 4 Threads")]
+        [Benchmark(Description = "QuickSorter<T>.Sort[4Threads]")]
         public void QuickSort_NET20_4Threads()
         {
             User[] copy = new User[Users.Length];
