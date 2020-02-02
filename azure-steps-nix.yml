@@ -18,7 +18,7 @@ steps:
 
   - bash: |
       dotnet --info
-      dir=/usr/share/dotnet; if [[ "$OS" == "OSX" ]]; then dir=$HOME/~.dotnet; fi
+      dir=/usr/share/dotnet; if [[ "$OS" == "OSX" ]]; then dir=$HOME/.dotnet; fi
       echo 3.0 to $dir
       curl -sSL https://dot.net/v1/dotnet-install.sh | sudo bash /dev/stdin -c 3.0 -i $dir
       echo 3.1 to $dir
