@@ -28,7 +28,7 @@ namespace BenchmarksZoo.ClassicAlgorithms
 #endif
 
             var sw = Stopwatch.StartNew();
-#if _MonoCS_ || true
+#if true
             SortingPortion* portions = stackalloc SortingPortion[numThreads];
 #else 
             // NET Core
@@ -101,7 +101,9 @@ namespace BenchmarksZoo.ClassicAlgorithms
 
             for (int i = 0; i < keys.Length; i++) keys[i] = copy[i];
             long msecState3 = sw.ElapsedMilliseconds;
+#if DEBUG
             Console.WriteLine($"Sorting {keys.Length} items. [1st]: {msecState1}. [2nd]: {msecStage2}. [3rd]: {msecState3}");
+#endif
         }
 
         
