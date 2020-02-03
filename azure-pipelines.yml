@@ -12,7 +12,7 @@ jobs:
     variables:
       OS: Windows
       LLVM: 9
-    timeoutInMinutes: 199
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'windows-latest'
@@ -36,7 +36,7 @@ jobs:
       LLVM: 9
       NET_VER: net47
       MONO_VER: 6.6.0
-    timeoutInMinutes: 119
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
@@ -49,7 +49,7 @@ jobs:
       LLVM: 9
       NET_VER: net462
       MONO_VER: 5.20.1
-    timeoutInMinutes: 199
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
@@ -62,7 +62,7 @@ jobs:
       LLVM: 9
       NET_VER: net462
       MONO_VER: 5.18.1
-    timeoutInMinutes: 199
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
@@ -75,7 +75,7 @@ jobs:
       LLVM: 9
       NET_VER: net462
       MONO_VER: 5.10.0
-    timeoutInMinutes: 199
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
@@ -86,7 +86,7 @@ jobs:
     variables:
       OS: OSX
       FIO_BENCHMARK_WORKING: 'sudo bash fio-benchmark.sh "Home OSX Folder" "$HOME" 32G 120 30'
-    timeoutInMinutes: 599
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'macos-10.14'
@@ -97,7 +97,7 @@ jobs:
     variables:
       OS: Linux
       LLVM: 11
-    timeoutInMinutes: 599
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-18.04'
@@ -109,7 +109,7 @@ jobs:
       OS: Linux
       LLVM: 9
       PLUS_AOT: 'true'
-    timeoutInMinutes: 599
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
@@ -120,7 +120,7 @@ jobs:
     variables:
       OS: Linux
       LLVM: 8
-    timeoutInMinutes: 599
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-16.04'
@@ -131,7 +131,7 @@ jobs:
     variables:
       OS: Linux
       LLVM: 9
-    timeoutInMinutes: 199
+    timeoutInMinutes: 299
     cancelTimeoutInMinutes: 1
     pool:
       vmImage: 'ubuntu-18.04'
