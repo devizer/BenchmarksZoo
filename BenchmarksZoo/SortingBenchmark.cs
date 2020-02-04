@@ -22,7 +22,7 @@ namespace BenchmarksZoo
             Users = User.Generate(ArraySize);
             QuickSort_NET20_2Threads();
             QuickSort_NET20_4Threads();
-            ThreadPoolHeating.HeatThreadPool(12);
+            ThreadPoolHeating.HeatThreadPool(9);
         }
 
         [Benchmark(Description = "Enumerable.OrderBy")]
@@ -31,7 +31,7 @@ namespace BenchmarksZoo
             var sorted = Users.OrderBy(x => x.Name, StringComparer.Ordinal).ToArray();
         }
 
-        [Benchmark(Description = "QuickSorter<T>.Sort")]
+        [Benchmark(Baseline = true, Description = "QuickSorter<T>.Sort")]
         public void QuickSort_NET20()
         {
             User[] copy = new User[Users.Length];
@@ -39,7 +39,7 @@ namespace BenchmarksZoo
             QuickSorter<User>.QuickSort(copy, User.ComparerByName);
         }
         
-        [Benchmark(Description = "QuickSorter<T>.Sort[2Threads]")]
+        [Benchmark(Description = "QuickSorter<T>.Sort:2Threads")]
         public void QuickSort_NET20_2Threads()
         {
             User[] copy = new User[Users.Length];
@@ -47,7 +47,7 @@ namespace BenchmarksZoo
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 2);
         }
         
-        [Benchmark(Description = "QuickSorter<T>.Sort[4Threads]")]
+        [Benchmark(Description = "QuickSorter<T>.Sort:4Threads")]
         public void QuickSort_NET20_4Threads()
         {
             User[] copy = new User[Users.Length];
@@ -55,7 +55,7 @@ namespace BenchmarksZoo
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 4);
         }
         
-        [Benchmark(Baseline = true, Description = "Array<T>.Sort")]
+        [Benchmark(Description = "Array<T>.Sort")]
         public void Array_Sort()
         {
             User[] copy = new User[Users.Length];
