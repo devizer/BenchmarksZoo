@@ -82,6 +82,7 @@ namespace BenchmarksZoo.Tests
 
         }
         
+        [TestCase(4)]
         [TestCase(3)]
         [TestCase(2)]
         [TestCase(1)]

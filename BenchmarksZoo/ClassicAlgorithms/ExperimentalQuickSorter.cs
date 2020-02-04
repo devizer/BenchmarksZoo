@@ -101,6 +101,11 @@ namespace BenchmarksZoo.ClassicAlgorithms
                 Merge_Two_Portions(items, copy, comparer, numThreads, portions);
                 return;
             }
+            else if (numThreads == 3)
+            {
+                Merge_Three_Portions(items, copy, comparer, numThreads, portions);
+                return;
+            }
             
             var itemsCount = items.Length;
             int pos = 0;
@@ -181,6 +186,75 @@ namespace BenchmarksZoo.ClassicAlgorithms
                 throw new InvalidOperationException($"Welcome the a hell. Array length is {itemsCount}. Pos: {pos}{Environment.NewLine}{info}");
             }
         }
+        
+        private static unsafe void Merge_Three_Portions(T[] items, T[] copy, IComparer<T> comparer, int numThreads, SortingPortion* portions)
+        {
+            int left0 = portions[0].Left, right0 = portions[0].Right;
+            int left1 = portions[1].Left, right1 = portions[1].Right;
+            int left2 = portions[2].Left, right2 = portions[2].Right;
+            T item0 = items[left0], item1 = items[left1], item2=items[left2];
+            var itemsCount = items.Length;
+            int pos = 0;
+            while (pos < itemsCount)
+            {
+                bool has0 = left0 <= right0;
+                bool has1 = left1 <= right1;
+                bool has2 = left2 <= right2;
+                const byte NullIndex = 255;
+                byte ix = has0 ? (byte) 0 : NullIndex;
+                if (has1)
+                {
+                    if (ix == NullIndex)
+                        ix = 1;
+                    else
+                    {
+                        if (comparer.Compare(item1, item0) <= 0) ix = 1;
+                    }
+                }
+
+                if (has2)
+                {
+                    if (ix == NullIndex)
+                        ix = 2;
+                    else
+                    {
+                        if (comparer.Compare(item2, ix == 0 ? item0 : item1) <= 0) ix = 2;
+                    }
+                }
+
+                if (ix == NullIndex)
+                {
+                    // crash
+                    SortingPortion[] portionsCopy = new SortingPortion[numThreads];
+                    for (int ixcopy = 0; ixcopy < numThreads; ixcopy++) portionsCopy[ixcopy] = portions[ixcopy];
+                    portions[0].Left = left0;
+                    portions[1].Left = left1;
+                    portions[2].Left = left2;
+                    var info = string.Join(Environment.NewLine, portionsCopy.Select((x, i) => $"    {i,-3}:  {x.Left,-5} ... {x.Right,-5}"));
+                    throw new InvalidOperationException($"Welcome the a hell. Array length is {itemsCount}. Pos: {pos}{Environment.NewLine}{info}");
+                }
+                
+                else if (ix == 0)
+                {
+                    copy[pos++] = item0;
+                    left0++;
+                    if (left0 <= right0) item0 = items[left0];
+                }
+                else if (ix == 1)
+                {
+                    copy[pos++] = item1;
+                    left1++;
+                    if (left1 <= right1) item1 = items[left1];
+                }
+                else
+                {
+                    copy[pos++] = item2;
+                    left2++;
+                    if (left2 <= right2) item2 = items[left2];
+                }
+            }
+        }
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void SwapIfGreaterWithItems(T[] keys, IComparer<T> comparer, int a, int b)
