@@ -32,7 +32,6 @@ namespace BenchmarksZoo.Tests
         }
 
 
-        [Test]
         
         /*
         [TestCase(14)]
@@ -52,6 +51,7 @@ namespace BenchmarksZoo.Tests
         [TestCase(3)]
         [TestCase(2)]
         [TestCase(1)]
+        [Test]
         public async Task Smoke_Experimental_Sorting_Test(int maxThreads)
         {
 
@@ -73,6 +73,39 @@ namespace BenchmarksZoo.Tests
             CollectionAssert.AreEqual(expected, original, $"Improper experimental sorting of array sized {count}");
             var msg = totals.ToHumanString(taskDescription: $"Parallel Sorting using {maxThreads} threads ({duration} msec)");
             Console.WriteLine(Environment.NewLine + msg);
+
+            if (maxThreads > 1)
+            {
+                Console.WriteLine($"Metrics: {ExperimentalQuickSorter<User>.LastSortingMetrics}");
+                Trace.WriteLine($"Metrics for {maxThreads} threads: {ExperimentalQuickSorter<User>.LastSortingMetrics}");
+            }
+
         }
+        
+        [TestCase(3)]
+        [TestCase(2)]
+        [TestCase(1)]
+        [Test]
+        public void Bigger_Smoke_Test(int maxThreads)
+        {
+
+            foreach (var baseCount in new[] {1, 100, 1000, 1000000})
+            {
+                for (int count = baseCount; count <= baseCount + (baseCount >= 1000000 ? 1 : 1000); count++)
+                {
+                    User[] original = User.Generate(count);
+                    User[] expected = original.OrderBy(x => x.Name).ToArray();
+                    ExperimentalQuickSorter<User>.QuickSort(original, User.ComparerByName, concurrencyLimit: maxThreads);
+                    
+                    CollectionAssert.AreEqual(expected, original, $"Improper experimental sorting of array sized {count}");
+                    if (maxThreads > 1)
+                    {
+                        Console.WriteLine($"OK. Metrics: {ExperimentalQuickSorter<User>.LastSortingMetrics}");
+                        Trace.WriteLine($"OK. Metrics for {maxThreads} threads: {ExperimentalQuickSorter<User>.LastSortingMetrics}");
+                    }
+                }
+            }
+        }
+        
     }
 }

@@ -11,7 +11,7 @@ namespace BenchmarksZoo
     /*[NativeMemoryProfiler]*/
     public class SortingBenchmark
     {
-        [Params(543, 1000*1000)]
+        [Params(1000*1000, 543)]
         public int ArraySize { get; set; }
         
         User[] Users = null;
@@ -45,6 +45,14 @@ namespace BenchmarksZoo
             User[] copy = new User[Users.Length];
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 2);
+        }
+        
+        [Benchmark(Description = "QuickSorter<T>.Sort:3Threads")]
+        public void QuickSort_NET20_3Threads()
+        {
+            User[] copy = new User[Users.Length];
+            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 3);
         }
         
         [Benchmark(Description = "QuickSorter<T>.Sort:4Threads")]
