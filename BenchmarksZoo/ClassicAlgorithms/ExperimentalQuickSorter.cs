@@ -1,11 +1,9 @@
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace BenchmarksZoo.ClassicAlgorithms
 {
@@ -152,43 +150,37 @@ namespace BenchmarksZoo.ClassicAlgorithms
             int pos = 0;
             while (pos < itemsCount)
             {
-                bool has0 = left0 <= right0;
-                bool has1 = left1 <= right1;
-                if (has0 && has1)
+                if (left0 > right0 || left1 > right1) break;
+
+                bool isLeft0First = comparer.Compare(item0, item1) <= 0;
+                if (isLeft0First)
                 {
-                    bool isLeft0First = comparer.Compare(item0, item1) <= 0;
-                    if (isLeft0First)
-                    {
-                        copy[pos++] = item0;
-                        left0++;
-                        if (left0 <= right0) item0 = items[left0];
-                    }
-                    else
-                    {
-                        copy[pos++] = item1;
-                        left1++;
-                        if (left1 <= right1) item1 = items[left1];
-                    }
+                    copy[pos++] = item0;
+                    left0++;
+                    if (left0 <= right0) item0 = items[left0];
                 }
                 else
                 {
-                    if (has0) copy[pos++] = items[left0++]; 
-                    else if (has1) copy[pos++] = items[left1++];
-                    else
-                    {
-                        // crash
-                        SortingPortion[] portionsCopy = new SortingPortion[numThreads];
-                        for (int ix = 0; ix < numThreads; ix++) portionsCopy[ix] = portions[ix];
-                        portions[0].Left = left0;
-                        portions[1].Left = left1;
-                        var info = string.Join(Environment.NewLine, portionsCopy.Select((x, i) => $"    {i,-3}:  {x.Left,-5} ... {x.Right,-5}"));
-                        throw new InvalidOperationException($"Welcome the a hell. Array length is {itemsCount}. Pos: {pos}{Environment.NewLine}{info}");
-                    }
+                    copy[pos++] = item1;
+                    left1++;
+                    if (left1 <= right1) item1 = items[left1];
                 }
             }
+
+            while(left0 <= right0) copy[pos++] = items[left0++]; 
+            while(left1 <= right1) copy[pos++] = items[left1++];
+
+            if (pos != itemsCount)
+            {
+                // crash
+                SortingPortion[] portionsCopy = new SortingPortion[numThreads];
+                for (int ix = 0; ix < numThreads; ix++) portionsCopy[ix] = portions[ix];
+                portions[0].Left = left0;
+                portions[1].Left = left1;
+                var info = string.Join(Environment.NewLine, portionsCopy.Select((x, i) => $"    {i,-3}:  {x.Left,-5} ... {x.Right,-5}"));
+                throw new InvalidOperationException($"Welcome the a hell. Array length is {itemsCount}. Pos: {pos}{Environment.NewLine}{info}");
+            }
         }
-
-
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void SwapIfGreaterWithItems(T[] keys, IComparer<T> comparer, int a, int b)
@@ -257,13 +249,7 @@ namespace BenchmarksZoo.ClassicAlgorithms
                     ParallelSort(array, low, high0, comparer, depth - 1);
             }
         }
-
-
-
-        
     }
-    
-    
     
     struct SortingPortion
     {

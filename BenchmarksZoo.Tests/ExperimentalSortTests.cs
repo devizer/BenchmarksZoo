@@ -91,7 +91,7 @@ namespace BenchmarksZoo.Tests
 
             foreach (var baseCount in new[] {1, 100, 1000, 1000000})
             {
-                for (int count = baseCount; count <= baseCount + (baseCount >= 1000000 ? 1 : 1000); count++)
+                for (int count = baseCount; count <= baseCount + (baseCount >= 1000000 ? 0 : 333); count++)
                 {
                     User[] original = User.Generate(count);
                     User[] expected = original.OrderBy(x => x.Name).ToArray();
