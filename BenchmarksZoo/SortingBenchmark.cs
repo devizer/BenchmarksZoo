@@ -11,7 +11,7 @@ namespace BenchmarksZoo
     /*[NativeMemoryProfiler]*/
     public class SortingBenchmark
     {
-        [Params(1000*1000, 543)]
+        [Params(1000*1000/*, 543*/)]
         public int ArraySize { get; set; }
         
         User[] Users = null;

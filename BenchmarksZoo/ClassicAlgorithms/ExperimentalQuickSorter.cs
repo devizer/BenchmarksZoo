@@ -329,6 +329,8 @@ namespace BenchmarksZoo.ClassicAlgorithms
                     ParallelSort(array, low, high0, comparer, depth - 1);
             }
         }
+        
+
     }
     
     struct SortingPortion

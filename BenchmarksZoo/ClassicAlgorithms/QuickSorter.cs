@@ -7,6 +7,8 @@ namespace BenchmarksZoo.ClassicAlgorithms
     public class QuickSorter<T>
     {
 
+        public static int InsertionSortingThreshold { get; set; } = 12;        
+        
         public static void QuickSort(T[] keys, IComparer<T> comparer)
         {
             if (keys.Length <= 1) return;
@@ -51,15 +53,25 @@ namespace BenchmarksZoo.ClassicAlgorithms
                 if (nextRight - left <= right - nextLeft)
                 {
                     if (left < nextRight)
-                        QuickSort(keys, left, nextRight, comparer);
-                    
+                    {
+                        if (nextRight - left > InsertionSortingThreshold)
+                            QuickSort(keys, left, nextRight, comparer);
+                        else
+                            InsertionSort(keys, left, nextRight - left + 1, comparer);
+                    }
+
                     left = nextLeft;
                 }
                 else
                 {
                     if (nextLeft < right)
-                        QuickSort(keys, nextLeft, right, comparer);
-                    
+                    {
+                        if (right - nextLeft > InsertionSortingThreshold)
+                            QuickSort(keys, nextLeft, right, comparer);
+                        else
+                            InsertionSort(keys, nextLeft, right - nextLeft + 1, comparer);
+                    }
+
                     right = nextRight;
                 }
             }
@@ -76,6 +88,28 @@ namespace BenchmarksZoo.ClassicAlgorithms
             keys[a] = keys[b];
             keys[b] = keyTemp;
         }
+        
+        public static void InsertionSort(T[] a, int l, int size, IComparer<T> comparer = null)
+        {
+            int r = l + size;
+            for (int i = l + 1; i < r; i++)
+            {
+                //if (a[i] < a[i - 1])        // no need to do (j > 0) compare for the first iteration
+                if (comparer.Compare(a[i], a[i - 1]) < 0)
+                {
+                    T currentElement = a[i];
+                    a[i] = a[i - 1];
+                    int j = i - 1;
+                    for (; j > l && comparer.Compare(currentElement, a[j - 1]) < 0; j--)
+                    {
+                        a[j] = a[j - 1];
+                    }
+                    a[j] = currentElement;  // always necessary work/write
+                }
+                // Perform no work at all if the first comparison fails - i.e. never assign an element to itself!
+            }
+        }
+
 
 
         
