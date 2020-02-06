@@ -36,7 +36,7 @@ namespace BenchmarksZoo
         {
             User[] copy = new User[Users.Length];
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
-            QuickSorter<User>.QuickSort(copy, User.ComparerByName);
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 1, true);
         }
         
         [Benchmark(Description = "QuickSorter<T>.Sort:2Threads")]
@@ -44,7 +44,7 @@ namespace BenchmarksZoo
         {
             User[] copy = new User[Users.Length];
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
-            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 2);
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 2, true);
         }
         
         [Benchmark(Description = "QuickSorter<T>.Sort:3Threads")]
@@ -52,7 +52,7 @@ namespace BenchmarksZoo
         {
             User[] copy = new User[Users.Length];
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
-            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 3);
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 3, true);
         }
         
         [Benchmark(Description = "QuickSorter<T>.Sort:4Threads")]
@@ -60,15 +60,40 @@ namespace BenchmarksZoo
         {
             User[] copy = new User[Users.Length];
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
-            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 4);
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 4, true);
         }
         
-        [Benchmark(Description = "Array<T>.Sort")]
+        [Benchmark(Description = "Array.Sort<T>")]
         public void Array_Sort()
         {
             User[] copy = new User[Users.Length];
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
             Array.Sort(copy, User.ComparerByName);
         }
+        
+        [Benchmark(Description = "Array.Sort<T>:2Threads")]
+        public void ArraySort_2Threads()
+        {
+            User[] copy = new User[Users.Length];
+            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 2, false);
+        }
+        
+        [Benchmark(Description = "Array.Sort<T>:3Threads")]
+        public void ArraySort_3Threads()
+        {
+            User[] copy = new User[Users.Length];
+            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 3, false);
+        }
+        
+        [Benchmark(Description = "Array.Sort<T>:4Threads")]
+        public void ArraySort_4Threads()
+        {
+            User[] copy = new User[Users.Length];
+            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 4, false);
+        }
+
     }
 }

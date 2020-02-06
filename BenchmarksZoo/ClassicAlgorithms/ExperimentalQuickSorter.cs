@@ -14,7 +14,7 @@ namespace BenchmarksZoo.ClassicAlgorithms
         public static SortingDebugMetricsInfo LastSortingMetrics;
         
         
-        public static unsafe void QuickSort(T[] keys, IComparer<T> comparer, int? concurrencyLimit = null)
+        public static unsafe void QuickSort(T[] keys, IComparer<T> comparer, int? concurrencyLimit = null, bool experimentalImplementation = false)
         {
             if (!concurrencyLimit.HasValue) concurrencyLimit = Environment.ProcessorCount;
             if (keys.Length <= 1) return;
@@ -22,7 +22,10 @@ namespace BenchmarksZoo.ClassicAlgorithms
             int step = keys.Length / numThreads + (keys.Length % numThreads == 0 ? 0 : 1);
             if (step < 10 || concurrencyLimit == 1)
             {
-                QuickSorter<T>.QuickSort(keys, 0, keys.Length - 1, comparer);
+                if (experimentalImplementation)
+                    QuickSorter<T>.QuickSort(keys, 0, keys.Length - 1, comparer);
+                else
+                    Array.Sort(keys, comparer);
                 return;
             }
 
@@ -64,7 +67,11 @@ namespace BenchmarksZoo.ClassicAlgorithms
                 ThreadPool.QueueUserWorkItem(_ =>
                 {
                     Stopwatch swThread = Stopwatch.StartNew();
-                    QuickSorter<T>.QuickSort(keys, portion.Left, portion.Right, comparer);
+                    if (experimentalImplementation)
+                        QuickSorter<T>.QuickSort(keys, portion.Left, portion.Right, comparer);
+                    else
+                        Array.Sort(keys, portion.Left, portion.Right - portion.Left + 1, comparer);
+                    
                     done.Signal();
                     durationsByThreads[tCopy] = swThread.ElapsedMilliseconds;
                 });
@@ -222,19 +229,7 @@ namespace BenchmarksZoo.ClassicAlgorithms
                     }
                 }
 
-                if (ix == NullIndex)
-                {
-                    // crash
-                    SortingPortion[] portionsCopy = new SortingPortion[numThreads];
-                    for (int ixcopy = 0; ixcopy < numThreads; ixcopy++) portionsCopy[ixcopy] = portions[ixcopy];
-                    portions[0].Left = left0;
-                    portions[1].Left = left1;
-                    portions[2].Left = left2;
-                    var info = string.Join(Environment.NewLine, portionsCopy.Select((x, i) => $"    {i,-3}:  {x.Left,-5} ... {x.Right,-5}"));
-                    throw new InvalidOperationException($"Welcome the a hell. Array length is {itemsCount}. Pos: {pos}{Environment.NewLine}{info}");
-                }
-                
-                else if (ix == 0)
+                if (ix == 0)
                 {
                     copy[pos++] = item0;
                     left0++;
@@ -246,11 +241,22 @@ namespace BenchmarksZoo.ClassicAlgorithms
                     left1++;
                     if (left1 <= right1) item1 = items[left1];
                 }
-                else
+                else if (ix == 2)
                 {
                     copy[pos++] = item2;
                     left2++;
                     if (left2 <= right2) item2 = items[left2];
+                }
+                else
+                {
+                    // crash
+                    SortingPortion[] portionsCopy = new SortingPortion[numThreads];
+                    for (int ixcopy = 0; ixcopy < numThreads; ixcopy++) portionsCopy[ixcopy] = portions[ixcopy];
+                    portions[0].Left = left0;
+                    portions[1].Left = left1;
+                    portions[2].Left = left2;
+                    var info = string.Join(Environment.NewLine, portionsCopy.Select((x, i) => $"    {i,-3}:  {x.Left,-5} ... {x.Right,-5}"));
+                    throw new InvalidOperationException($"Welcome the a hell. Array length is {itemsCount}. Pos: {pos}{Environment.NewLine}{info}");
                 }
             }
         }

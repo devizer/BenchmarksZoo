@@ -82,12 +82,16 @@ namespace BenchmarksZoo.Tests
 
         }
         
-        [TestCase(4)]
-        [TestCase(3)]
-        [TestCase(2)]
-        [TestCase(1)]
+        [TestCase(4, true)]
+        [TestCase(3, true)]
+        [TestCase(2, true)]
+        [TestCase(1, true)]
+        [TestCase(4, false)]
+        [TestCase(3, false)]
+        [TestCase(2, false)]
+        [TestCase(1, false)]
         [Test]
-        public void Bigger_Smoke_Test(int maxThreads)
+        public void Bigger_Smoke_Test(int maxThreads, bool experimentalImplementation)
         {
 
             foreach (var baseCount in new[] {1, 100, 1000, 1000000})
@@ -96,7 +100,7 @@ namespace BenchmarksZoo.Tests
                 {
                     User[] original = User.Generate(count);
                     User[] expected = original.OrderBy(x => x.Name).ToArray();
-                    ExperimentalQuickSorter<User>.QuickSort(original, User.ComparerByName, concurrencyLimit: maxThreads);
+                    ExperimentalQuickSorter<User>.QuickSort(original, User.ComparerByName, concurrencyLimit: maxThreads, experimentalImplementation);
                     
                     CollectionAssert.AreEqual(expected, original, $"Improper experimental sorting of array sized {count}");
                     if (maxThreads > 1)
