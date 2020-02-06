@@ -7,7 +7,7 @@ namespace BenchmarksZoo.ClassicAlgorithms
     public class QuickSorter<T>
     {
 
-        public static int InsertionSortingThreshold { get; set; } = 12;        
+        public static int InsertionSortingThreshold { get; set; } = 16;        
         
         public static void QuickSort(T[] keys, IComparer<T> comparer)
         {

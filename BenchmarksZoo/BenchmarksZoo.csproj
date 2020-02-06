@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <PackageReference Include="BenchmarkDotNet" Version="0.12.0" />
+      <PackageReference Include="HPCsharp" Version="3.8.1" />
       <!--<PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.12.0" />-->
       <PackageReference Include="Universe.CpuUsage" Version="2.2.402.498" />
       <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" />

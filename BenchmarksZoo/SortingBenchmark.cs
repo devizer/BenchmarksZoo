@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarksZoo.ClassicAlgorithms;
+using HPCsharp;
+using HPCsharpExperimental;
 using Universe;
 
 namespace BenchmarksZoo
@@ -94,6 +96,15 @@ namespace BenchmarksZoo
             for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 4, false);
         }
+        
+        [Benchmark(Description = "HpcMergeSort<T>:MaxThreads")]
+        public void HpcSort_AllTheThreads()
+        {
+            User[] copy = new User[Users.Length];
+            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            User[] sorted = copy.SortMergePar(User.ComparerByName);
+        }
+
 
     }
 }

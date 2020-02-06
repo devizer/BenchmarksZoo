@@ -1,0 +1,61 @@
+Without inserttion sort
+|                       Method | ArraySize |          Mean |         Error |        StdDev |        Median | Ratio | RatioSD | Rank |  Gen 0 | Gen 1 | Gen 2 |   Allocated |
+|----------------------------- |---------- |--------------:|--------------:|--------------:|--------------:|------:|--------:|-----:|-------:|------:|------:|------------:|
+|           Enumerable.OrderBy |       543 |     104.18 us |      1.217 us |      1.821 us |     103.60 us |  0.83 |    0.02 |    7 | 3.6621 |     - |     - |     15.2 KB |
+|          QuickSorter<T>.Sort |       543 |     125.51 us |      1.018 us |      1.523 us |     125.54 us |  1.00 |    0.00 |    8 | 0.9766 |     - |     - |     4.32 KB |
+| QuickSorter<T>.Sort:2Threads |       543 |      89.66 us |      1.373 us |      2.054 us |      89.95 us |  0.71 |    0.02 |    5 | 2.1973 |     - |     - |     9.41 KB |
+| QuickSorter<T>.Sort:3Threads |       543 |      86.92 us |      0.475 us |      0.681 us |      86.82 us |  0.69 |    0.01 |    4 | 2.3193 |     - |     - |      9.6 KB |
+| QuickSorter<T>.Sort:4Threads |       543 |      92.81 us |      0.531 us |      0.794 us |      92.97 us |  0.74 |    0.01 |    6 | 2.3193 |     - |     - |     9.79 KB |
+|                Array.Sort<T> |       543 |      92.25 us |      0.469 us |      0.687 us |      92.18 us |  0.73 |    0.01 |    6 | 0.9766 |     - |     - |     4.33 KB |
+|       Array.Sort<T>:2Threads |       543 |      68.86 us |      0.533 us |      0.798 us |      68.92 us |  0.55 |    0.01 |    1 | 2.3193 |     - |     - |     9.54 KB |
+|       Array.Sort<T>:3Threads |       543 |      72.33 us |      1.053 us |      1.577 us |      72.43 us |  0.58 |    0.01 |    2 | 2.3193 |     - |     - |     9.79 KB |
+|       Array.Sort<T>:4Threads |       543 |      81.09 us |      0.441 us |      0.660 us |      81.24 us |  0.65 |    0.01 |    3 | 2.4414 |     - |     - |    10.04 KB |
+|                              |           |               |               |               |               |       |         |      |        |       |       |             |
+|           Enumerable.OrderBy |   1000000 | 989,820.44 us |  8,423.470 us | 12,080.689 us | 987,283.28 us |  1.16 |    0.03 |    6 |      - |     - |     - | 27345.98 KB |
+|          QuickSorter<T>.Sort |   1000000 | 853,691.43 us | 16,501.572 us | 24,187.790 us | 845,118.84 us |  1.00 |    0.00 |    5 |      - |     - |     - |  7814.45 KB |
+| QuickSorter<T>.Sort:2Threads |   1000000 | 543,675.76 us | 10,440.276 us | 15,303.222 us | 538,734.29 us |  0.64 |    0.03 |    3 |      - |     - |     - | 15629.59 KB |
+| QuickSorter<T>.Sort:3Threads |   1000000 | 481,391.75 us | 16,731.596 us | 25,043.065 us | 476,252.95 us |  0.57 |    0.03 |    2 |      - |     - |     - | 15629.81 KB |
+| QuickSorter<T>.Sort:4Threads |   1000000 | 469,288.44 us | 14,269.019 us | 21,357.196 us | 474,361.29 us |  0.55 |    0.03 |    2 |      - |     - |     - | 15629.78 KB |
+|                Array.Sort<T> |   1000000 | 700,432.87 us |  2,859.588 us |  4,191.547 us | 699,815.91 us |  0.82 |    0.02 |    4 |      - |     - |     - |  7814.46 KB |
+|       Array.Sort<T>:2Threads |   1000000 | 470,440.74 us |  2,427.803 us |  3,241.048 us | 470,742.77 us |  0.55 |    0.02 |    2 |      - |     - |     - | 15629.72 KB |
+|       Array.Sort<T>:3Threads |   1000000 | 436,895.57 us | 18,669.176 us | 27,943.143 us | 421,500.25 us |  0.51 |    0.04 |    1 |      - |     - |     - |    15630 KB |
+|       Array.Sort<T>:4Threads |   1000000 | 435,195.72 us | 11,158.011 us | 16,700.785 us | 443,705.48 us |  0.51 |    0.02 |    1 |      - |     - |     - | 15630.03 KB |
+
+Inserttion threshold is 12
+|                       Method | ArraySize |     Mean |    Error |   StdDev | Ratio | RatioSD | Rank | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------------------------- |---------- |---------:|---------:|---------:|------:|--------:|-----:|------:|------:|------:|----------:|
+|           Enumerable.OrderBy |   1000000 | 965.0 ms |  8.06 ms | 12.07 ms |  1.19 |    0.02 |    7 |     - |     - |     - |  26.71 MB |
+|          QuickSorter<T>.Sort |   1000000 | 809.8 ms |  2.93 ms |  4.39 ms |  1.00 |    0.00 |    6 |     - |     - |     - |   7.63 MB |
+| QuickSorter<T>.Sort:2Threads |   1000000 | 524.4 ms |  2.20 ms |  2.93 ms |  0.65 |    0.01 |    4 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:3Threads |   1000000 | 463.4 ms | 15.85 ms | 23.73 ms |  0.57 |    0.03 |    2 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:4Threads |   1000000 | 459.3 ms | 13.92 ms | 20.84 ms |  0.57 |    0.03 |    2 |     - |     - |     - |  15.26 MB |
+|                Array.Sort<T> |   1000000 | 710.0 ms |  2.50 ms |  3.51 ms |  0.88 |    0.01 |    5 |     - |     - |     - |   7.63 MB |
+|       Array.Sort<T>:2Threads |   1000000 | 487.6 ms | 15.49 ms | 22.21 ms |  0.60 |    0.03 |    3 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:3Threads |   1000000 | 442.5 ms | 21.28 ms | 31.85 ms |  0.55 |    0.04 |    1 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:4Threads |   1000000 | 433.9 ms | 10.67 ms | 15.97 ms |  0.54 |    0.02 |    1 |     - |     - |     - |  15.26 MB |
+
+Inserttion threshold is 16
+|                       Method | ArraySize |     Mean |    Error |   StdDev | Ratio | RatioSD | Rank | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------------------------- |---------- |---------:|---------:|---------:|------:|--------:|-----:|------:|------:|------:|----------:|
+|           Enumerable.OrderBy |   1000000 | 962.1 ms |  5.84 ms |  8.37 ms |  1.19 |    0.02 |    8 |     - |     - |     - |  26.71 MB |
+|          QuickSorter<T>.Sort |   1000000 | 811.1 ms |  4.43 ms |  6.21 ms |  1.00 |    0.00 |    7 |     - |     - |     - |   7.63 MB |
+| QuickSorter<T>.Sort:2Threads |   1000000 | 536.4 ms | 11.73 ms | 17.56 ms |  0.66 |    0.02 |    5 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:3Threads |   1000000 | 467.9 ms |  7.01 ms | 10.50 ms |  0.58 |    0.01 |    3 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:4Threads |   1000000 | 452.4 ms |  8.04 ms | 12.03 ms |  0.56 |    0.02 |    2 |     - |     - |     - |  15.26 MB |
+|                Array.Sort<T> |   1000000 | 704.8 ms |  3.39 ms |  4.98 ms |  0.87 |    0.01 |    6 |     - |     - |     - |   7.63 MB |
+|       Array.Sort<T>:2Threads |   1000000 | 490.8 ms |  9.23 ms | 13.23 ms |  0.61 |    0.02 |    4 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:3Threads |   1000000 | 448.4 ms | 15.44 ms | 22.62 ms |  0.55 |    0.03 |    2 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:4Threads |   1000000 | 431.5 ms | 10.86 ms | 15.92 ms |  0.53 |    0.02 |    1 |     - |     - |     - |  15.26 MB |
+
+
+|                       Method | ArraySize |     Mean |    Error |   StdDev | Ratio | RatioSD | Rank | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------------------------- |---------- |---------:|---------:|---------:|------:|--------:|-----:|------:|------:|------:|----------:|
+|           Enumerable.OrderBy |   1000000 | 962.1 ms |  5.84 ms |  8.37 ms |  1.19 |    0.02 |    8 |     - |     - |     - |  26.71 MB |
+|          QuickSorter<T>.Sort |   1000000 | 811.1 ms |  4.43 ms |  6.21 ms |  1.00 |    0.00 |    7 |     - |     - |     - |   7.63 MB |
+| QuickSorter<T>.Sort:2Threads |   1000000 | 536.4 ms | 11.73 ms | 17.56 ms |  0.66 |    0.02 |    5 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:3Threads |   1000000 | 467.9 ms |  7.01 ms | 10.50 ms |  0.58 |    0.01 |    3 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:4Threads |   1000000 | 452.4 ms |  8.04 ms | 12.03 ms |  0.56 |    0.02 |    2 |     - |     - |     - |  15.26 MB |
+|                Array.Sort<T> |   1000000 | 704.8 ms |  3.39 ms |  4.98 ms |  0.87 |    0.01 |    6 |     - |     - |     - |   7.63 MB |
+|       Array.Sort<T>:2Threads |   1000000 | 490.8 ms |  9.23 ms | 13.23 ms |  0.61 |    0.02 |    4 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:3Threads |   1000000 | 448.4 ms | 15.44 ms | 22.62 ms |  0.55 |    0.03 |    2 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:4Threads |   1000000 | 431.5 ms | 10.86 ms | 15.92 ms |  0.53 |    0.02 |    1 |     - |     - |     - |  15.26 MB |
