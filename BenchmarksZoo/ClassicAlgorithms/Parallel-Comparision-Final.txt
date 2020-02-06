@@ -59,3 +59,18 @@ Inserttion threshold is 16
 |       Array.Sort<T>:2Threads |   1000000 | 490.8 ms |  9.23 ms | 13.23 ms |  0.61 |    0.02 |    4 |     - |     - |     - |  15.26 MB |
 |       Array.Sort<T>:3Threads |   1000000 | 448.4 ms | 15.44 ms | 22.62 ms |  0.55 |    0.03 |    2 |     - |     - |     - |  15.26 MB |
 |       Array.Sort<T>:4Threads |   1000000 | 431.5 ms | 10.86 ms | 15.92 ms |  0.53 |    0.02 |    1 |     - |     - |     - |  15.26 MB |
+
+
+With HPC
+|                       Method | ArraySize |     Mean |     Error |    StdDev | Ratio | RatioSD | Rank | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------------------------- |---------- |---------:|----------:|----------:|------:|--------:|-----:|------:|------:|------:|----------:|
+|           Enumerable.OrderBy |   1000000 | 988.7 ms |  11.97 ms |  16.38 ms |  1.01 |    0.19 |    8 |     - |     - |     - |  26.71 MB |
+|          QuickSorter<T>.Sort |   1000000 | 989.1 ms | 135.22 ms | 202.39 ms |  1.00 |    0.00 |    9 |     - |     - |     - |   7.63 MB |
+| QuickSorter<T>.Sort:2Threads |   1000000 | 541.1 ms |  11.12 ms |  15.22 ms |  0.55 |    0.10 |    6 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:3Threads |   1000000 | 477.4 ms |   8.23 ms |  12.07 ms |  0.50 |    0.09 |    4 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:4Threads |   1000000 | 451.1 ms |   6.48 ms |   9.70 ms |  0.47 |    0.08 |    3 |     - |     - |     - |  15.26 MB |
+|                Array.Sort<T> |   1000000 | 729.3 ms |   3.60 ms |   5.28 ms |  0.76 |    0.13 |    7 |     - |     - |     - |   7.63 MB |
+|       Array.Sort<T>:2Threads |   1000000 | 492.3 ms |   8.12 ms |  11.64 ms |  0.51 |    0.09 |    5 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:3Threads |   1000000 | 439.3 ms |   8.40 ms |  12.31 ms |  0.46 |    0.08 |    2 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:4Threads |   1000000 | 432.0 ms |   8.79 ms |  13.15 ms |  0.45 |    0.08 |    2 |     - |     - |     - |  15.26 MB |
+|   HpcMergeSort<T>:MaxThreads |   1000000 | 210.1 ms |   2.29 ms |   3.43 ms |  0.22 |    0.04 |    1 |     - |     - |     - |  15.31 MB |

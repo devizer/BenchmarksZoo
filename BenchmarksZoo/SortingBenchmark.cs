@@ -37,7 +37,8 @@ namespace BenchmarksZoo
         public void QuickSort_NET20()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 1, true);
         }
         
@@ -45,7 +46,8 @@ namespace BenchmarksZoo
         public void QuickSort_NET20_2Threads()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 2, true);
         }
         
@@ -53,7 +55,8 @@ namespace BenchmarksZoo
         public void QuickSort_NET20_3Threads()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 3, true);
         }
         
@@ -61,7 +64,8 @@ namespace BenchmarksZoo
         public void QuickSort_NET20_4Threads()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 4, true);
         }
         
@@ -69,7 +73,8 @@ namespace BenchmarksZoo
         public void Array_Sort()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             Array.Sort(copy, User.ComparerByName);
         }
         
@@ -77,7 +82,8 @@ namespace BenchmarksZoo
         public void ArraySort_2Threads()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 2, false);
         }
         
@@ -85,7 +91,8 @@ namespace BenchmarksZoo
         public void ArraySort_3Threads()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 3, false);
         }
         
@@ -93,16 +100,35 @@ namespace BenchmarksZoo
         public void ArraySort_4Threads()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, 4, false);
+        }
+        
+        [Benchmark(Description = "Array.Sort<T>:MaxThreads")]
+        public void ArraySort_8Threads()
+        {
+            User[] copy = new User[Users.Length];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
+            ExperimentalQuickSorter<User>.QuickSort(copy, User.ComparerByName, Environment.ProcessorCount, false);
         }
         
         [Benchmark(Description = "HpcMergeSort<T>:MaxThreads")]
         public void HpcSort_AllTheThreads()
         {
             User[] copy = new User[Users.Length];
-            for (int i = 0, l=Users.Length; i < l; i++) copy[i] = Users[i];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
             User[] sorted = copy.SortMergePar(User.ComparerByName);
+        }
+
+        [Benchmark(Description = "NoSorting")]
+        public void JustCopy()
+        {
+            User[] copy = new User[Users.Length];
+            var usersLength = Users.Length;
+            for (int i = 0, l=usersLength; i < l; i++) copy[i] = Users[i];
         }
 
 
