@@ -74,3 +74,17 @@ With HPC
 |       Array.Sort<T>:3Threads |   1000000 | 439.3 ms |   8.40 ms |  12.31 ms |  0.46 |    0.08 |    2 |     - |     - |     - |  15.26 MB |
 |       Array.Sort<T>:4Threads |   1000000 | 432.0 ms |   8.79 ms |  13.15 ms |  0.45 |    0.08 |    2 |     - |     - |     - |  15.26 MB |
 |   HpcMergeSort<T>:MaxThreads |   1000000 | 210.1 ms |   2.29 ms |   3.43 ms |  0.22 |    0.04 |    1 |     - |     - |     - |  15.31 MB |
+
+|                       Method | ArraySize |     Mean |    Error |   StdDev | Ratio | RatioSD | Rank | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------------------------- |---------- |---------:|---------:|---------:|------:|--------:|-----:|------:|------:|------:|----------:|
+|           Enumerable.OrderBy |   1000000 | 962.4 ms |  7.02 ms | 10.51 ms |  1.19 |    0.01 |    8 |     - |     - |     - |  26.71 MB |
+|          QuickSorter<T>.Sort |   1000000 | 810.5 ms |  2.44 ms |  3.58 ms |  1.00 |    0.00 |    7 |     - |     - |     - |   7.63 MB |
+| QuickSorter<T>.Sort:2Threads |   1000000 | 522.0 ms |  9.91 ms | 14.21 ms |  0.64 |    0.02 |    5 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:3Threads |   1000000 | 461.5 ms | 14.78 ms | 21.66 ms |  0.57 |    0.03 |    3 |     - |     - |     - |  15.26 MB |
+| QuickSorter<T>.Sort:4Threads |   1000000 | 454.1 ms | 10.91 ms | 16.33 ms |  0.56 |    0.02 |    3 |     - |     - |     - |  15.26 MB |
+|                Array.Sort<T> |   1000000 | 711.2 ms |  2.76 ms |  4.14 ms |  0.88 |    0.01 |    6 |     - |     - |     - |   7.63 MB |
+|       Array.Sort<T>:2Threads |   1000000 | 484.1 ms |  4.54 ms |  6.51 ms |  0.60 |    0.01 |    4 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:3Threads |   1000000 | 432.1 ms | 11.26 ms | 16.86 ms |  0.53 |    0.02 |    2 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:4Threads |   1000000 | 438.9 ms | 11.20 ms | 16.77 ms |  0.54 |    0.02 |    2 |     - |     - |     - |  15.26 MB |
+|       Array.Sort<T>:8Threads |   1000000 | 442.6 ms |  1.66 ms |  2.43 ms |  0.55 |    0.00 |    2 |     - |     - |     - |  15.26 MB |
+|   HpcMergeSort<T>:MaxThreads |   1000000 | 212.0 ms |  2.78 ms |  4.16 ms |  0.26 |    0.01 |    1 |     - |     - |     - |  15.31 MB |

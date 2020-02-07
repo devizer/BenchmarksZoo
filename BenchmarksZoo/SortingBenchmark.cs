@@ -3,7 +3,6 @@ using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarksZoo.ClassicAlgorithms;
 using HPCsharp;
-using HPCsharpExperimental;
 using Universe;
 
 namespace BenchmarksZoo
