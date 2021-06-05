@@ -6,6 +6,10 @@ steps:
   condition: eq(variables['Agent.OS'], 'Linux')
   displayName: 'configure nix'
 
+- powershell: ./azure-pipelines-install-mono-on-windows.ps1
+  condition: eq(variables['Agent.OS'], 'Windows_NT')
+  displayName: 'install mono via powershell'
+
 - bash: |
      cd BenchmarkStrings 
      dotnet restore || dotnet restore --disable-parallel
