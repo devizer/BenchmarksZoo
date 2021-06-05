@@ -20,12 +20,14 @@ steps:
      cat /etc/*release
      cd BenchmarkStrings 
      dotnet restore || dotnet restore --disable-parallel
-     nuget resore
+     nuget restore
      msbuild /t:restore
      dotnet build -c Release
      tree -hu
      cd BenchmarkStrings/BenchmarkStrings/bin/Release/net47
-     mono BenchmarkStrings.exe 
+     pwd; ls -la
+     mono BenchmarkStrings.exe
+
      
   displayName: 'Benchmark'
 
