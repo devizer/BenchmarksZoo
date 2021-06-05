@@ -1,0 +1,21 @@
+steps:
+- bash: |
+     cat /etc/*release
+     sudo apt-get update; sudo apt-get install tree -y
+
+  condition: ne(variables['Agent.OS'], 'Windows_NT')
+  displayName: 'configure nix'
+
+- bash: |
+     cd BenchmarkStrings 
+     dotnet restore || dotnet restore --disable-parallel
+     nuget restore
+     msbuild /t:restore
+     dotnet build -c Release
+     tree -hu || true
+     cd BenchmarkStrings/bin/Release/net47
+     pwd; ls -la
+     mono BenchmarkStrings.exe
+     
+  displayName: 'Benchmark'
+
