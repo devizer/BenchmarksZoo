@@ -19,7 +19,12 @@ steps:
      tree -hu || true
      cd BenchmarkStrings/bin/Release/net47
      pwd; ls -la
-     mono BenchmarkStrings.exe
+     mono BenchmarkStrings.exe && \
+     cp -a BenchmarkDotNet.Artifacts/results/* $BUILD_ARTIFACTSTAGINGDIRECTORY
      
   displayName: 'Benchmark'
 
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: '$(Agent.JobName) Benchmark Report'
