@@ -52,6 +52,7 @@ function Patch-Path-to-Mono
 }
 
 $url="https://download.mono-project.com/archive/6.6.0/windows-installer/mono-6.6.0.161-x64-0.msi"
+$url="https://download.mono-project.com/archive/6.12.0/windows-installer/mono-6.12.0.107-x64-0.msi"
 Download-and-Install-Mono $url
 Patch-Path-to-Mono "c:\program files\mono\bin"
 ""
