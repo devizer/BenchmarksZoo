@@ -3,7 +3,7 @@ steps:
      cat /etc/*release
      sudo apt-get update; sudo apt-get install tree -y
 
-  condition: ne(variables['Agent.OS'], 'Windows_NT')
+  condition: eq(variables['Agent.OS'], 'Linux')
   displayName: 'configure nix'
 
 - bash: |
