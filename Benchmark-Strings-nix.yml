@@ -24,7 +24,7 @@ steps:
      
   displayName: 'Benchmark'
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: '$(Agent.JobName) Benchmark Report'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: '$(Agent.JobName) Benchmark Report'
