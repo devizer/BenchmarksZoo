@@ -11,6 +11,7 @@ steps:
   displayName: 'install mono via powershell'
 
 - bash: |
+     dotnet --info || true
      cd BenchmarkStrings 
      dotnet restore || dotnet restore --disable-parallel
      nuget restore
