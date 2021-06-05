@@ -24,7 +24,7 @@ steps:
      msbuild /t:restore
      dotnet build -c Release
      tree -hu
-     cd BenchmarkStrings/BenchmarkStrings/bin/Release/net47
+     cd BenchmarkStrings/bin/Release/net47
      pwd; ls -la
      mono BenchmarkStrings.exe
 
