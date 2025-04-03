@@ -1,0 +1,32 @@
+name: Benchmark Parallel
+
+on:
+  workflow_dispatch:
+  push:
+      branches: [ "master" ]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  Info:
+    name: Benchmarks
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2025, windows-2022, windows-2019, ubuntu-20.04, ubuntu-22.04, ubuntu-24.04, macos-13, macos-14, macos-15]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: System Info
+      run: |
+        set -eu; set -o pipefail;
+        echo "OS: ${{ runner.os }}"
+        cd Parallel.Benchmark/Benchmark.Parallel
+        runtimes="net8.0"
+        if [[ "${{ runner.os }}" == Windows ]]; runtimes="net8.0 net48"; fi
+        dotnet run -c Release -f net8.0 -- --warmupCount 1 --minIterationCount 9 --maxIterationCount 12 -j short --runtimes net48 net8.0
