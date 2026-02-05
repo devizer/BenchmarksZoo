@@ -1,5 +1,5 @@
 dotnet build -c Release
-foreach($runtime in "net10.0", "netcoreapp3.1") {
+foreach($runtime in "net10.0", "net5.0") {
    Write-Host "runtime=[$runtime]" -ForegroundColor Magenta
    $output = $(& dotnet run --no-build -c Release -f "$runtime" -- --print-id)
    $lines = $output
