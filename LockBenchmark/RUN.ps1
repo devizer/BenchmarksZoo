@@ -7,6 +7,8 @@ Write-Host "BENCHMARK RUNTIMES: [$netList]" -ForegroundColor Magenta
 sleep 3
 dotnet build -c Release -v:q /p:NoWarn="NETSDK1138"
 
+# required by 3.1 only
+$ENV:DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="1"
 
 foreach($runtime in $netList) {
    Write-Host "runtime=[$runtime]" -ForegroundColor Magenta
@@ -23,7 +25,4 @@ foreach($runtime in $netList) {
    $mdList | % { Copy-Item -Path "$_" -Destination $reportFile -Force }
 }
 
-Get-ChildItem -Path "." -Filter "REPORT*.REPORT" -File | sort | % { cat "$_" | out-host }
-
-
-
+Get-ChildItem -Path "." -Filter "REPORT*.REPORT" -File | sort-object -Property FullName | % { cat "$_" | out-host }
