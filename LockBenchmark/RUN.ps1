@@ -15,5 +15,15 @@ foreach($runtime in $netList) {
    $id = $lines | Select -Last 1
    $id = "$id"
    Write-Host "ID=[$id]" -ForegroundColor Green
-   dotnet run -c Release -f "$runtime" --runtimes "$runtime" | tee "Results $id.log"
+   $sep="$([System.IO.Path]::DirectorySeparatorChar)"
+   $artifacts_folder="BenchmarkDotNet.Artifacts$($sep)$id"
+   dotnet run -c Release -f "$runtime" --runtimes "$runtime" --job Medium --artifacts "$artifacts_folder"
+   $mdList = Get-ChildItem -Path "$artifacts_folder" -Filter "*github.md" -Recurse -File
+   $reportFile="REPORT $id.REPORT"
+   $mdList | % { Copy-Item -Path "$_" -Destination $reportFile -Force }
 }
+
+Get-ChildItem -Path "." -Filter "REPORT*.REPORT" -File | sort | % { cat "$_" | out-host }
+
+
+
