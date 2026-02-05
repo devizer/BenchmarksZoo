@@ -1,0 +1,13 @@
+| Method        | OS                  | Mean      | Error     | StdDev    | Median    | Ratio    | RatioSD | Gen0   | Allocated | Alloc Ratio |
+|-------------- |-------------------- |----------:|----------:|----------:|----------:|---------:|--------:|-------:|----------:|------------:|
+| ByObject      | Windows X64, 3.1.32 | 5.1214 ns | 0.0826 ns | 0.0773 ns | 5.1082 ns | baseline |         |      - |         - |          NA |
+| NoLock        | Windows X64, 3.1.32 | 0.0186 ns | 0.0195 ns | 0.0191 ns | 0.0120 ns |   -99.6% |   99.8% |      - |         - |          NA |
+| ByInterlocked | Windows X64, 3.1.32 | 3.6956 ns | 0.0954 ns | 0.2075 ns | 3.7072 ns |   -27.8% |    5.8% | 0.0029 |      24 B |          NA |
+
+| Method        | OS                  | Mean      | Error     | StdDev    | Median    | Ratio    | RatioSD | Gen0   | Allocated | Alloc Ratio |
+|-------------- |-------------------- |----------:|----------:|----------:|----------:|---------:|--------:|-------:|----------:|------------:|
+| ByObject      | Windows X64, 10.0.2 | 5.2061 ns | 0.1204 ns | 0.1126 ns | 5.1597 ns | baseline |         |      - |         - |          NA |
+| NoLock        | Windows X64, 10.0.2 | 0.0046 ns | 0.0109 ns | 0.0107 ns | 0.0000 ns |   -99.9% |  228.5% |      - |         - |          NA |
+| ByInterlocked | Windows X64, 10.0.2 | 2.8973 ns | 0.0808 ns | 0.1723 ns | 2.8931 ns |   -44.3% |    6.2% | 0.0029 |      24 B |          NA |
+| ByLock        | Windows X64, 10.0.2 | 3.6731 ns | 0.0803 ns | 0.0751 ns | 3.6397 ns |   -29.4% |    2.8% |      - |         - |          NA |
+| ByUsingLock   | Windows X64, 10.0.2 | 3.7454 ns | 0.0926 ns | 0.0909 ns | 3.7678 ns |   -28.0% |    3.1% |      - |         - |          NA |

@@ -1,0 +1,28 @@
+dotnet build -c Release
+foreach($runtime in "net10.0", "netcoreapp3.1") {
+   Write-Host "runtime=[$runtime]" -ForegroundColor Magenta
+   # $id = $(& dotnet run --no-build -c Release -f "$runtime" -- --print-id)
+   $output = & dotnet run --no-build -c Release -f "$runtime" -- --print-id | out-string
+   Write-Host "output.GetType() = $($output.GetType())" -ForegroundColor Yellow
+
+   $output2 = $(& dotnet run --no-build -c Release -f "$runtime" -- --print-id)
+   Write-Host "output2.GetType() = $($output2.GetType())" -ForegroundColor Yellow
+
+   $lines = @( "$output".Split(@([char]10, [char]13)) | ? { "$_".Length -gt 0 })
+   $lines = $output2
+   Write-Host "lines.Length() = $($lines.Length())" -ForegroundColor Yellow
+   $id = $lines | Select -Last 1
+   $id = "$id"
+   Write-Host "ID=[$id]" -ForegroundColor Green
+   Write-Host "OUTPUT [$output]"
+   Write-Host ""
+   Write-Host ""
+
+   for($i=0; $i -lt $lines.Length; $i++) {
+    Write-Host "#$i = '$($lines[$i])'"
+   }
+
+   
+   continue;
+   dotnet run -c Release -f "$runtime" --runtimes "$runtime" | tee "Results.$id.log"
+}
