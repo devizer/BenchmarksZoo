@@ -1,0 +1,51 @@
+```
+
+BenchmarkDotNet v0.15.8, Windows 11 (10.0.26100.7623/24H2/2024Update/HudsonValley)
+AMD Ryzen 7 5700G with Radeon Graphics 4.60GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 10.0.102
+  [Host]    : .NET 10.0.2 (10.0.2, 10.0.225.61305), X64 RyuJIT x86-64-v3
+  .NET 10.0 : .NET 10.0.2 (10.0.2, 10.0.225.61305), X64 RyuJIT x86-64-v3
+
+Job=.NET 10.0  Runtime=.NET 10.0  Toolchain=net10.0  
+IterationCount=15  LaunchCount=2  WarmupCount=10  
+
+```
+| Method        | OS                  | Mean     | Error     | StdDev    | Ratio    | Gen0   | Allocated | Alloc Ratio |
+|-------------- |-------------------- |---------:|----------:|----------:|---------:|-------:|----------:|------------:|
+| ByObject      | Windows X64, 10.0.2 | 5.110 ns | 0.0178 ns | 0.0261 ns | baseline |      - |         - |          NA |
+| ByInterlocked | Windows X64, 10.0.2 | 3.078 ns | 0.0132 ns | 0.0185 ns |     -40% | 0.0029 |      24 B |          NA |
+| ByLock        | Windows X64, 10.0.2 | 3.730 ns | 0.0632 ns | 0.0947 ns |     -27% |      - |         - |          NA |
+| ByUsingLock   | Windows X64, 10.0.2 | 3.713 ns | 0.0903 ns | 0.1295 ns |     -27% |      - |         - |          NA |
+```
+
+BenchmarkDotNet v0.15.8, Windows 11 (10.0.26100.7623/24H2/2024Update/HudsonValley)
+AMD Ryzen 7 5700G with Radeon Graphics 4.60GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 10.0.102
+  [Host]        : .NET Core 3.1.32 (3.1.32, 4.700.22.55902), X64 RyuJIT VectorSize=256
+  .NET Core 3.1 : .NET Core 3.1.32 (3.1.32, 4.700.22.55902), X64 RyuJIT VectorSize=256
+
+Job=.NET Core 3.1  Runtime=.NET Core 3.1  Toolchain=netcoreapp3.1  
+IterationCount=15  LaunchCount=2  WarmupCount=10  
+
+```
+| Method        | OS                  | Mean     | Error     | StdDev    | Ratio    | Gen0   | Allocated | Alloc Ratio |
+|-------------- |-------------------- |---------:|----------:|----------:|---------:|-------:|----------:|------------:|
+| ByObject      | Windows X64, 3.1.32 | 5.014 ns | 0.0255 ns | 0.0349 ns | baseline |      - |         - |          NA |
+| ByInterlocked | Windows X64, 3.1.32 | 3.433 ns | 0.0723 ns | 0.1013 ns |     -32% | 0.0029 |      24 B |          NA |
+```
+
+BenchmarkDotNet v0.15.8, Windows 11 (10.0.26100.7623/24H2/2024Update/HudsonValley)
+AMD Ryzen 7 5700G with Radeon Graphics 4.60GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 10.0.102
+  [Host]   : .NET 5.0.17 (5.0.17, 5.0.1722.21314), X64 RyuJIT x86-64-v3
+  .NET 5.0 : .NET 5.0.17 (5.0.17, 5.0.1722.21314), X64 RyuJIT x86-64-v3
+
+Job=.NET 5.0  Runtime=.NET 5.0  Toolchain=net5.0  
+IterationCount=15  LaunchCount=2  WarmupCount=10  
+
+```
+| Method        | OS                  | Mean     | Error     | StdDev    | Ratio    | Gen0   | Allocated | Alloc Ratio |
+|-------------- |-------------------- |---------:|----------:|----------:|---------:|-------:|----------:|------------:|
+| ByObject      | Windows X64, 5.0.17 | 4.757 ns | 0.0153 ns | 0.0219 ns | baseline |      - |         - |          NA |
+| ByInterlocked | Windows X64, 5.0.17 | 2.921 ns | 0.0186 ns | 0.0255 ns |     -39% | 0.0029 |      24 B |          NA |
+

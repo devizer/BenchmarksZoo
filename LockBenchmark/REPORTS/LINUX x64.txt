@@ -1,0 +1,32 @@
+BenchmarkDotNet v0.15.8, Linux Ubuntu 24.04 LTS (Noble Numbat)
+AMD Ryzen 7 5700G with Radeon Graphics 4.59GHz, 1 CPU, 12 logical and 12 physical cores
+.NET SDK 10.0.102
+  [Host]    : .NET 10.0.2 (10.0.2, 10.0.225.61305), X64 RyuJIT x86-64-v3
+  .NET 10.0 : .NET 10.0.2 (10.0.2, 10.0.225.61305), X64 RyuJIT x86-64-v3
+
+Job=.NET 10.0  Runtime=.NET 10.0  Toolchain=net10.0
+IterationCount=15  LaunchCount=2  WarmupCount=10
+
+```
+| Method        | OS                | Mean     | Error     | StdDev    | Median   | Ratio    | Gen0   | Allocated | Alloc Ratio |
+|-------------- |------------------ |---------:|----------:|----------:|---------:|---------:|-------:|----------:|------------:|
+| ByObject      | Linux X64, 10.0.2 | 6.835 ns | 0.1715 ns | 0.2567 ns | 6.703 ns | baseline |      - |         - |          NA |
+| ByInterlocked | Linux X64, 10.0.2 | 6.402 ns | 0.2450 ns | 0.3667 ns | 6.422 ns |      -6% | 0.0029 |      24 B |          NA |
+| ByLock        | Linux X64, 10.0.2 | 4.142 ns | 0.1079 ns | 0.1512 ns | 4.078 ns |     -39% |      - |         - |          NA |
+| ByUsingLock   | Linux X64, 10.0.2 | 4.278 ns | 0.1276 ns | 0.1909 ns | 4.247 ns |     -37% |      - |         - |          NA |
+```
+
+BenchmarkDotNet v0.15.8, Linux Ubuntu 24.04 LTS (Noble Numbat)
+AMD Ryzen 7 5700G with Radeon Graphics 4.59GHz, 1 CPU, 12 logical and 12 physical cores
+.NET SDK 10.0.102
+  [Host]   : .NET 5.0.17 (5.0.17, 5.0.1722.21314), X64 RyuJIT x86-64-v3
+  .NET 5.0 : .NET 5.0.17 (5.0.17, 5.0.1722.21314), X64 RyuJIT x86-64-v3
+
+Job=.NET 5.0  Runtime=.NET 5.0  Toolchain=net5.0
+IterationCount=15  LaunchCount=2  WarmupCount=10
+
+```
+| Method        | OS                | Mean     | Error     | StdDev    | Ratio    | Gen0   | Allocated | Alloc Ratio |
+|-------------- |------------------ |---------:|----------:|----------:|---------:|-------:|----------:|------------:|
+| ByObject      | Linux X64, 5.0.17 | 6.891 ns | 0.1957 ns | 0.2930 ns | baseline |      - |         - |          NA |
+| ByInterlocked | Linux X64, 5.0.17 | 6.884 ns | 0.2182 ns | 0.3265 ns |      +0% | 0.0029 |      24 B |          NA |
