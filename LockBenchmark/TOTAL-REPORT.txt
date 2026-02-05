@@ -11,3 +11,18 @@
 | ByInterlocked | Windows X64, 10.0.2 | 2.8973 ns | 0.0808 ns | 0.1723 ns | 2.8931 ns |   -44.3% |    6.2% | 0.0029 |      24 B |          NA |
 | ByLock        | Windows X64, 10.0.2 | 3.6731 ns | 0.0803 ns | 0.0751 ns | 3.6397 ns |   -29.4% |    2.8% |      - |         - |          NA |
 | ByUsingLock   | Windows X64, 10.0.2 | 3.7454 ns | 0.0926 ns | 0.0909 ns | 3.7678 ns |   -28.0% |    3.1% |      - |         - |          NA |
+
+| Method        | OS                | Mean      | Error     | StdDev    | Median    | Ratio    | RatioSD | Gen0   | Allocated | Alloc Ratio |
+|-------------- |------------------ |----------:|----------:|----------:|----------:|---------:|--------:|-------:|----------:|------------:|
+| ByObject      | Linux X64, 10.0.2 | 6.9156 ns | 0.1611 ns | 0.1790 ns | 6.9134 ns | baseline |         |      - |         - |          NA |
+| NoLock        | Linux X64, 10.0.2 | 0.0067 ns | 0.0096 ns | 0.0090 ns | 0.0019 ns |   -99.9% |  130.9% |      - |         - |          NA |
+| ByInterlocked | Linux X64, 10.0.2 | 6.3954 ns | 0.1478 ns | 0.1643 ns | 6.3441 ns |    -7.5% |    3.5% | 0.0029 |      24 B |          NA |
+| ByLock        | Linux X64, 10.0.2 | 4.1874 ns | 0.0962 ns | 0.0945 ns | 4.1889 ns |   -39.4% |    3.3% |      - |         - |          NA |
+| ByUsingLock   | Linux X64, 10.0.2 | 4.2526 ns | 0.1087 ns | 0.1208 ns | 4.2653 ns |   -38.5% |    3.7% |      - |         - |          NA |
+
+| Method        | OS                | Mean      | Error     | StdDev    | Median    | Ratio    | RatioSD | Gen0   | Allocated | Alloc Ratio |
+|-------------- |------------------ |----------:|----------:|----------:|----------:|---------:|--------:|-------:|----------:|------------:|
+| ByObject      | Linux X64, 3.1.32 | 8.0091 ns | 0.1668 ns | 0.1561 ns | 8.0451 ns | baseline |         |      - |         - |          NA |
+| NoLock        | Linux X64, 3.1.32 | 0.0101 ns | 0.0158 ns | 0.0147 ns | 0.0056 ns |   -99.9% |  141.2% |      - |         - |          NA |
+| ByInterlocked | Linux X64, 3.1.32 | 6.4037 ns | 0.1489 ns | 0.1655 ns | 6.3489 ns |   -20.0% |    3.2% | 0.0029 |      24 B |          NA |
+

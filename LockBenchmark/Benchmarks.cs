@@ -17,7 +17,7 @@ namespace LockBenchmark
 {
     [MemoryDiagnoser]
     [Config(typeof(Config))]
-    // [HideColumns(Column.RatioSD)]
+    [HideColumns(Column.RatioSD)]
     public class Benchmarks
     {
         private class Config : ManualConfig
@@ -25,6 +25,7 @@ namespace LockBenchmark
             public Config()
             {
                 SummaryStyle = SummaryStyle.Default.WithRatioStyle(RatioStyle.Percentage);
+                SummaryStyle = SummaryStyle.Default.WithMaxParameterColumnWidth(40);
             }
         }
 
