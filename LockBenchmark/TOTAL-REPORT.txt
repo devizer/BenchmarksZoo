@@ -26,3 +26,12 @@
 | NoLock        | Linux X64, 3.1.32 | 0.0101 ns | 0.0158 ns | 0.0147 ns | 0.0056 ns |   -99.9% |  141.2% |      - |         - |          NA |
 | ByInterlocked | Linux X64, 3.1.32 | 6.4037 ns | 0.1489 ns | 0.1655 ns | 6.3489 ns |   -20.0% |    3.2% | 0.0029 |      24 B |          NA |
 
+
+| Method        | OS                    | Mean       | Error     | StdDev    | Ratio | Gen0   | Allocated | Alloc Ratio |
+|-------------- |---------------------- |-----------:|----------:|----------:|------:|-------:|----------:|------------:|
+| ByObject      | Windows Arm64, 10.0.2 | 19.9323 ns | 0.0734 ns | 0.0613 ns | 1.000 |      - |         - |          NA |
+| NoLock        | Windows Arm64, 10.0.2 |  0.0469 ns | 0.0014 ns | 0.0011 ns | 0.002 |      - |         - |          NA |
+| ByInterlocked | Windows Arm64, 10.0.2 | 14.6207 ns | 0.0890 ns | 0.0743 ns | 0.734 | 0.0115 |      24 B |          NA |
+| ByLock        | Windows Arm64, 10.0.2 | 21.9554 ns | 0.1315 ns | 0.1166 ns | 1.102 |      - |         - |          NA |
+| ByUsingLock   | Windows Arm64, 10.0.2 | 21.2234 ns | 0.0220 ns | 0.0206 ns | 1.065 |      - |         - |          NA |
+
