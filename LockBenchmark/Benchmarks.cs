@@ -24,8 +24,10 @@ namespace LockBenchmark
         {
             public Config()
             {
-                SummaryStyle = SummaryStyle.Default.WithRatioStyle(RatioStyle.Percentage);
-                SummaryStyle = SummaryStyle.Default.WithMaxParameterColumnWidth(40);
+                SummaryStyle = SummaryStyle.Default
+                        .WithMaxParameterColumnWidth(40)
+                        .WithRatioStyle(RatioStyle.Percentage)
+                    ;
             }
         }
 
