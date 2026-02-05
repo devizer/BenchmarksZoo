@@ -50,11 +50,6 @@ namespace LockBenchmark
                 return _result;
             }
         }
-        [Benchmark]
-        public int NoLock()
-        {
-            return _result;
-        }
 
         [Benchmark]
         public int ByInterlocked()

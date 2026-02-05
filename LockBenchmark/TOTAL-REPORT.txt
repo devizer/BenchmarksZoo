@@ -1,0 +1,40 @@
+| Method        | OS                  | Mean      |
+|-------------- |-------------------- |----------:|
+| ByObject      | Windows X64, 10.0.2 | 5.1021 ns |
+| ByInterlocked | Windows X64, 10.0.2 | 2.8469 ns |
+| ByLock        | Windows X64, 10.0.2 | 3.6404 ns |
+| ByUsingLock   | Windows X64, 10.0.2 | 4.5178 ns |
+|-------------- |-------------------- |----------:|
+| ByObject      | Windows X64, 5.0.17 | 4.7556 ns |
+| ByInterlocked | Windows X64, 5.0.17 | 3.0213 ns |
+
+
+| Method        | OS                | Mean      |
+|-------------- |------------------ |----------:|
+| ByObject      | Linux X64, 10.0.2 | 7.3407 ns |
+| ByInterlocked | Linux X64, 10.0.2 | 6.3244 ns |
+| ByLock        | Linux X64, 10.0.2 | 4.1352 ns |
+| ByUsingLock   | Linux X64, 10.0.2 | 4.9217 ns |
+|-------------- |------------------ |----------:|
+| ByObject      | Linux X64, 5.0.17 | 6.8308 ns |
+| ByInterlocked | Linux X64, 5.0.17 | 6.5285 ns |
+
+| Method        | OS                    | Mean       |
+|-------------- |---------------------- |-----------:|
+| ByObject      | Windows Arm64, 10.0.2 | 19.7561 ns |
+| ByInterlocked | Windows Arm64, 10.0.2 | 14.5324 ns |
+| ByLock        | Windows Arm64, 10.0.2 | 22.0130 ns |
+| ByUsingLock   | Windows Arm64, 10.0.2 | 21.2320 ns |
+|-------------- |---------------------- |-----------:|
+| ByObject      | Windows Arm64, 5.0.17 | 31.2339 ns |
+| ByInterlocked | Windows Arm64, 5.0.17 | 23.8464 ns |
+
+| Method        | OS                  | Mean       |
+|-------------- |-------------------- |-----------:|
+| ByObject      | Linux Arm64, 10.0.2 | 30.6923 ns |
+| ByInterlocked | Linux Arm64, 10.0.2 | 20.2718 ns |
+| ByLock        | Linux Arm64, 10.0.2 | 24.6551 ns |
+| ByUsingLock   | Linux Arm64, 10.0.2 | 24.4506 ns |
+|-------------- |-------------------- |-----------:|
+| ByObject      | Linux Arm64, 5.0.17 | 32.3971 ns |
+| ByInterlocked | Linux Arm64, 5.0.17 | 21.0709 ns |
